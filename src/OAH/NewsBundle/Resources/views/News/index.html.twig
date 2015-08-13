@@ -5,6 +5,21 @@
 {% block title %} {{ parent() }} - Index{% endblock %}
 
 {% block body_news %}
+
+<h2> Les dernieres news </h2>
+
+<ul>
+	{% for article in articles %}
+		<li>
+			<a href="{{path('OAHNews_voir', {'id':article.id})}}">{{article.titre}}</a>
+				par {{article.auteur}},
+				le {{article.date|date('d/m/y')}}
+		</li>
+		
+	{% else %}
+		<li>Pas d'articles</li>
+	{% endfor %}
+</ul>
 	
 	
 	Suivez les actualités de Optic At Home sur cette page .

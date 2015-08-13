@@ -1,0 +1,26 @@
+{# src/OAH/NewsBundle/Resources/views/News/modifier.html.twig #}
+
+{% extends "OAHNewsBundle::OAH_layout.html.twig" %}
+
+{% block title %}
+	Modifier un article - {{ parent() }}
+{% endblock %}
+
+{% block body_news %}
+
+<h2>Modifier une news</h2>
+
+{% include "OAHNewsBundle:News:formulaire.html.twig" %}
+
+<p>
+	Attention vous allez modifier une news !
+</p>
+
+<p>
+	<a href="{{ path('OAHNews_voir',{'id':article.id})}}" class="btn">
+		<i class="icon-chevron-left"></i>
+		Retour à l'article
+	</a>
+</p>
+
+{% endblock %}

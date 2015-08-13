@@ -1,0 +1,33 @@
+{# src/OAH/NewsBundle/Resources/views/News/supprimer.html.twig #}
+
+{% extends "OAHNewsBundle::OAH_layout.html.twig" %}
+
+{% block title %}
+	Supprimer un article - {{ parent() }}
+{% endblock %}
+
+{% block body_news %}
+
+<h2>Supprimer une news</h2>
+
+<h2>{{ article.titre }}</h2>
+<i>Par {{ article.auteur }}, le {{ article.date|date('d/m/y') }}</i>
+
+<div class="well">
+	{{ article.contenu }}
+</div>
+
+
+
+<p>
+	Attention vous allez supprimer une news !
+</p>
+
+<p>
+	<a href="{{ path('OAHNews_voir',{'id':article.id})}}" class="btn">
+		<i class="icon-chevron-left"></i>
+		Retour à l'article
+	</a>
+</p>
+
+{% endblock %}

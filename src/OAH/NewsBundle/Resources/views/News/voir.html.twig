@@ -1,24 +1,34 @@
 {# src/OAH/NewsBundle/Resources/views/News/voir.html.twig #}
 
-<!DOCTYPE html>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-  </head>
-  <body>
-    <h1>Affichage d'une annonce</h1>
+{% extends 'OAHNewsBundle::OAH_layout.html.twig' %}
 
-    <p>
-      {# On affiche tous les messages flash dont le nom est « info » #}
-      {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-      {% endfor %}
-    </p>
+{% block title %}
 
-    <p>
-      Ici nous pourrons lire l'annonce ayant comme id : {{ id }}<br />
-      Mais pour l'instant, nous ne savons pas encore le faire, cela viendra !
-    </p>
-  </body>
-</html>
+{% endblock %}
+
+{% block body_news %}
+
+<h2>{{ article.titre }}</h2>
+<i>Par {{ article.auteur }}, le {{ article.date|date('d/m/y') }}</i>
+
+<div class="well">
+	{{ article.contenu }}
+</div>
+
+<p>
+	<a href="{{ path('OAHNews_accueil')}}" class="btn">
+		<i class="icon-chevron-left"></i>
+		Retour aux news
+	</a>
+	<a href="{{ path('OAHNews_modifier',{'id':article.id})}}" class="btn">
+		<i class="icon-edit"></i>
+		Modifier l'article
+	</a>
+	<a href="{{ path('OAHNews_supprimer',{'id':article.id})}}" class="btn">
+		<i class="icon-trash"></i>
+		Supprimer l'article
+	</a>
+</p>
+
+{% endblock %}
+	

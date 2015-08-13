@@ -20,19 +20,49 @@ class NewsController extends Controller
       // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
       throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
     }
-
+	
+	$articles = array(
+	array(
+		'titre'  => 'Comment bien mettre ses lentilles',
+		'id'     => 1,
+		'auteur' => 'OpticAtHome',
+		'contenu'=> 'blablablablabla',
+		'date'   => new \datetime()),
+	array(
+		'titre'  => 'Offres de Noel',
+		'id'     => 2,
+		'auteur' => 'OpticAtHome',
+		'contenu'=> 'blablablablabla',
+		'date'   => new \datetime()),
+	array(
+		'titre'  => 'Optic At Home , votre opticien à domicile',
+		'id'     => 3,
+		'auteur' => 'OpticAtHome',
+		'contenu'=> 'blablablablabla',
+		'date'   => new \datetime())
+	
+	);
     // Ici, on récupérera la liste des annonces, puis on la passera au template
 
     // Mais pour l'instant, on ne fait qu'appeler le template
-    return $this->render('OAHNewsBundle:News:index.html.twig');
+    return $this->render('OAHNewsBundle:News:index.html.twig',array(
+		'articles' => $articles));
   }
 
 	public function voirAction($id)
 	{
     // Ici, on récupérera l'annonce correspondante à l'id $id
+	
+	$article = array(
+	'id' => 1,
+	'titre' => 'Comment bien mettre ses lentilles',
+	'auteur' => 'OpticAtHome',
+	'contenu' => 'blablablablablablabla',
+	'date' => new \Datetime()
+	);
 
     return $this->render('OAHNewsBundle:News:voir.html.twig', array(
-      'id' => $id
+      'article' => $article
     ));
   }
 	
@@ -53,14 +83,34 @@ class NewsController extends Controller
 			$request->getSession()->getFlashBag()->add('info','Annonce bien modifiée.');
 			return $this->redirect($this->generateUrl('OAHNews_voir',array('id' => 5 )));
 			}
+			
+		$article = array(
+	'id' => 1,
+	'titre' => 'Comment bien mettre ses lentilles',
+	'auteur' => 'OpticAtHome',
+	'contenu' => 'blablablablablablabla',
+	'date' => new \Datetime()
+	);	
 		
-		return $this->render('OAHNewsBundle:News:modifier.html.twig');
-		}
+		return $this->render('OAHNewsBundle:News:modifier.html.twig',array(
+		'article' => $article 
+		));
+	}
+		
+		
 	public function supprimerAction($id)
 		{
+			$article = array(
+	'id' => 1,
+	'titre' => 'Comment bien mettre ses lentilles',
+	'auteur' => 'OpticAtHome',
+	'contenu' => 'blablablablablablabla',
+	'date' => new \Datetime()
+							);	
 		
-		
-		return $this->render('OAHNewsBundle:News:supprimer.html.twig');
+		return $this->render('OAHNewsBundle:News:supprimer.html.twig',array(
+		'article' => $article 
+		));
 		}
 	
 	

@@ -2,7 +2,11 @@
 
 {% extends "OAHNewsBundle::OAH_layout.html.twig" %}
 
-{% block body %}
+{% block title %}
+	Ajouter un article - {{ parent() }}
+{% endblock %}
+
+{% block body_news %}
 
 <h2>Ajouter une news</h2>
 
@@ -10,6 +14,13 @@
 
 <p>
 	Attention cette news sera ajouté directement sur la page d'accueil aprés validation du formulaire !
+</p>
+
+<p>
+	<a href="{{ path('OAHNews_accueil')}}" class="btn">
+		<i class="icon-chevron-left"></i>
+		Retour aux news
+	</a>
 </p>
 
 {% endblock %}
