@@ -1,0 +1,6 @@
+oahnews:
+    resource: "@OAHNewsBundle/Resources/config/routing.yml"
+    prefix:    /News
+
+oahcore:
+    resource: "@OAHCoreBundle/resources/config/routing.yml"

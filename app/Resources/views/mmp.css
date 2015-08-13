@@ -1,0 +1,75 @@
+		body {
+        background-color : grey;
+		font-family:'bitter' ,"Times New Roman", Verdana, sans-serif;
+		padding-top: 50px;
+      }
+	
+	   .navbar {
+	   margin-left : -15px ;
+	   margin-right : -15px;
+	   margin-bottom : 0px;
+	   }
+	 
+	  
+	   h1 {
+	   margin-bottom : 35px ;
+	   }
+	   
+	   .jumbotron {
+	   background-color : rgba(255 , 255 , 255 , 0.2) ;
+	   }
+	   
+	   .jumbotron h1 , .jumbotron p{
+	   color :black;
+	   }
+	   
+	   
+	   .navbar {
+	   border-radius : 0px ;
+	   }
+	   
+	   #titre_site{
+	   color : #a94442 ;
+	   }
+	   
+	   .col-md-6 {
+	   margin-bottom : 15px;
+	   }
+	   
+	   a li {
+	   margin-left : 10px ;
+	   }
+	   
+	   footer {
+	   background-color : #222 ;
+	   border-color:#080808 ;
+	   padding-top : 15px ;
+	   }
+	   
+	   .profil {
+	   padding: 15px;
+	   }
+	
+	@media(max-width: 767px ) {
+	li {
+	margin-left : 15px;
+	}
+	#titre_site {
+	margin-left : 15px ;
+	}
+	}
+	
+	.profil {
+	background-color : white ;
+	}
+	
+	.bloc_accueil {
+	background-color : white ;
+	padding : 15px ;
+	}
+	
+	.btn-default {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}

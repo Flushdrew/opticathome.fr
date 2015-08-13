@@ -1,0 +1,27 @@
+OAHNews_accueil:
+    path:     /{page}
+    defaults: { _controller: OAHNewsBundle:News:index , page: 1 }
+    requirements:
+        page: \d*
+
+OAHNews_voir:
+    path:     /article/{id}
+    defaults: { _controller: OAHNewsBundle:News:voir }
+    requirements:
+        id: \d+
+
+OAHNews_ajouter:
+    path:     /ajouter
+    defaults: { _controller: OAHNewsBundle:News:ajouter }
+
+OAHNews_modifier:
+    path:     /modifier/{id}
+    defaults: { _controller: OAHNewsBundle:News:modifier }
+    requirements:
+        id: \d+
+
+OAHNews_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: OAHNewsBundle:News:supprimer }
+    requirements:
+        id: \d+

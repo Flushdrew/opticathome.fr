@@ -1,0 +1,4 @@
+services:
+#    oah_core.example:
+#        class: OAH\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

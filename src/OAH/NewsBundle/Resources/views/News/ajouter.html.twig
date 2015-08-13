@@ -1,0 +1,15 @@
+{# src/OAH/NewsBundle/Resources/views/News/ajouter.html.twig #}
+
+{% extends "OAHNewsBundle::OAH_layout.html.twig" %}
+
+{% block body %}
+
+<h2>Ajouter une news</h2>
+
+{% include "OAHNewsBundle:News:formulaire.html.twig" %}
+
+<p>
+	Attention cette news sera ajouté directement sur la page d'accueil aprés validation du formulaire !
+</p>
+
+{% endblock %}

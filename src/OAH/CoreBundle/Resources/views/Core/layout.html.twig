@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Optic At Home</title>
+    <meta name="description" content="Opticien à domicile">
+
+	<link rel="stylesheet" href="{{asset('css/opticathome.css')}}" type="text/css">
+	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" type="text/css" >
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+	<link href="{{asset('css/social-buttons.css')}}" rel="stylesheet">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+    </head>
+
+	
+	
+		<body data-spy="scroll" data-target=".navbar">
+
+			
+	<!-- Menu navigation
+      ================================================== -->
+	<header>
+		<nav class="navbar navbar-inverse navbar-fixed-top"> 
+			<div class="container">
+				<div class="navbar-header"> 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				
+				<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					{% block navigation %}
+					<li><a href="#header"><strong>Opticathome.fr</strong></a></li>
+					<li><a href="#accueil">Qui sommes-nous ?</a></li>
+					<li><a href="#produits"> Nos produits</a></li>
+					<li><a href="#offres"> Nos pack'Optic</a></li>
+					<li><a href="#devis"> Devis</a></li>
+					<li><a href="#garanties">Garanties</a></li>
+					<li><a href="#contact"> Contact</a></li>
+					{% endblock %}
+					<li><a href="{{path('OAHNews_accueil')}}"> Actualité</a></li>
+				</ul>
+				</div>
+            </div>			
+		</nav>
+    </header>
+	
+	
+
+	<div class="container-fluid">
+		<div class="row">
+			<img id="header" href="#header" src="{{asset('img/header2.jpg')}}" alt="opticathome">
+		</div>
+	</div>
+	
+	{% block body %}
+	
+	<div class="container-fluid" id="accueil">
+	
+	<!-- Le concept
+    ================================================== -->
+	
+	  <div class="blocblanc">
+		<h1 class="text-center">QUI SOMMES-NOUS ?</h1>
+			<div class="row concept">
+				<div style="min-height: 150px;" class="col-lg-offset-3  col-lg-2  col-sm-4  col-xs-12">
+				<p class="text-center"><i class="fa fa-graduation-cap fa-2x"></i></p>
+				<p class="text-justify">Un opticien diplômé chez vous ou sur votre lieu de travail <strong>gratuitement</strong>.</p>
+				</div>
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<p class="text-center"><i class="fa fa-calendar fa-2x"></i></span></p>
+				<p class="text-justify">Vous choisissez le rendez-vous suivant <strong>vos disponibilités</strong>.</p>
+				</div>
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<p class="text-center"><i class="fa fa-truck fa-2x"></i></p>
+				<p class="text-justify">Nous vous ramenons votre commande lors d'un 2ème rendez-vous.</p>
+				</div>
+			</div>
+			<div class="row concept">	
+				<div style="min-height: 150px;" class="col-lg-offset-3 col-lg-2  col-sm-4 col-xs-12">
+				<p class="text-center"><i class="fa fa-check-square-o fa-2x"></i></span></p>
+				<p class="text-justify">Vous bénéficiez du même suivi et des mêmes garanties qu'en magasin.</p>
+				</div>
+				<div  style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<p class="text-center"><i class="fa fa-road fa-2x"></i></span></p>
+				<p class="text-justify">Disponible dans toute la région Ile-de-France.</p>
+				</div>
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-4  col-xs-12">
+				<p class="text-center"><i class="fa fa-thumbs-up fa-2x"></i></span></p>
+				<p class="text-justify">Vous bénéficiez d'un prix attractif et d'un large choix de montures.</p>
+				</div>
+			</div>
+	  </div>			
+	
+	
+	
+	<!-- Nos offres
+    ================================================== -->
+	<div class="blocgris" id="produits">	
+		<h1 class="text-center">NOS PRODUITS</h1>
+			<div class="row concept">
+			
+				<div class="col-lg-offset-1 col-lg-5 col-md-offset-2 col-md-8 col-xs-12">
+					<p><strong>Optic At Home</strong> vous propose des montures originales et des verres de qualité.</p>
+					<p><strong>Ray-Ban, Boss Orange, Ralph Lauren, Police, Vogue, ..</strong>Choisissez vos montures parmi les plus grandes marques.</p>
+					<p>Nous n'avons pas le modèle que vous voulez?<br/> Pas de panique nous pouvons vous le commander !</p>
+					<p>Nous travaillons exclusivement avec des verriers français comme <strong>Essilor, BBGR, Mont-royal et Mega Optic.</strong>
+					<br/><i>Sur demande de votre part, nous pouvons faire appel au verrier de <strong>votre choix</strong>.</i>
+					</p>
+				</div>
+				
+				<div class="col-lg-offset-1 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+					<img class="thumbnail" src="{{asset('img/wall-of-eyeglasses.jpg')}}" alt="montures">	
+				</div> 
+	
+			</div>
+		
+	<div class="marques">
+		<div class="row">
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/rayban3.gif')}}" alt="rayban">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/façonnable3.jpg')}}" alt="façonnable">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/vogue3.png')}}" alt="vogue">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/redbull3.jpg')}}" alt="Red Bull">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/stellalogo.jpg')}}" alt="Stella Mccartney">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2  col-xs-4">
+				<img class="thumbnail" src="{{asset('img/hogan3.gif')}}" alt="hogan">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/logo-ralph-lauren.png')}}" alt="Ralph Lauren">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/bossorange3.jpg')}}" alt="Boss Orange">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/fendi2.jpg')}}" alt="fendi">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/valmax3.jpg')}}" alt="valmax">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/logo_essilor.png')}}" alt="essilor">
+			</div>
+			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
+				<img class="thumbnail" src="{{asset('img/BBGR2.gif')}}" alt="BBGR">
+			</div>
+					
+		</div>	
+	</div>
+</div>	
+	
+	<!-- Packs
+    ================================================== -->
+	<div class="blocblanc" id="offres">
+		<h1 class="text-center">NOS PACK'OPTIC</h1>
+				<div class="row  concept">
+					<div class="produits col-sm-offset-2 col-sm-8 col-sm-offset-2">
+						<h1>Pack Essentiel</h1>
+						<p>Monture + 2 verres traités anti-rayures* pour plus de résistance <br/>
+						<br/><strong class="pull-right prix">A partir de 99€</strong></p>
+							<div class="row">
+							</div>	
+					</div>	
+					<div class="produits col-sm-offset-2 col-sm-8 col-sm-offset-2">
+						<h1>Pack Confort</h1>
+						<p>Monture + 2 verres traités anti-rayures* et anti-reflets pour un meilleur confort visuel <br/>
+						<br/><strong class="pull-right prix">A partir de 179€</strong></p>
+						<div class="row">
+							</div>
+					</div>
+					<div class="produits col-sm-offset-2 col-sm-8 col-sm-offset-2">
+						<h1>Pack Connecté</h1>
+						<p>Monture + 2 verres conçus spécialement pour l'ordinateur traités anti-rayures* et anti-reflets <br/>
+						<br/><strong class="pull-right prix">A partir de 199€</strong></p>
+						<div class="row">
+							</div>
+					</div>
+				</div>
+				<div class="row concept">		
+					<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2">
+						<h1 class="text-center">Les options</h1>
+						<p>Verres Amincis (20 à 30% plus fins pour les fortes corrections)
+						<strong class="pull-right prix">+ 50€</strong></p>
+						<p>Verres Transition (Se teintent au soleil)
+						<strong class="pull-right prix">+ 80€</strong></p>
+						<p>Verres Progressifs
+						<strong class="pull-right prix">+ 100€</strong></p>
+						<p>Monture de marque
+						<strong class="pull-right prix">Sur devis</strong></p>
+						<p>Verres seuls
+						<strong class="pull-right prix">Sur devis</strong></p>
+						<p>* Le traitement anti-rayures est un traitement qui limite les rayures.
+						<div class="row">
+							</div>
+					</div>
+				</div>	
+	</div>		
+	
+	
+	
+	<!-- Formulaire devis
+    ================================================== -->
+	<div class="blocgris" id="devis">
+		<h1 class="text-center">DEMANDER UN DEVIS</h1>
+			<div class="row  concept">
+						<div class="col-md-offset-2 col-md-5 col-sm-offset-1 col-sm-10 col-xs-12" >
+							<p><span class="glyphicon glyphicon-ok"></span> Vous souhaitez un devis?</p>
+							<p><span class="glyphicon glyphicon-ok"></span> Comparer les prix avec un opticien?</p>
+							<p><span class="glyphicon glyphicon-ok"></span> Vous hésitez sur nos prestations? Demandez-nous conseil.<br/>Nous nous ferons un plaisir de vous orienter sur ce qui vous conviendras le mieux.</p>
+							<p>Rien de plus simple, cliquez sur le bouton
+								ci dessous et vous aurez une réponse personnalisée en moins de 24 heures.
+							</p>
+						</div>
+				
+						<div class="col-md-offset-1 col-md-2 col-sm-offset-4 col-sm-4 col-xs-offset-4 col-xs-4">
+							<img src="{{asset('img/facture.png')}}" alt="facture">
+						</div>
+			</div>			
+				
+			<div class="row">
+						<div class="col-lg-offset-5 col-lg-2 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+							<div id="html">
+								<br/><button data-toggle="modal"  href="#formulaire" class="btn btn-custom btn-block">Demander un devis</button>
+							</div>
+					
+				<div class="modal fade" id="formulaire">
+					<div class="modal-dialog">
+						<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">x</button>
+											<h4 class="modal-title">Demander un devis :</h4>
+									</div>
+							<div class="modal-body">
+								<form method="post" action="validation.php" data-toggle="validator" role="form">
+									<div class="form-group">
+										<label for="nom" class="control-label">Nom</label>
+											<input type="text" class="form-control" name ="nom" id="nom" placeholder="Votre nom" required>
+									</div>
+									<div class="form-group">
+										<label for="prenom" class="control-label">Prénom</label>
+											<input type="text" class="form-control" name ="prenom" id="prenom" placeholder="Votre prénom" required>
+									</div>
+									<div class="form-group">
+										<label for="email" class="control-label">Email</label>
+											<input type="email" class="form-control" name="email" id="email" placeholder="Votre Email">
+									</div>
+									<div class="form-group">
+										<label for="telephone" class="control-label">Téléphone</label>
+											<input type="number" class="form-control" name ="telephone" id="telephone" placeholder="Votre numéro de téléphone">
+									</div>
+									<div class="form-group">
+										<label>Produits concernés :</label><br/>
+											<input type="checkbox"  name="montures" id="montures" /> <label for="montures">Montures</label><br/>
+											<input type="checkbox"  name="verres" id="verres" /> <label for="verres">Verres</label><br />
+											<input type="checkbox"  name="lentilles" id="lentilles" /> <label for="lentilles">Lentilles</label><br /> 	
+									</div>		
+									<div class="form-group">
+										<label for="message">Message :</label><br />
+											<textarea class="form-control" name="message" id="message" rows="12" >
+											</textarea>
+									</div>	
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-danger pull-right">Envoyer</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			  </div>	
+			</div>
+		</div>	
+		
+			<!-- Garanties
+    ================================================== -->
+	<div class="blocblanc" id="garanties">
+		<h1 class="text-center">GARANTIES</h1>
+			<div class="row  concept">
+				<div class="col-md-offset-1 col-md-2 col-sm-offset-4 col-sm-4 col-xs-offset-3 col-xs-6">
+					<img class="pull-right" src="{{asset('img/garantie1an.png')}}" alt="garantie">            
+				</div>
+			
+				<div class="col-md-offset-2 col-md-6 col-xs-12">
+					<p><span class="glyphicon glyphicon-ok"></span> Tous nos produits, verres et montures, sont garantis pendant un an contre tous les défauts de fabrication .</p>
+					<p><span class="glyphicon glyphicon-ok"></span> Vous avez une garantie d'adaptation de deux mois sur tous les verres progressifs .</p>
+					<p><span class="glyphicon glyphicon-ok"></span> Les ajustages de vos lunettes ainsi que les petites réparations (changement de vis et plaquettes) sont gratuits .</p>
+				</div>
+				
+				
+			</div>
+	</div>	
+	
+	<!-- Contact
+    ================================================== -->
+	<div class="blocgris" id="contact">
+		<h1 class="text-center">NOUS CONTACTER</h1>
+		<div class="row  concept">
+			<p class="text-center"><span class="glyphicon glyphicon-phone-alt"></span> 06 95 43 94 11</p>
+			<p class="text-center"><span class="glyphicon glyphicon-envelope"></span> contact@opticathome.fr</p>
+			<p class="text-center"><span class="glyphicon glyphicon-map-marker"></span> 13 boulevard d'erkrath, 95800 - Cergy</p>
+			<p class="text-center"><span class="glyphicon glyphicon-time"></span> Lundi - Samedi : 9h - 20h,Dimanche : 11h - 14h</p>
+		</div>	
+	</div>
+  </div>
+</div>
+	
+	
+	{% endblock %}
+	
+	<!-- Footer
+    ================================================== -->
+	
+	<footer class="container-fluid">
+		<div class="container">
+			<div class="row">
+				<div class=" col-md-3 col-md-offset-1 col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8 text-center " >	
+					<a href="https://www.facebook.com/opticathomefr?fref=ts" class="btn btn-bloc btn-social btn-facebook">
+						<i class="fa fa-facebook"></i> | Optic At Home</a>	
+				</div>
+				<div class="col-md-4 col-xs-12 text-center ">
+					<button data-toggle="modal" href="#infos" class="btn mentions">Mentions légales</button>
+						<div class="modal" id="infos">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">x</button>
+											<h4 class="modal-title">Mentions légales</h4>
+									</div>
+									<div class="modal-body">
+										<p> <span class="glyphicon glyphicon-home"></span> Siège social : 13 boulevard d'erkrath, 95800 - Cergy<br/>
+											<span class="glyphicon glyphicon-user"></span> Responsable de la publication : Brice Penichot<br/>
+											<span class="glyphicon glyphicon-envelope"></span> Email : contact@opticathome.fr<br/>
+											<span class="glyphicon glyphicon-cloud"></span> Ce site est hébergé auprès de OVH.com</p>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-md-4 col-xs-12 text-center">
+					<button class="btn mentions"> Optic At Home ® 2015 </button>
+				</div>	
+			</div>
+		</div>
+	</footer>	
+
+					<!-- jQuery -->
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+					<!-- Javascript de Bootstrap -->
+					<script src="js/bootstrap.min.js"></script>
+
+					<script>
+					$(function () {
+				  $('li>a').on('click', function(e) {
+					e.preventDefault();
+					var hash = this.hash;
+					$('html, body').animate({
+					  scrollTop: $(this.hash).offset().top
+					}, 1000, function(){
+					  window.location.hash = hash;
+					});
+				  });
+				});
+				
+					</script>
+	
+  </body>
+</html>

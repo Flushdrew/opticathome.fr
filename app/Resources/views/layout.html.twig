@@ -1,0 +1,84 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}MMP {% endblock %}</title>
+
+  {% block stylesheets %}
+    {# On charge le CSS de bootstrap depuis le site directement #}
+	<link rel="stylesheet" href="{{ asset('mmp.css') }}" type="text/css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  {% endblock %}
+</head>
+
+<body>
+<div class="container">
+
+    <div class="row">
+      
+	  {# barre de navigation #}
+	   	<nav class="navbar navbar-inverse navbar-fixed-top"> 
+			<div class="container">	
+				<div class="navbar-header"> 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+			<a id="titre_site" class="navbar-brand" href="{ path('mmp_core_home') }}">MeetMyPencil</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="{{ path('mmp_core_home') }}">Accueil</a></li>
+						<li><a href="{{ path('mmp_core_platform') }}">Les derniers dessins</a></li>
+						<li><a href="{{ path('mmp_core_contact') }}">Contact</a></li>
+						{% block nav %}
+						{% endblock %}
+					</ul>
+					<form class="navbar-form navbar-right inline-form">
+						<div class="form-group">
+							<a href="profil.php" class="btn btn-danger"><i class="fa fa-user"> Profil</i></a>
+						</div>
+						<div class="form-group">
+							<a href="{{ path('mmp_platform_add') }}" class="btn btn-danger"><i class="fa fa-upload"></i> Uploader un dessin</a>
+						</div>
+						<div class="form-group">
+							<a href="deconnexion.php" class="btn btn-danger"><i class="fa fa-power-off"></i></a>
+						</div>
+					</form>	
+				</div>
+				</div>
+	</nav>
+	  
+	<div class="row" >  
+		<div id="content" class="col-xs-9">
+        {% block body %}
+		{% for message in app.session.flashbag.get('notice') %}
+        <p class="label label-danger text-center">{{ message }}</p>
+      {% endfor %}
+		<h4 class="text-center">Les dernières annonces</h4>
+			<div class="well col-md-offset-2 col-md-8">
+        {{ render(controller("MMPPlatformBundle:Advert:menu", {'limit': 3})) }}
+        {% endblock %}
+			</div>
+		</div>
+	</div>		
+
+    <footer>
+      <p>MeetMyPencil © - 2015</p>
+    </footer>
+</div>
+
+  {% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  {% endblock %}
+
+</body>
+</html>

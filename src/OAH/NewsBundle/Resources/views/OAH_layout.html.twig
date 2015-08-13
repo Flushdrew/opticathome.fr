@@ -1,0 +1,28 @@
+{# src/OAH/NewsBundle/Resources/views/OAH_layout.html.twig #}
+	
+{% extends "OAHCoreBundle:Core:layout.html.twig" %}
+		
+		{% block navigation %}
+		<li><a href="{{path('oah_core_homepage')}}"> Optic At Home</a></li>
+		{% endblock %}
+
+	
+		{% block body %}
+		
+	<div class="container">	
+		<div class="row">
+			<div class="col-md-3">
+				menu des catégories
+			</div>
+			
+			<div class="col-md-9">
+				Les news seront ici
+				{% block body_news %}
+				{% endblock %}
+				
+			</div>
+		</div>	
+	</div>		
+		
+		{% endblock %}
+		
