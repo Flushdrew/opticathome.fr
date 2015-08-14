@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "651df7e84641788c06a40978861227b6",
+    "hash": "17433a81d2ffa5eee593abbe6b2cb55f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1683,16 +1683,16 @@
         },
         {
             "name": "twig/extensions",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "5cc242ef3f4423dc8eb5eb19e04c23ea103ac70a"
+                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/5cc242ef3f4423dc8eb5eb19e04c23ea103ac70a",
-                "reference": "5cc242ef3f4423dc8eb5eb19e04c23ea103ac70a",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
+                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
                 "shasum": ""
             },
             "require": {
@@ -1731,7 +1731,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2015-08-04 10:17:43"
+            "time": "2014-10-30 14:30:03"
         },
         {
             "name": "twig/twig",
@@ -1843,9 +1843,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "twig/extensions": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

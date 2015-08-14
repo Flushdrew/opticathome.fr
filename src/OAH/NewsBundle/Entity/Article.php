@@ -12,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+	/**
+	 *
+	 * @ORM\OneToOne(targetEntity="OAH\NewsBundle\Entity\Image", cascade={"persist"})
+	 */
+	private $image;	
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="OAH\NewsBundle\Entity\Categorie", cascade={"persist"})
+	 */
+	 private $categories;
+	
     /**
      * @var integer
      *
@@ -59,6 +70,7 @@ class Article
 	{
 		$this->date = new \Datetime();
 		$this->publication = true;
+		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
 	
@@ -190,5 +202,55 @@ class Article
     public function getPublication()
     {
         return $this->publication;
+    }
+
+	/**
+	 * @param OAH\NewsBundle\Entity\Image $image
+	 */
+	 public function setImage(\OAH\NewsBundle\entity\Image $image = null)
+	 {
+		 $this->image = $image;
+	 }
+	 
+	 /**
+	  * @return OAH\NewsBundle\Entity\Image
+	  */
+	 public function getImage()
+	 {
+		 return $this->image;
+	 }
+	
+    /**
+     * Add category
+     *
+     * @param \OAH\NewsBundle\Entity\Categorie $category
+     *
+     * @return Article
+     */
+    public function addCategory(\OAH\NewsBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \OAH\NewsBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\OAH\NewsBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

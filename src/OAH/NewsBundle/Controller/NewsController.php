@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\httpFoundation\Response;
 use Symfony\Component\httpFoundation\Request;
 use OAH\NewsBundle\Entity\Article;
+use OAH\NewsBundle\Entity\Image;
 
 class NewsController extends Controller
 {
@@ -52,34 +53,60 @@ class NewsController extends Controller
 
 	public function voirAction($id)
 	{
-    // On récupere le repository
-	$repository = $this->getDoctrine()
-					   ->getManager()
-					   ->getRepository('OAHNewsBundle:Article');
+    // On récupere l'entityManager
+	$em = $this->getDoctrine()
+				->getManager();
+					   
+	$article = $em->getRepository('OAHNewsBundle:Article')
+				  ->find($id);
 
-	// On récupere l'entité
-	$article = $repository->find($id);
 	
 	if ($article === null)
 	{
 		throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
 	}
 	
+	// On récupere la liste des commentaires
+	$liste_commentaires = $em->getRepository('OAHNewsBundle:Commentaire')
+							 ->findAll();
+	
     return $this->render('OAHNewsBundle:News:voir.html.twig', array(
-      'article' => $article
+      'article' => $article,
+	  'liste_commentaires' => $liste_commentaires
     ));
   }
 	
 	 public function ajouterAction(Request $request)
   {
-	//creation de l'entité
+	//creation de l'entité article
 	$article = new Article();
 	$article->setTitre('Nos nouvelles montures');
 	$article->setauteur('OpticAtHome');
 	$article->setContenu('blablablablabla');
 	
+	//creation de l'entité image
+	$image = new Image();
+	$image->setURL('https://www.lunettespourtous.com/frontend/www/assets/79f68975/img/home/lunette_lpt.png');
+	$image->setAlt('Logo lunette');
+	
+	$article->setImage($image);
+	
+	//creation d'un premier commentaire
+	$commentaire1 = new Commentaire();
+	$commentaire1->setAuteur('Julien');
+	$commentaire1->setContenu('Coucou tu veux voir ma b...?');
+	
+	//creation d'un deuxieme commentaire
+	$commentaire2 = new Commentaire();
+	$commentaire2->setAuteur('Brice');
+	$commentaire2->setContenu('Bien sur je suis gay');
+	
+	//On lie les commentaires à l'article
+	$commentaire1->setArticle($article);
+	$commentaire2->setArticle($article);
+	
 	//on recupere l'entity manager
-	$em = $this->getDoctrine()-getManager();
+	$em = $this->getDoctrine()->getManager();
 	
 	//etape 1 : on persiste l'entité
 	$em->persist($article);
