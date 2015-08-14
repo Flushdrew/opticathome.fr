@@ -22,6 +22,11 @@ class Article
 	 * @ORM\ManyToMany(targetEntity="OAH\NewsBundle\Entity\Categorie", cascade={"persist"})
 	 */
 	 private $categories;
+	 
+	/**
+	 * @ORM\OneToMany(targetEntity="OAH\NewsBundle\Entity\Commentaire", mappedBy="article")
+	 */
+	 private $commentaires;
 	
     /**
      * @var integer
@@ -71,6 +76,7 @@ class Article
 		$this->date = new \Datetime();
 		$this->publication = true;
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
 	
@@ -252,5 +258,39 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \OAH\NewsBundle\Entity\Commentaire $commentaire
+     *
+     * @return Article
+     */
+    public function addCommentaire(\OAH\NewsBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+		$commentaire->setArticle($this); //car la relation est bidirectionnelle !!!
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \OAH\NewsBundle\Entity\Commentaire $commentaire
+     */
+    public function removeCommentaire(\OAH\NewsBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

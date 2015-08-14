@@ -22,6 +22,11 @@ class Article
 	 * @ORM\ManyToMany(targetEntity="OAH\NewsBundle\Entity\Categorie", cascade={"persist"})
 	 */
 	 private $categories;
+	 
+	/**
+	 * @ORM\OneToMany(targetEntity="OAH\NewsBundle\Entity\Commentaire", mappedBy="article")
+	 */
+	 private $commentaires;
 	
     /**
      * @var integer
@@ -70,6 +75,7 @@ class Article
 	{
 		$this->date = new \Datetime();
 		$this->publication = true;
+		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
 	
@@ -218,4 +224,38 @@ class Article
 	 {
 		 return $this->image;
 	 }
-	}
+	
+    /**
+     * Add category
+     *
+     * @param \OAH\NewsBundle\Entity\Categorie $category
+     *
+     * @return Article
+     */
+    public function addCategory(\OAH\NewsBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \OAH\NewsBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\OAH\NewsBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+}
