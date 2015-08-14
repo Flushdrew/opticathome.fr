@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Lists twig functions, filters, globals and tests present in the current project
+ * Lists twig functions, filters, globals and tests present in the current project.
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  */
@@ -40,15 +40,15 @@ class DebugCommand extends ContainerAwareCommand
 The <info>%command.name%</info> command outputs a list of twig functions,
 filters, globals and tests. Output can be filtered with an optional argument.
 
-<info>php %command.full_name%</info>
+  <info>php %command.full_name%</info>
 
 The command lists all functions, filters, etc.
 
-<info>php %command.full_name% date</info>
+  <info>php %command.full_name% date</info>
 
 The command lists everything that contains the word date.
 
-<info>php %command.full_name% --format=json</info>
+  <info>php %command.full_name% --format=json</info>
 
 The command lists everything in a machine readable json format.
 EOF
@@ -111,7 +111,7 @@ EOF
         if ($type === 'functions' || $type === 'filters') {
             $args = array();
             $cb = $entity->getCallable();
-            if (is_null($cb)) {
+            if (null === $cb) {
                 return;
             }
             if (is_array($cb)) {

@@ -13,7 +13,6 @@ namespace Symfony\Component\Intl\Tests\DateFormatter;
 
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\Intl\Globals\IntlGlobals;
-use Symfony\Component\Intl\Intl;
 
 /**
  * Test case for IntlDateFormatter implementations.
@@ -28,8 +27,10 @@ abstract class AbstractIntlDateFormatterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * When a time zone is not specified, it uses the system default however it returns null in the getter method
+     * When a time zone is not specified, it uses the system default however it returns null in the getter method.
+     *
      * @covers Symfony\Component\Intl\DateFormatter\IntlDateFormatter::getTimeZoneId
+     *
      * @see StubIntlDateFormatterTest::testDefaultTimeZoneIntl()
      */
     public function testConstructorDefaultTimeZone()
@@ -874,7 +875,7 @@ abstract class AbstractIntlDateFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp(null === $timestamp ? time() : $timestamp);
-        $dateTime->setTimeZone(new \DateTimeZone($timeZone));
+        $dateTime->setTimezone(new \DateTimeZone($timeZone));
 
         return $dateTime;
     }

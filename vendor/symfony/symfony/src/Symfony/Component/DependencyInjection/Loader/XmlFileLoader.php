@@ -49,7 +49,7 @@ class XmlFileLoader extends FileLoader
         $this->parseImports($xml, $path);
 
         // parameters
-        $this->parseParameters($xml, $path);
+        $this->parseParameters($xml);
 
         // extensions
         $this->loadFromExtensions($xml);
@@ -67,12 +67,11 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * Parses parameters
+     * Parses parameters.
      *
      * @param \DOMDocument $xml
-     * @param string       $file
      */
-    private function parseParameters(\DOMDocument $xml, $file)
+    private function parseParameters(\DOMDocument $xml)
     {
         if ($parameters = $this->getChildren($xml->documentElement, 'parameters')) {
             $this->container->getParameterBag()->add($this->getArgumentsAsPhp($parameters[0], 'parameter'));
@@ -80,7 +79,7 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * Parses imports
+     * Parses imports.
      *
      * @param \DOMDocument $xml
      * @param string       $file
@@ -101,7 +100,7 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * Parses multiple definitions
+     * Parses multiple definitions.
      *
      * @param \DOMDocument $xml
      * @param string       $file
@@ -121,7 +120,7 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * Parses an individual Definition
+     * Parses an individual Definition.
      *
      * @param string      $id
      * @param \DOMElement $service
@@ -241,7 +240,7 @@ class XmlFileLoader extends FileLoader
     }
 
     /**
-     * Processes anonymous services
+     * Processes anonymous services.
      *
      * @param \DOMDocument $xml
      * @param string       $file

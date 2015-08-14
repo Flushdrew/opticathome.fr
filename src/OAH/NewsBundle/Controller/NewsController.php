@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\httpFoundation\Response;
 use Symfony\Component\httpFoundation\Request;
+use OAH\NewsBundle\Entity\Article;
 
 class NewsController extends Controller
 {
@@ -51,16 +52,19 @@ class NewsController extends Controller
 
 	public function voirAction($id)
 	{
-    // Ici, on récupérera l'annonce correspondante à l'id $id
-	
-	$article = array(
-	'id' => 1,
-	'titre' => 'Comment bien mettre ses lentilles',
-	'auteur' => 'OpticAtHome',
-	'contenu' => 'blablablablablablabla',
-	'date' => new \Datetime()
-	);
+    // On récupere le repository
+	$repository = $this->getDoctrine()
+					   ->getManager()
+					   ->getRepository('OAHNewsBundle:Article');
 
+	// On récupere l'entité
+	$article = $repository->find($id);
+	
+	if ($article === null)
+	{
+		throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+	}
+	
     return $this->render('OAHNewsBundle:News:voir.html.twig', array(
       'article' => $article
     ));
@@ -68,6 +72,21 @@ class NewsController extends Controller
 	
 	 public function ajouterAction(Request $request)
   {
+	//creation de l'entité
+	$article = new Article();
+	$article->setTitre('Nos nouvelles montures');
+	$article->setauteur('OpticAtHome');
+	$article->setContenu('blablablablabla');
+	
+	//on recupere l'entity manager
+	$em = $this->getDoctrine()-getManager();
+	
+	//etape 1 : on persiste l'entité
+	$em->persist($article);
+	
+	//etape 2 : on flush ce qui a été persisté avant
+	$em->flush();  
+  
   
 	if ($request->isMethod('POST')){
 		$request->getSession()->getFlashBag()->add('info','Annonce bien enregistré.');

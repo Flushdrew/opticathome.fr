@@ -70,7 +70,7 @@ class MaskBuilder
     private $mask;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param int $mask optional; defaults to 0
      *
@@ -86,7 +86,7 @@ class MaskBuilder
     }
 
     /**
-     * Adds a mask to the permission
+     * Adds a mask to the permission.
      *
      * @param mixed $mask
      *
@@ -102,7 +102,7 @@ class MaskBuilder
     }
 
     /**
-     * Returns the mask of this permission
+     * Returns the mask of this permission.
      *
      * @return int
      */
@@ -112,7 +112,7 @@ class MaskBuilder
     }
 
     /**
-     * Returns a human-readable representation of the permission
+     * Returns a human-readable representation of the permission.
      *
      * @return string
      */
@@ -122,11 +122,11 @@ class MaskBuilder
         $length = strlen($pattern);
         $bitmask = str_pad(decbin($this->mask), $length, '0', STR_PAD_LEFT);
 
-        for ($i = $length-1; $i >= 0; $i--) {
+        for ($i = $length - 1; $i >= 0; --$i) {
             if ('1' === $bitmask[$i]) {
                 try {
                     $pattern[$i] = self::getCode(1 << ($length - $i - 1));
-                } catch (\Exception $notPredefined) {
+                } catch (\Exception $e) {
                     $pattern[$i] = self::ON;
                 }
             }
@@ -136,7 +136,7 @@ class MaskBuilder
     }
 
     /**
-     * Removes a mask from the permission
+     * Removes a mask from the permission.
      *
      * @param mixed $mask
      *
@@ -152,7 +152,7 @@ class MaskBuilder
     }
 
     /**
-     * Resets the PermissionBuilder
+     * Resets the PermissionBuilder.
      *
      * @return MaskBuilder
      */
@@ -164,7 +164,7 @@ class MaskBuilder
     }
 
     /**
-     * Returns the code for the passed mask
+     * Returns the code for the passed mask.
      *
      * @param int $mask
      *

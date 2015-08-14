@@ -50,7 +50,6 @@ interface ContainerInterface
      *
      * @return object The associated service
      *
-     * @throws InvalidArgumentException          if the service is not defined
      * @throws ServiceCircularReferenceException When a circular reference is detected
      * @throws ServiceNotFoundException          When the service is not defined
      *
@@ -106,7 +105,7 @@ interface ContainerInterface
     public function setParameter($name, $value);
 
     /**
-     * Enters the given scope
+     * Enters the given scope.
      *
      * @param string $name
      *
@@ -115,7 +114,7 @@ interface ContainerInterface
     public function enterScope($name);
 
     /**
-     * Leaves the current scope, and re-enters the parent scope
+     * Leaves the current scope, and re-enters the parent scope.
      *
      * @param string $name
      *
@@ -124,7 +123,7 @@ interface ContainerInterface
     public function leaveScope($name);
 
     /**
-     * Adds a scope to the container
+     * Adds a scope to the container.
      *
      * @param ScopeInterface $scope
      *
@@ -133,7 +132,7 @@ interface ContainerInterface
     public function addScope(ScopeInterface $scope);
 
     /**
-     * Whether this container has the given scope
+     * Whether this container has the given scope.
      *
      * @param string $name
      *

@@ -79,7 +79,7 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
     }
 
     /**
-     * Guesses a field class name for a given constraint
+     * Guesses a field class name for a given constraint.
      *
      * @param Constraint $constraint The constraint to guess for
      *
@@ -158,12 +158,14 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
 
             case 'Symfony\Component\Validator\Constraints\True':
             case 'Symfony\Component\Validator\Constraints\False':
+            case 'Symfony\Component\Validator\Constraints\IsTrue':
+            case 'Symfony\Component\Validator\Constraints\IsFalse':
                 return new TypeGuess('checkbox', array(), Guess::MEDIUM_CONFIDENCE);
         }
     }
 
     /**
-     * Guesses whether a field is required based on the given constraint
+     * Guesses whether a field is required based on the given constraint.
      *
      * @param Constraint $constraint The constraint to guess for
      *
@@ -175,12 +177,13 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
             case 'Symfony\Component\Validator\Constraints\NotNull':
             case 'Symfony\Component\Validator\Constraints\NotBlank':
             case 'Symfony\Component\Validator\Constraints\True':
+            case 'Symfony\Component\Validator\Constraints\IsTrue':
                 return new ValueGuess(true, Guess::HIGH_CONFIDENCE);
         }
     }
 
     /**
-     * Guesses a field's maximum length based on the given constraint
+     * Guesses a field's maximum length based on the given constraint.
      *
      * @param Constraint $constraint The constraint to guess for
      *
@@ -210,7 +213,7 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
     }
 
     /**
-     * Guesses a field's pattern based on the given constraint
+     * Guesses a field's pattern based on the given constraint.
      *
      * @param Constraint $constraint The constraint to guess for
      *
@@ -249,7 +252,7 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
 
     /**
      * Iterates over the constraints of a property, executes a constraints on
-     * them and returns the best guess
+     * them and returns the best guess.
      *
      * @param string   $class        The class to read the constraints from
      * @param string   $property     The property for which to find constraints

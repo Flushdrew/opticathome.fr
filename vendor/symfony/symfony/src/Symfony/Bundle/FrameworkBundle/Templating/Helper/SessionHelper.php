@@ -44,7 +44,7 @@ class SessionHelper extends Helper
     }
 
     /**
-     * Returns an attribute
+     * Returns an attribute.
      *
      * @param string $name    The attribute name
      * @param mixed  $default The default value
@@ -85,9 +85,7 @@ class SessionHelper extends Helper
     }
 
     /**
-     * Returns the canonical name of this helper.
-     *
-     * @return string The canonical name
+     * {@inheritdoc}
      */
     public function getName()
     {

@@ -143,7 +143,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * Gets the Kernel instance
+     * Gets the Kernel instance.
      *
      * @return HttpKernelInterface An HttpKernelInterface instance
      */
@@ -153,7 +153,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * Gets the Surrogate instance
+     * Gets the Surrogate instance.
      *
      * @throws \LogicException
      * @return SurrogateInterface A Surrogate instance
@@ -164,9 +164,10 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * Gets the Esi instance
+     * Gets the Esi instance.
      *
      * @throws \LogicException
+     *
      * @return Esi An Esi instance
      *
      * @deprecated Deprecated since version 2.6, to be removed in 3.0. Use getSurrogate() instead
@@ -385,7 +386,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         // We keep the etags from the client to handle the case when the client
         // has a different private valid entry which is not cached here.
         $cachedEtags = $entry->getEtag() ? array($entry->getEtag()) : array();
-        $requestEtags = $request->getEtags();
+        $requestEtags = $request->getETags();
         if ($etags = array_unique(array_merge($cachedEtags, $requestEtags))) {
             $subRequest->headers->set('if_none_match', implode(', ', $etags));
         }

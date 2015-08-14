@@ -57,19 +57,19 @@ templates and translation files of a given bundle.
 
 You can display information about bundle translations in a specific locale:
 
-<info>php %command.full_name% en AcmeDemoBundle</info>
+  <info>php %command.full_name% en AcmeDemoBundle</info>
 
 You can also specify a translation domain for the search:
 
-<info>php %command.full_name% --domain=messages en AcmeDemoBundle</info>
+  <info>php %command.full_name% --domain=messages en AcmeDemoBundle</info>
 
 You can only display missing messages:
 
-<info>php %command.full_name% --only-missing en AcmeDemoBundle</info>
+  <info>php %command.full_name% --only-missing en AcmeDemoBundle</info>
 
 You can only display unused messages:
 
-<info>php %command.full_name% --only-unused en AcmeDemoBundle</info>
+  <info>php %command.full_name% --only-unused en AcmeDemoBundle</info>
 
 EOF
             )
@@ -83,17 +83,31 @@ EOF
     {
         $locale = $input->getArgument('locale');
         $domain = $input->getOption('domain');
-        $bundle = $this->getContainer()->get('kernel')->getBundle($input->getArgument('bundle'));
+        $kernel = $this->getContainer()->get('kernel');
+        $bundle = $kernel->getBundle($input->getArgument('bundle'));
         $loader = $this->getContainer()->get('translation.loader');
 
         // Extract used messages
         $extractedCatalogue = new MessageCatalogue($locale);
-        $this->getContainer()->get('translation.extractor')->extract($bundle->getPath().'/Resources/views', $extractedCatalogue);
+        $bundlePaths = array(
+            $bundle->getPath().'/Resources/',
+            sprintf('%s/Resources/%s/', $kernel->getRootDir(), $bundle->getName()),
+        );
+
+        foreach ($bundlePaths as $path) {
+            $path .= 'views';
+            if (is_dir($path)) {
+                $this->getContainer()->get('translation.extractor')->extract($path, $extractedCatalogue);
+            }
+        }
 
         // Load defined messages
         $currentCatalogue = new MessageCatalogue($locale);
-        if (is_dir($bundle->getPath().'/Resources/translations')) {
-            $loader->loadMessages($bundle->getPath().'/Resources/translations', $currentCatalogue);
+        foreach ($bundlePaths as $path) {
+            $path .= 'translations';
+            if (is_dir($path)) {
+                $loader->loadMessages($path, $currentCatalogue);
+            }
         }
 
         // Merge defined and extracted messages to get all message ids
@@ -131,8 +145,11 @@ EOF
             }
         }
 
-        /** @var \Symfony\Component\Console\Helper\Table $table */
-        $table = new Table($output);
+        if (class_exists('Symfony\Component\Console\Helper\Table')) {
+            $table = new Table($output);
+        } else {
+            $table = $this->getHelperSet()->get('table');
+        }
 
         // Display header line
         $headers = array('State(s)', 'Id', sprintf('Message Preview (%s)', $locale));
@@ -177,7 +194,11 @@ EOF
             }
         }
 
-        $table->render();
+        if (class_exists('Symfony\Component\Console\Helper\Table')) {
+            $table->render();
+        } else {
+            $table->render($output);
+        }
 
         $output->writeln('');
         $output->writeln('<info>Legend:</info>');

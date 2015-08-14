@@ -20,14 +20,14 @@ use Symfony\Component\HttpFoundation\Request;
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
  * @deprecated Deprecated since version 2.3, to be removed in 3.0. Pass the
- *             Request instance to {@link Form::handleRequest()} instead.
+ *             Request instance to {@link \Symfony\Component\Form\Form::handleRequest()} instead.
  */
 class BindRequestListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
         // High priority in order to supersede other listeners
-        return array(FormEvents::PRE_BIND => array('preBind', 128));
+        return array(FormEvents::PRE_SUBMIT => array('preBind', 128));
     }
 
     public function preBind(FormEvent $event)

@@ -16,16 +16,16 @@
 </div>
 
 <p>
-	<a href="{{ path('OAHNews_accueil')}}" class="btn">
-		<i class="icon-chevron-left"></i>
+	<a href="{{ path('OAHNews_accueil')}}" class="btn btn-default">
+		<i class="glyphicon glyphicon-chevron-left"></i>
 		Retour aux news
 	</a>
-	<a href="{{ path('OAHNews_modifier',{'id':article.id})}}" class="btn">
-		<i class="icon-edit"></i>
+	<a href="{{ path('OAHNews_modifier',{'id':article.id})}}" class="btn btn-default">
+		<i class="glyphicon glyphicon-edit"></i>
 		Modifier l'article
 	</a>
-	<a href="{{ path('OAHNews_supprimer',{'id':article.id})}}" class="btn">
-		<i class="icon-trash"></i>
+	<a href="{{ path('OAHNews_supprimer',{'id':article.id})}}" class="btn btn-danger">
+		<i class="glyphicon glyphicon-trash"></i>
 		Supprimer l'article
 	</a>
 </p>

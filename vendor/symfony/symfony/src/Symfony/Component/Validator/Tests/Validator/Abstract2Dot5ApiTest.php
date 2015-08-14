@@ -75,6 +75,12 @@ abstract class Abstract2Dot5ApiTest extends AbstractValidatorTest
         $this->assertCount(1, $violations);
     }
 
+    public function testValidateWithEmptyArrayAsConstraint()
+    {
+        $violations = $this->validator->validate('value', array());
+        $this->assertCount(0, $violations);
+    }
+
     public function testGroupSequenceAbortsAfterFailedGroup()
     {
         $entity = new Entity();
@@ -633,9 +639,12 @@ abstract class Abstract2Dot5ApiTest extends AbstractValidatorTest
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnsupportedMetadataException
+     * @group legacy
      */
-    public function testPropertyMetadataMustImplementPropertyMetadataInterface()
+    public function testLegacyPropertyMetadataMustImplementPropertyMetadataInterface()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $entity = new Entity();
 
         // Legacy interface

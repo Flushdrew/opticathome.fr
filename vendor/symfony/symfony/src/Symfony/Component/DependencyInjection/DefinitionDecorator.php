@@ -171,6 +171,16 @@ class DefinitionDecorator extends Definition
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function setDecoratedService($id, $renamedId = null)
+    {
+        $this->changes['decorated_service'] = true;
+
+        return parent::setDecoratedService($id, $renamedId);
+    }
+
+    /**
      * Gets an argument to pass to the service constructor/factory method.
      *
      * If replaceArgument() has been used to replace an argument, this method
@@ -210,7 +220,8 @@ class DefinitionDecorator extends Definition
      * @param int   $index
      * @param mixed $value
      *
-     * @return DefinitionDecorator      the current instance
+     * @return DefinitionDecorator the current instance
+     *
      * @throws InvalidArgumentException when $index isn't an integer
      *
      * @api

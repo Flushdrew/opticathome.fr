@@ -41,23 +41,23 @@ class ServerStartCommand extends ServerCommand
             ->setHelp(<<<EOF
 The <info>%command.name%</info> runs PHP's built-in web server:
 
-  <info>%command.full_name%</info>
+  <info>php %command.full_name%</info>
 
 To change the default bind address and the default port use the <info>address</info> argument:
 
-  <info>%command.full_name% 127.0.0.1:8080</info>
+  <info>php %command.full_name% 127.0.0.1:8080</info>
 
 To change the default document root directory use the <info>--docroot</info> option:
 
-  <info>%command.full_name% --docroot=htdocs/</info>
+  <info>php %command.full_name% --docroot=htdocs/</info>
 
 If you have a custom document root directory layout, you can specify your own
 router script using the <info>--router</info> option:
 
-  <info>%command.full_name% --router=app/config/router.php</info>
+  <info>php %command.full_name% --router=app/config/router.php</info>
 
-Specifying a router script is required when the used environment is not "dev" or
-"prod".
+Specifying a router script is required when the used environment is not <comment>"dev"</comment> or
+<comment>"prod"</comment>.
 
 See also: http://www.php.net/manual/en/features.commandline.webserver.php
 
@@ -92,6 +92,24 @@ EOF
 
         $env = $this->getContainer()->getParameter('kernel.environment');
 
+        if (false === $router = $this->determineRouterScript($input->getOption('router'), $env, $output)) {
+            return 1;
+        }
+
+        $address = $input->getArgument('address');
+
+        if (false === strpos($address, ':')) {
+            $output->writeln('The address has to be of the form <comment>bind-address:port</comment>.');
+
+            return 1;
+        }
+
+        if ($this->isOtherServerProcessRunning($address)) {
+            $output->writeln(sprintf('<error>A process is already listening on http://%s.</error>', $address));
+
+            return 1;
+        }
+
         if ('prod' === $env) {
             $output->writeln('<error>Running PHP built-in server in production environment is NOT recommended!</error>');
         }
@@ -103,8 +121,6 @@ EOF
 
             return 1;
         }
-
-        $address = $input->getArgument('address');
 
         if ($pid > 0) {
             $output->writeln(sprintf('<info>Web server listening on http://%s</info>', $address));
@@ -118,7 +134,7 @@ EOF
             return 1;
         }
 
-        if (null === $process = $this->createServerProcess($output, $address, $documentRoot, $input->getOption('router'), $env, null)) {
+        if (null === $process = $this->createServerProcess($output, $address, $documentRoot, $router)) {
             return 1;
         }
 
@@ -145,25 +161,46 @@ EOF
     }
 
     /**
+     * Determine the absolute file path for the router script, using the environment to choose a standard script
+     * if no custom router script is specified.
+     *
+     * @param string|null     $router File path of the custom router script, if set by the user; otherwise null
+     * @param string          $env    The application environment
+     * @param OutputInterface $output An OutputInterface instance
+     *
+     * @return string|bool The absolute file path of the router script, or false on failure
+     */
+    private function determineRouterScript($router, $env, OutputInterface $output)
+    {
+        if (null === $router) {
+            $router = $this
+                ->getContainer()
+                ->get('kernel')
+                ->locateResource(sprintf('@FrameworkBundle/Resources/config/router_%s.php', $env))
+            ;
+        }
+
+        if (false === $path = realpath($router)) {
+            $output->writeln(sprintf('<error>The given router script "%s" does not exist</error>', $router));
+
+            return false;
+        }
+
+        return $path;
+    }
+
+    /**
      * Creates a process to start PHP's built-in web server.
      *
      * @param OutputInterface $output       A OutputInterface instance
      * @param string          $address      IP address and port to listen to
      * @param string          $documentRoot The application's document root
      * @param string          $router       The router filename
-     * @param string          $env          The application environment
-     * @param int             $timeout      Process timeout
      *
      * @return Process The process
      */
-    private function createServerProcess(OutputInterface $output, $address, $documentRoot, $router, $env, $timeout = null)
+    private function createServerProcess(OutputInterface $output, $address, $documentRoot, $router)
     {
-        $router = $router ?: $this
-            ->getContainer()
-            ->get('kernel')
-            ->locateResource(sprintf('@FrameworkBundle/Resources/config/router_%s.php', $env))
-        ;
-
         $finder = new PhpExecutableFinder();
         if (false === $binary = $finder->find()) {
             $output->writeln('<error>Unable to find PHP binary to start server</error>');
@@ -178,6 +215,6 @@ EOF
             $router,
         )));
 
-        return new Process('exec '.$script, $documentRoot, null, null, $timeout);
+        return new Process('exec '.$script, $documentRoot, null, null, null);
     }
 }

@@ -36,9 +36,9 @@ class ConfigDataCollectorTest extends \PHPUnit_Framework_TestCase
 
         // if else clause because we don't know it
         if (extension_loaded('xdebug')) {
-            $this->assertTrue($c->hasXdebug());
+            $this->assertTrue($c->hasXDebug());
         } else {
-            $this->assertFalse($c->hasXdebug());
+            $this->assertFalse($c->hasXDebug());
         }
 
         // if else clause because we don't know it
@@ -66,10 +66,6 @@ class KernelForTest extends Kernel
     }
 
     public function registerBundles()
-    {
-    }
-
-    public function init()
     {
     }
 

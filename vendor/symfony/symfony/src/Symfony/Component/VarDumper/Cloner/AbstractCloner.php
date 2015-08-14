@@ -57,6 +57,7 @@ abstract class AbstractCloner implements ClonerInterface
 
         'ErrorException' => 'Symfony\Component\VarDumper\Caster\ExceptionCaster::castErrorException',
         'Exception' => 'Symfony\Component\VarDumper\Caster\ExceptionCaster::castException',
+        'Error' => 'Symfony\Component\VarDumper\Caster\ExceptionCaster::castError',
         'Symfony\Component\DependencyInjection\ContainerInterface' => 'Symfony\Component\VarDumper\Caster\StubCaster::cutInternals',
         'Symfony\Component\VarDumper\Exception\ThrowingCasterException' => 'Symfony\Component\VarDumper\Caster\ExceptionCaster::castThrowingCasterException',
 
@@ -80,8 +81,9 @@ abstract class AbstractCloner implements ClonerInterface
         ':stream-context' => 'Symfony\Component\VarDumper\Caster\ResourceCaster::castStreamContext',
     );
 
-    protected $maxItems = 250;
+    protected $maxItems = 2500;
     protected $maxString = -1;
+    protected $useExt;
 
     private $casters = array();
     private $prevErrorHandler;
@@ -98,6 +100,7 @@ abstract class AbstractCloner implements ClonerInterface
             $casters = static::$defaultCasters;
         }
         $this->addCasters($casters);
+        $this->useExt = extension_loaded('symfony_debug');
     }
 
     /**
@@ -172,8 +175,8 @@ abstract class AbstractCloner implements ClonerInterface
     /**
      * Casts an object to an array representation.
      *
-     * @param Stub   $stub     The Stub for the casted object.
-     * @param bool   $isNested True if the object is nested in the dumped structure.
+     * @param Stub $stub     The Stub for the casted object.
+     * @param bool $isNested True if the object is nested in the dumped structure.
      *
      * @return array The object casted as array.
      */
@@ -202,11 +205,14 @@ abstract class AbstractCloner implements ClonerInterface
             $a = (array) $obj;
         }
 
-        foreach ($a as $k => $p) {
-            if (!isset($k[0]) || ("\0" !== $k[0] && !$classInfo[2]->hasProperty($k))) {
-                unset($a[$k]);
-                $a["\0+\0".$k] = $p;
+        if ($a) {
+            $p = array_keys($a);
+            foreach ($p as $i => $k) {
+                if (!isset($k[0]) || ("\0" !== $k[0] && !$classInfo[2]->hasProperty($k))) {
+                    $p[$i] = "\0+\0".$k;
+                }
             }
+            $a = array_combine($p, $a);
         }
 
         foreach ($classInfo[3] as $p) {
@@ -223,8 +229,8 @@ abstract class AbstractCloner implements ClonerInterface
     /**
      * Casts a resource to an array representation.
      *
-     * @param Stub     $stub     The Stub for the casted resource.
-     * @param bool     $isNested True if the object is nested in the dumped structure.
+     * @param Stub $stub     The Stub for the casted resource.
+     * @param bool $isNested True if the object is nested in the dumped structure.
      *
      * @return array The resource casted as array.
      */
@@ -263,7 +269,7 @@ abstract class AbstractCloner implements ClonerInterface
                 $a = $cast;
             }
         } catch (\Exception $e) {
-            $a["\0~\0⚠"] = new ThrowingCasterException($callback, $e);
+            $a[(Stub::TYPE_OBJECT === $stub->type ? "\0~\0" : '').'⚠'] = new ThrowingCasterException($callback, $e);
         }
 
         return $a;

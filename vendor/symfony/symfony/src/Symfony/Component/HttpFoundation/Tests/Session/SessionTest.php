@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
- * SessionTest
+ * SessionTest.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Robert Schönthal <seroscho@googlemail.com>
@@ -203,7 +203,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $i = 0;
         foreach ($this->session as $key => $val) {
             $this->assertEquals($attributes[$key], $val);
-            $i++;
+            ++$i;
         }
 
         $this->assertEquals(count($attributes), $i);

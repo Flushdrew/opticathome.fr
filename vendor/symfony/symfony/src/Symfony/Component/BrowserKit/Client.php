@@ -198,7 +198,7 @@ abstract class Client
      *
      * @return object|null A response instance
      *
-     * @see doRequest
+     * @see doRequest()
      *
      * @api
      */
@@ -227,7 +227,7 @@ abstract class Client
      *
      * @return object|null A Request instance
      *
-     * @see doRequest
+     * @see doRequest()
      *
      * @api
      */
@@ -547,7 +547,7 @@ abstract class Client
     protected function getAbsoluteUri($uri)
     {
         // already absolute?
-        if (0 === strpos($uri, 'http')) {
+        if (0 === strpos($uri, 'http://') || 0 === strpos($uri, 'https://')) {
             return $uri;
         }
 

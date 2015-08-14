@@ -205,6 +205,22 @@ class CompoundFormTest extends AbstractFormTest
         $this->assertSame(array(0 => $child), $this->form->all());
     }
 
+    public function testAddWithoutType()
+    {
+        $child = $this->getBuilder('foo')->getForm();
+
+        $this->factory->expects($this->once())
+            ->method('createNamed')
+            ->with('foo', 'text')
+            ->will($this->returnValue($child));
+
+        $this->form->add('foo');
+
+        $this->assertTrue($this->form->has('foo'));
+        $this->assertSame($this->form, $child->getParent());
+        $this->assertSame(array('foo' => $child), $this->form->all());
+    }
+
     public function testAddUsingNameButNoType()
     {
         $this->form = $this->getBuilder('name', null, '\stdClass')
@@ -334,7 +350,7 @@ class CompoundFormTest extends AbstractFormTest
             ->with('bar', $this->isInstanceOf('\RecursiveIteratorIterator'))
             ->will($this->returnCallback(function ($data, \RecursiveIteratorIterator $iterator) use ($child, $test) {
                 $test->assertInstanceOf('Symfony\Component\Form\Util\InheritDataAwareIterator', $iterator->getInnerIterator());
-                $test->assertSame(array($child), iterator_to_array($iterator));
+                $test->assertSame(array($child->getName() => $child), iterator_to_array($iterator));
             }));
 
         $form->initialize();

@@ -51,7 +51,7 @@ class RequestHelper extends Helper
      *
      * @return mixed
      *
-     * @see Symfony\Component\HttpFoundation\Request::get()
+     * @see Request::get()
      */
     public function getParameter($key, $default = null)
     {
@@ -59,7 +59,7 @@ class RequestHelper extends Helper
     }
 
     /**
-     * Returns the locale
+     * Returns the locale.
      *
      * @return string
      */
@@ -82,9 +82,7 @@ class RequestHelper extends Helper
     }
 
     /**
-     * Returns the canonical name of this helper.
-     *
-     * @return string The canonical name
+     * {@inheritdoc}
      */
     public function getName()
     {

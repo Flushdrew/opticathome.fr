@@ -54,10 +54,9 @@ class AnonymousAuthenticationListenerTest extends \PHPUnit_Framework_TestCase
         $authenticationManager
             ->expects($this->once())
             ->method('authenticate')
-            ->with(self::logicalAnd(
-                       $this->isInstanceOf('Symfony\Component\Security\Core\Authentication\Token\AnonymousToken'),
-                       $this->attributeEqualTo('key', 'TheKey')
-            ))
+            ->with($this->callback(function ($token) {
+                return 'TheKey' === $token->getKey();
+            }))
             ->will($this->returnValue($anonymousToken))
         ;
 
@@ -73,10 +72,6 @@ class AnonymousAuthenticationListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandledEventIsLogged()
     {
-        if (!interface_exists('Psr\Log\LoggerInterface')) {
-            $this->markTestSkipped('The "LoggerInterface" is not available');
-        }
-
         $context = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
         $logger = $this->getMock('Psr\Log\LoggerInterface');
         $logger->expects($this->once())

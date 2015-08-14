@@ -51,7 +51,7 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
         foreach ($expected as $subarray) {
             $temp = array();
             while (count($values) && count($temp) < count($subarray)) {
-                array_push($temp, array_shift($values));
+                $temp[] = array_shift($values);
             }
             sort($temp);
             sort($subarray);
@@ -60,7 +60,7 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Same as IteratorTestCase::assertIterator with foreach usage
+     * Same as IteratorTestCase::assertIterator with foreach usage.
      *
      * @param array        $expected
      * @param \Traversable $iterator
@@ -80,7 +80,7 @@ abstract class IteratorTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Same as IteratorTestCase::assertOrderedIterator with foreach usage
+     * Same as IteratorTestCase::assertOrderedIterator with foreach usage.
      *
      * @param array        $expected
      * @param \Traversable $iterator

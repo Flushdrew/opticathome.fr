@@ -36,30 +36,12 @@ class TranslationUpdateCommand extends ContainerAwareCommand
             ->setDefinition(array(
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle where to load the messages, defaults to app/Resources folder', null),
-                new InputOption(
-                    'prefix', null, InputOption::VALUE_OPTIONAL,
-                    'Override the default prefix', '__'
-                ),
-                new InputOption(
-                    'output-format', null, InputOption::VALUE_OPTIONAL,
-                    'Override the default output format', 'yml'
-                ),
-                new InputOption(
-                    'dump-messages', null, InputOption::VALUE_NONE,
-                    'Should the messages be dumped in the console'
-                ),
-                new InputOption(
-                    'force', null, InputOption::VALUE_NONE,
-                    'Should the update be done'
-                ),
-                new InputOption(
-                    'no-backup', null, InputOption::VALUE_NONE,
-                    'Should backup be disabled'
-                ),
-                new InputOption(
-                    'clean', null, InputOption::VALUE_NONE,
-                    'Should clean not found messages'
-                ),
+                new InputOption('prefix', null, InputOption::VALUE_OPTIONAL, 'Override the default prefix', '__'),
+                new InputOption('output-format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'yml'),
+                new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
+                new InputOption('force', null, InputOption::VALUE_NONE, 'Should the update be done'),
+                new InputOption('no-backup', null, InputOption::VALUE_NONE, 'Should backup be disabled'),
+                new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
             ))
             ->setDescription('Updates the translation file')
             ->setHelp(<<<EOF
@@ -69,13 +51,12 @@ When new translation strings are found it can automatically add a prefix to the 
 message.
 
 Example running against a Bundle (AcmeBundle)
-<info>php %command.full_name% --dump-messages en AcmeBundle</info>
-<info>php %command.full_name% --force --prefix="new_" fr AcmeBundle</info>
+  <info>php %command.full_name% --dump-messages en AcmeBundle</info>
+  <info>php %command.full_name% --force --prefix="new_" fr AcmeBundle</info>
 
 Example running against app messages (app/Resources folder)
-<info>php %command.full_name% --dump-messages en</info>
-<info>php %command.full_name% --force --prefix="new_" fr</info>
-
+  <info>php %command.full_name% --dump-messages en</info>
+  <info>php %command.full_name% --force --prefix="new_" fr</info>
 EOF
             )
         ;
@@ -86,6 +67,8 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $kernel = $this->getContainer()->get('kernel');
+
         // check presence of force or dump-message
         if ($input->getOption('force') !== true && $input->getOption('dump-messages') !== true) {
             $output->writeln('<info>You must choose one of --force or --dump-messages</info>');
@@ -104,18 +87,19 @@ EOF
         }
 
         // Define Root Path to App folder
-        $rootPath = $this->getApplication()->getKernel()->getRootDir();
-        $currentName = "app folder";
+        $transPaths = array($kernel->getRootDir().'/Resources/');
+        $currentName = 'app folder';
 
         // Override with provided Bundle info
         if (null !== $input->getArgument('bundle')) {
-            $foundBundle = $this->getApplication()->getKernel()->getBundle($input->getArgument('bundle'));
-            $rootPath = $foundBundle->getPath();
+            $foundBundle = $kernel->getBundle($input->getArgument('bundle'));
+            $transPaths = array(
+                $foundBundle->getPath().'/Resources/',
+                sprintf('%s/Resources/%s/', $kernel->getRootDir(), $foundBundle->getName()),
+            );
             $currentName = $foundBundle->getName();
         }
 
-        // get bundle directory
-        $translationsPath = $rootPath.'/Resources/translations';
         $output->writeln(sprintf('Generating "<info>%s</info>" translation files for "<info>%s</info>"', $input->getArgument('locale'), $currentName));
 
         // load any messages from templates
@@ -123,18 +107,35 @@ EOF
         $output->writeln('Parsing templates');
         $extractor = $this->getContainer()->get('translation.extractor');
         $extractor->setPrefix($input->getOption('prefix'));
-        $extractor->extract($rootPath.'/Resources/views/', $extractedCatalogue);
+        foreach ($transPaths as $path) {
+            $path .= 'views';
+            if (is_dir($path)) {
+                $extractor->extract($path, $extractedCatalogue);
+            }
+        }
 
         // load any existing messages from the translation files
         $currentCatalogue = new MessageCatalogue($input->getArgument('locale'));
         $output->writeln('Loading translation files');
         $loader = $this->getContainer()->get('translation.loader');
-        $loader->loadMessages($translationsPath, $currentCatalogue);
+        foreach ($transPaths as $path) {
+            $path .= 'translations';
+            if (is_dir($path)) {
+                $loader->loadMessages($path, $currentCatalogue);
+            }
+        }
 
         // process catalogues
         $operation = $input->getOption('clean')
             ? new DiffOperation($currentCatalogue, $extractedCatalogue)
             : new MergeOperation($currentCatalogue, $extractedCatalogue);
+
+        // Exit if no messages found.
+        if (!count($operation->getDomains())) {
+            $output->writeln("\n<comment>No translation found.</comment>");
+
+            return;
+        }
 
         // show compiled list of messages
         if ($input->getOption('dump-messages') === true) {
@@ -153,7 +154,7 @@ EOF
                 }
             }
 
-            if ($input->getOption('output-format') == 'xliff') {
+            if ($input->getOption('output-format') == 'xlf') {
                 $output->writeln('Xliff output version is <info>1.2</info>');
             }
         }
@@ -165,7 +166,17 @@ EOF
         // save the files
         if ($input->getOption('force') === true) {
             $output->writeln('Writing files');
-            $writer->writeTranslations($operation->getResult(), $input->getOption('output-format'), array('path' => $translationsPath, 'default_locale' => $this->getContainer()->getParameter('kernel.default_locale')));
+            $bundleTransPath = false;
+            foreach ($transPaths as $path) {
+                $path .= 'translations';
+                if (is_dir($path)) {
+                    $bundleTransPath = $path;
+                }
+            }
+
+            if ($bundleTransPath) {
+                $writer->writeTranslations($operation->getResult(), $input->getOption('output-format'), array('path' => $bundleTransPath));
+            }
         }
     }
 }

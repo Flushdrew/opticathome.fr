@@ -12,8 +12,6 @@
 namespace Symfony\Component\Security\Http\Tests\RememberMe;
 
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
-
-use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,7 +115,7 @@ class PersistentTokenBasedRememberMeServicesTest extends \PHPUnit_Framework_Test
         try {
             $service->autoLogin($request);
             $this->fail('Expected CookieTheftException was not thrown.');
-        } catch (CookieTheftException $theft) {
+        } catch (CookieTheftException $e) {
         }
 
         $this->assertTrue($request->attributes->has(RememberMeServicesInterface::COOKIE_ATTR_NAME));

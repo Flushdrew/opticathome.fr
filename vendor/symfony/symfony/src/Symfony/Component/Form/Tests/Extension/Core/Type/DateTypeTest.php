@@ -13,9 +13,10 @@ namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
 use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
-class DateTypeTest extends TypeTestCase
+class DateTypeTest extends TestCase
 {
     private $defaultTimezone;
 
@@ -59,6 +60,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromSingleTextDateTimeWithDefaultFormat()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
             'input' => 'datetime',
         ));
@@ -73,6 +76,8 @@ class DateTypeTest extends TypeTestCase
     {
         $form = $this->factory->create('date', null, array(
             'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
             'input' => 'datetime',
         ));
@@ -87,6 +92,8 @@ class DateTypeTest extends TypeTestCase
     {
         $form = $this->factory->create('date', null, array(
             'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
             'input' => 'string',
         ));
@@ -101,6 +108,8 @@ class DateTypeTest extends TypeTestCase
     {
         $form = $this->factory->create('date', null, array(
             'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
             'input' => 'timestamp',
         ));
@@ -117,6 +126,8 @@ class DateTypeTest extends TypeTestCase
     {
         $form = $this->factory->create('date', null, array(
             'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
             'input' => 'array',
         ));
@@ -136,6 +147,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromText()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'text',
         ));
 
@@ -156,6 +169,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromChoice()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'choice',
         ));
 
@@ -176,6 +191,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromChoiceEmpty()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'choice',
             'required' => false,
         ));
@@ -195,6 +212,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromInputDateTimeDifferentPattern()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'format' => 'MM*yyyy*dd',
             'widget' => 'single_text',
             'input' => 'datetime',
@@ -209,6 +228,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromInputStringDifferentPattern()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'format' => 'MM*yyyy*dd',
             'widget' => 'single_text',
             'input' => 'string',
@@ -223,6 +244,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromInputTimestampDifferentPattern()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'format' => 'MM*yyyy*dd',
             'widget' => 'single_text',
             'input' => 'timestamp',
@@ -239,6 +262,8 @@ class DateTypeTest extends TypeTestCase
     public function testSubmitFromInputRawDifferentPattern()
     {
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'format' => 'MM*yyyy*dd',
             'widget' => 'single_text',
             'input' => 'array',
@@ -355,22 +380,41 @@ class DateTypeTest extends TypeTestCase
         ));
     }
 
-    public function testSetDataWithDifferentTimezoneDateTime()
+    public function testSetDataWithNegativeTimezoneOffsetStringInput()
     {
-        date_default_timezone_set('Pacific/Tahiti');
-
         $form = $this->factory->create('date', null, array(
             'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'America/New_York',
+            'input' => 'string',
+            'widget' => 'single_text',
+        ));
+
+        $form->setData('2010-06-02');
+
+        // 2010-06-02 00:00:00 UTC
+        // 2010-06-01 20:00:00 UTC-4
+        $this->assertEquals('01.06.2010', $form->getViewData());
+    }
+
+    public function testSetDataWithNegativeTimezoneOffsetDateTimeInput()
+    {
+        $form = $this->factory->create('date', null, array(
+            'format' => \IntlDateFormatter::MEDIUM,
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'America/New_York',
             'input' => 'datetime',
             'widget' => 'single_text',
         ));
 
-        $dateTime = new \DateTime('2010-06-02 America/New_York');
+        $dateTime = new \DateTime('2010-06-02 UTC');
 
         $form->setData($dateTime);
 
+        // 2010-06-02 00:00:00 UTC
+        // 2010-06-01 20:00:00 UTC-4
         $this->assertDateTimeEquals($dateTime, $form->getData());
-        $this->assertEquals('02.06.2010', $form->getViewData());
+        $this->assertEquals('01.06.2010', $form->getViewData());
     }
 
     public function testYearsOption()
@@ -465,6 +509,8 @@ class DateTypeTest extends TypeTestCase
         $this->markTestIncomplete('Needs to be reimplemented using validators');
 
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'single_text',
         ));
 
@@ -478,6 +524,8 @@ class DateTypeTest extends TypeTestCase
         $this->markTestIncomplete('Needs to be reimplemented using validators');
 
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'choice',
         ));
 
@@ -495,6 +543,8 @@ class DateTypeTest extends TypeTestCase
         $this->markTestIncomplete('Needs to be reimplemented using validators');
 
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'choice',
         ));
 
@@ -512,6 +562,8 @@ class DateTypeTest extends TypeTestCase
         $this->markTestIncomplete('Needs to be reimplemented using validators');
 
         $form = $this->factory->create('date', null, array(
+            'model_timezone' => 'UTC',
+            'view_timezone' => 'UTC',
             'widget' => 'choice',
         ));
 
@@ -573,6 +625,20 @@ class DateTypeTest extends TypeTestCase
         $view = $form->createView();
 
         $this->assertFalse(isset($view->vars['date_pattern']));
+    }
+
+    public function testDatePatternFormatWithQuotedStrings()
+    {
+        \Locale::setDefault('es_ES');
+
+        $form = $this->factory->create('date', null, array(
+            // EEEE, d 'de' MMMM 'de' y
+            'format' => \IntlDateFormatter::FULL,
+        ));
+
+        $view = $form->createView();
+
+        $this->assertEquals('{{ day }}{{ month }}{{ year }}', $view->vars['date_pattern']);
     }
 
     public function testPassWidgetToView()

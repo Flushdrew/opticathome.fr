@@ -51,7 +51,7 @@ class PropelDataCollectorTest extends Propel1TestCase
     {
         $queries = array(
             "time: 0.000 sec | mem: 1.4 MB | connection: default | SET NAMES 'utf8'",
-            "time: 0.012 sec | mem: 2.4 MB | connection: default | SELECT tags.NAME, image.FILENAME FROM tags LEFT JOIN image ON tags.IMAGEID = image.ID WHERE image.ID = 12",
+            'time: 0.012 sec | mem: 2.4 MB | connection: default | SELECT tags.NAME, image.FILENAME FROM tags LEFT JOIN image ON tags.IMAGEID = image.ID WHERE image.ID = 12',
             "time: 0.012 sec | mem: 2.4 MB | connection: default | INSERT INTO `table` (`some_array`) VALUES ('| 1 | 2 | 3 |')",
         );
 
@@ -66,7 +66,7 @@ class PropelDataCollectorTest extends Propel1TestCase
                 'memory' => '1.4 MB',
             ),
             array(
-                'sql' => "SELECT tags.NAME, image.FILENAME FROM tags LEFT JOIN image ON tags.IMAGEID = image.ID WHERE image.ID = 12",
+                'sql' => 'SELECT tags.NAME, image.FILENAME FROM tags LEFT JOIN image ON tags.IMAGEID = image.ID WHERE image.ID = 12',
                 'time' => '0.012 sec',
                 'connection' => 'default',
                 'memory' => '2.4 MB',
@@ -85,18 +85,19 @@ class PropelDataCollectorTest extends Propel1TestCase
     private function createCollector($queries)
     {
         $config = $this->getMock('\PropelConfiguration');
+
         $config
             ->expects($this->any())
             ->method('getParameter')
             ->will($this->returnArgument(1))
-            ;
+        ;
 
         $logger = $this->getMock('\Symfony\Bridge\Propel1\Logger\PropelLogger');
         $logger
             ->expects($this->any())
             ->method('getQueries')
             ->will($this->returnValue($queries))
-            ;
+        ;
 
         return new PropelDataCollector($logger, $config);
     }

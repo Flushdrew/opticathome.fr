@@ -208,7 +208,7 @@ class Response
     }
 
     /**
-     * Factory method for chainability
+     * Factory method for chainability.
      *
      * Example:
      *
@@ -268,7 +268,7 @@ class Response
     {
         $headers = $this->headers;
 
-        if ($this->isInformational() || in_array($this->statusCode, array(204, 304))) {
+        if ($this->isInformational() || $this->isEmpty()) {
             $this->setContent(null);
             $headers->remove('Content-Type');
             $headers->remove('Content-Length');
@@ -1080,7 +1080,7 @@ class Response
         $lastModified = $this->headers->get('Last-Modified');
         $modifiedSince = $request->headers->get('If-Modified-Since');
 
-        if ($etags = $request->getEtags()) {
+        if ($etags = $request->getETags()) {
             $notModified = in_array($this->getEtag(), $etags) || in_array('*', $etags);
         }
 
@@ -1242,15 +1242,9 @@ class Response
     {
         $status = ob_get_status(true);
         $level = count($status);
+        $flags = defined('PHP_OUTPUT_HANDLER_REMOVABLE') ? PHP_OUTPUT_HANDLER_REMOVABLE | ($flush ? PHP_OUTPUT_HANDLER_FLUSHABLE : PHP_OUTPUT_HANDLER_CLEANABLE) : -1;
 
-        while ($level-- > $targetLevel
-            && (!empty($status[$level]['del'])
-                || (isset($status[$level]['flags'])
-                    && ($status[$level]['flags'] & PHP_OUTPUT_HANDLER_REMOVABLE)
-                    && ($status[$level]['flags'] & ($flush ? PHP_OUTPUT_HANDLER_FLUSHABLE : PHP_OUTPUT_HANDLER_CLEANABLE))
-                )
-            )
-        ) {
+        while ($level-- > $targetLevel && ($s = $status[$level]) && (!isset($s['del']) ? !isset($s['flags']) || $flags === ($s['flags'] & $flags) : $s['del'])) {
             if ($flush) {
                 ob_end_flush();
             } else {
@@ -1260,14 +1254,14 @@ class Response
     }
 
     /**
-     * Checks if we need to remove Cache-Control for SSL encrypted downloads when using IE < 9
+     * Checks if we need to remove Cache-Control for SSL encrypted downloads when using IE < 9.
      *
      * @link http://support.microsoft.com/kb/323308
      */
     protected function ensureIEOverSSLCompatibility(Request $request)
     {
         if (false !== stripos($this->headers->get('Content-Disposition'), 'attachment') && preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT'), $match) == 1 && true === $request->isSecure()) {
-            if (intval(preg_replace("/(MSIE )(.*?);/", "$2", $match[0])) < 9) {
+            if ((int) preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {
                 $this->headers->remove('Cache-Control');
             }
         }

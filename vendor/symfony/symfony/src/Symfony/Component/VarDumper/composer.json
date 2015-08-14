@@ -3,16 +3,23 @@
     "type": "library",
     "description": "Symfony mechanism for exploring and dumping PHP variables",
     "keywords": ["dump", "debug"],
-    "homepage": "http://symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Nicolas Grekas",
             "email": "p@tchwork.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "~2.7"
     },
     "suggest": {
         "ext-symfony_debug": ""

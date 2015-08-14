@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
- * Data collector for {@link \Symfony\Component\Form\FormInterface} instances.
+ * Data collector for {@link FormInterface} instances.
  *
  * @since  2.4
  * @author Robert Schönthal <robert.schoenthal@gmail.com>
@@ -139,7 +139,9 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
         $hash = spl_object_hash($form);
 
         if (!isset($this->dataByForm[$hash])) {
-            $this->dataByForm[$hash] = array();
+            // field was created by form event
+            $this->collectConfiguration($form);
+            $this->collectDefaultData($form);
         }
 
         $this->dataByForm[$hash] = array_replace(
