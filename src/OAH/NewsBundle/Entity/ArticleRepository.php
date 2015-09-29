@@ -2,6 +2,9 @@
 
 namespace OAH\NewsBundle\Entity;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * ArticleRepository
  *
@@ -10,4 +13,39 @@ namespace OAH\NewsBundle\Entity;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function getArticles($page, $nbPerPage)
+  {
+    $query = $this->createQueryBuilder('a')
+	  ->leftjoin('a.categories', 'c')
+	  ->addSelect('c')
+	  ->leftjoin('a.image', 'i')
+	  ->addselect('i')
+	  ->leftjoin('a.commentaires','com')
+	  ->addSelect('com')
+      ->orderBy('a.date', 'DESC')
+      ->getQuery()
+    ;
+	
+	$query
+		->setFirstResult(($page-1) * $nbPerPage)
+		->setMaxResults($nbPerPage)
+	;
+		
+	return new Paginator($query, true);
+	
+   }
+
+   public function getAvecCategories ( array $nom_categories )
+   { 
+   $qb = $this -> createQueryBuilder ( 'a' );
+   
+   // On fait une jointure avec l'entité Categorie, avec pour alias « c »
+   $qb -> join ( 'a.categories' , 'c' ) 
+	   -> where ( $qb -> expr () -> in ( 'c.nom' , $nom_categories ));
+	   // Puis on filtre sur le nom des catégories à l'aide d'un IN
+	   
+	   // Enfin, on retourne le résultat 
+	 return $qb -> getQuery () -> getResult ();
+	} 
 }

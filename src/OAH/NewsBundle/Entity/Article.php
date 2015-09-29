@@ -14,7 +14,7 @@ class Article
 {
 	/**
 	 *
-	 * @ORM\OneToOne(targetEntity="OAH\NewsBundle\Entity\Image", cascade={"persist"})
+	 * @ORM\OneToOne(targetEntity="OAH\NewsBundle\Entity\Image", cascade={"persist", "remove"})
 	 */
 	private $image;	
 	

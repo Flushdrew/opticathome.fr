@@ -140,7 +140,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
 
                 // OAHNews_ajouter
-                if ($pathinfo === '/News/ajouter') {
+                if ($pathinfo === '/News/ajouter_news') {
                     return array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::ajouterAction',  '_route' => 'OAHNews_ajouter',);
                 }
 

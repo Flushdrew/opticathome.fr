@@ -10,45 +10,38 @@ use Symfony\Component\httpFoundation\Response;
 use Symfony\Component\httpFoundation\Request;
 use OAH\NewsBundle\Entity\Article;
 use OAH\NewsBundle\Entity\Image;
+use OAH\NewsBundle\Entity\Commentaire;
+use OAH\NewsBundle\Form\ArticleType;
 
 class NewsController extends Controller
 {
 	public function indexAction($page)
 	{
-    // On ne sait pas combien de pages il y a
-    // Mais on sait qu'une page doit être supérieure ou égale à 1
+    
     if ($page < 1) {
-      // On déclenche une exception NotFoundHttpException, cela va afficher
-      // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
       throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
     }
 	
-	$articles = array(
-	array(
-		'titre'  => 'Comment bien mettre ses lentilles',
-		'id'     => 1,
-		'auteur' => 'OpticAtHome',
-		'contenu'=> 'blablablablabla',
-		'date'   => new \datetime()),
-	array(
-		'titre'  => 'Offres de Noel',
-		'id'     => 2,
-		'auteur' => 'OpticAtHome',
-		'contenu'=> 'blablablablabla',
-		'date'   => new \datetime()),
-	array(
-		'titre'  => 'Optic At Home , votre opticien à domicile',
-		'id'     => 3,
-		'auteur' => 'OpticAtHome',
-		'contenu'=> 'blablablablabla',
-		'date'   => new \datetime())
+	$nbPerPage = 5;
 	
-	);
-    // Ici, on récupérera la liste des annonces, puis on la passera au template
-
-    // Mais pour l'instant, on ne fait qu'appeler le template
+	$listArticles = $this->getDoctrine()
+		->getManager()
+		->getRepository('OAHNewsBundle:Article')
+		->getArticles($page, $nbPerPage)	
+	;	
+    
+	$nbPages = ceil(count($listArticles)/$nbPerPage);
+	
+	if ($page > $nbPages) {
+		throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+		}
+	
+	
     return $this->render('OAHNewsBundle:News:index.html.twig',array(
-		'articles' => $articles));
+		'listArticles' => $listArticles,
+		'nbPages'      => $nbPages,
+		'page'         => $page
+	));
   }
 
 	public function voirAction($id)
@@ -78,86 +71,90 @@ class NewsController extends Controller
 	
 	 public function ajouterAction(Request $request)
   {
-	//creation de l'entité article
-	$article = new Article();
-	$article->setTitre('Nos nouvelles montures');
-	$article->setauteur('OpticAtHome');
-	$article->setContenu('blablablablabla');
-	
-	//creation de l'entité image
-	$image = new Image();
-	$image->setURL('https://www.lunettespourtous.com/frontend/www/assets/79f68975/img/home/lunette_lpt.png');
-	$image->setAlt('Logo lunette');
-	
-	$article->setImage($image);
-	
-	//creation d'un premier commentaire
-	$commentaire1 = new Commentaire();
-	$commentaire1->setAuteur('Julien');
-	$commentaire1->setContenu('Coucou tu veux voir ma b...?');
-	
-	//creation d'un deuxieme commentaire
-	$commentaire2 = new Commentaire();
-	$commentaire2->setAuteur('Brice');
-	$commentaire2->setContenu('Bien sur je suis gay');
-	
-	//On lie les commentaires à l'article
-	$commentaire1->setArticle($article);
-	$commentaire2->setArticle($article);
-	
-	//on recupere l'entity manager
-	$em = $this->getDoctrine()->getManager();
-	
-	//etape 1 : on persiste l'entité
-	$em->persist($article);
-	
-	//etape 2 : on flush ce qui a été persisté avant
-	$em->flush();  
-  
-  
-	if ($request->isMethod('POST')){
-		$request->getSession()->getFlashBag()->add('info','Annonce bien enregistré.');
-		return $this->redirect($this->generateUrl('OAHNews_voir',array('id' => 5)));
-		}
-	return $this->render('OAHNewsBundle:News:ajouter.html.twig');
+    $article = new Article();
+    $form = $this->createForm(new ArticleType(), $article);
+
+    if ($form->handleRequest($request)->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($article);
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée.');
+
+      // Puis on redirige vers la page de visualisation de cet article
+      return $this->redirect($this->generateUrl('OAHNews_voir', array('id' => $article->getId())));
+    }
+
+    // Si on n'est pas en POST, alors on affiche le formulaire
+    return $this->render('OAHNewsBundle:News:ajouter.html.twig', array(
+      'form' => $form->createView(),
+      ));
   }
   
 	public function modifierAction($id, Request $request)
 	{
-	
-		if ($request->isMethod('POST')){
-			$request->getSession()->getFlashBag()->add('info','Annonce bien modifiée.');
-			return $this->redirect($this->generateUrl('OAHNews_voir',array('id' => 5 )));
-			}
-			
-		$article = array(
-	'id' => 1,
-	'titre' => 'Comment bien mettre ses lentilles',
-	'auteur' => 'OpticAtHome',
-	'contenu' => 'blablablablablablabla',
-	'date' => new \Datetime()
-	);	
+    // On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+
+    // On récupère l'entité correspondant à l'id $id
+    $article = $em->getRepository('OAHNewsBundle:Article')->find($id);
+
+    // Si l'annonce n'existe pas, on affiche une erreur 404
+    if ($article == null) {
+      throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
+    }
+
+    $form = $this->createForm(new ArticleEditType(), $article);
+
+    if ($form->handleRequest($request)->isValid()) {
+      // Inutile de persister ici, Doctrine connait déjà notre annonce
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+
+      return $this->redirect($this->generateUrl('OAHNews_voir', array('id' => $article->getId())));
+    }
+
+    return $this->render('OAHNewsBundle:News:modifier.html.twig', array(
+      'form'    => $form->createView(),
+      'article' => $article
+    ));
+  }
+
 		
-		return $this->render('OAHNewsBundle:News:modifier.html.twig',array(
-		'article' => $article 
-		));
-	}
 		
-		
-	public function supprimerAction($id)
+	public function supprimerAction($id, Request $request)
 		{
-			$article = array(
-	'id' => 1,
-	'titre' => 'Comment bien mettre ses lentilles',
-	'auteur' => 'OpticAtHome',
-	'contenu' => 'blablablablablablabla',
-	'date' => new \Datetime()
-							);	
-		
-		return $this->render('OAHNewsBundle:News:supprimer.html.twig',array(
-		'article' => $article 
-		));
-		}
+    // On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+
+    // On récupère l'entité correspondant à l'id $id
+    $article = $em->getRepository('OAHNewsBundle:Article')->find($id);
+
+    // Si l'annonce n'existe pas, on affiche une erreur 404
+    if ($article == null) {
+      throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
+    }
+    // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+    // Cela permet de protéger la suppression d'annonce contre cette faille
+    $form = $this->createFormBuilder()->getForm();
+
+    if ($form->handleRequest($request)->isValid()) {
+      $em->remove($article);
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add('info', 'Annonce bien supprimée.');
+
+      // Puis on redirige vers l'accueil
+      return $this->redirect($this->generateUrl('OAHNews_accueil'));
+    }
+
+    // Si la requête est en GET, on affiche une page de confirmation avant de delete
+    return $this->render('OAHNewsBundle:News:supprimer.html.twig', array(
+      'article' => $article,
+      'form'    => $form->createView()
+    ));
+  }
 	
 	
 	

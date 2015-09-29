@@ -8,12 +8,27 @@
 
 {% block body_news %}
 
+
+	{% for flashMessage in app.session.flashbag.get('info') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+
+
+<p>
+
 <h2>Ajouter une news</h2>
 
 {% include "OAHNewsBundle:News:formulaire.html.twig" %}
 
 <p>
-	Attention cette news sera ajouté directement sur la page d'accueil aprés validation du formulaire !
+	{% for flashMessage in app.session.flashbag.get('info') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
 </p>
 
 <p>

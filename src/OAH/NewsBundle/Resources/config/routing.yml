@@ -11,7 +11,7 @@ OAHNews_voir:
         id: \d+
 
 OAHNews_ajouter:
-    path:     /ajouter
+    path:     /ajouter_news
     defaults: { _controller: OAHNewsBundle:News:ajouter }
 
 OAHNews_modifier:
