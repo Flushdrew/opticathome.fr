@@ -3,6 +3,8 @@
 namespace OAH\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Article
@@ -14,7 +16,7 @@ class Article
 {
 	/**
 	 *
-	 * @ORM\OneToOne(targetEntity="OAH\NewsBundle\Entity\Image", cascade={"persist"})
+	 * @ORM\OneToOne(targetEntity="OAH\NewsBundle\Entity\Image", cascade={"persist", "remove"})
 	 */
 	private $image;	
 	
@@ -70,12 +72,20 @@ class Article
 	 */
 	 private $publication;
 
+     /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(length=128)
+     */
+    private $slugarticle;
+
+
 	
 	public function __construct()
 	{
 		$this->date = new \Datetime();
 		$this->publication = true;
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
 	
@@ -258,4 +268,40 @@ class Article
     {
         return $this->categories;
     }
+
+    /**
+     * Add commentaire
+     *
+     * @param \OAH\NewsBundle\Entity\Commentaire $commentaire
+     *
+     * @return Article
+     */
+    public function addCommentaire(\OAH\NewsBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+		$commentaire->setArticle($this); //car la relation est bidirectionnelle !!!
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \OAH\NewsBundle\Entity\Commentaire $commentaire
+     */
+    public function removeCommentaire(\OAH\NewsBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
+
 }

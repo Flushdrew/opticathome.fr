@@ -6,8 +6,10 @@
 	Ajouter un article - {{ parent() }}
 {% endblock %}
 
-{% block body_news %}
 
+
+{% block body_news %}
+<script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
 
 	{% for flashMessage in app.session.flashbag.get('info') %}
     <div class="flash-notice">

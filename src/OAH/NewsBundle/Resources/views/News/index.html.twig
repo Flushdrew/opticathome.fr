@@ -6,20 +6,17 @@
 
 {% block body_news %}
 
-<h1> Actualités </h1>
-
-
 	{% for article in listArticles %}
 	<div class="article_des_news">
 
 		<div class="row">
 
   		    <div class="col-sm-3">
-  				<a href="{{path('OAHNews_voir', {'id':article.id})}}"><img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
+  				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
  		    </div>
 
  		    <div class="col-sm-9">
-				<a class="titre_article" href="{{path('OAHNews_voir', {'id':article.id})}}">{{article.titre}}
+				<a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre}}
 				</a>
 			  		<p><i class="glyphicon glyphicon-pencil"></i> par {{article.auteur}},
 			   		   <i class="glyphicon glyphicon-time"> </i> {{article.date|date('d/m/y')}}

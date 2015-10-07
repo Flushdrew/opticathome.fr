@@ -5,10 +5,8 @@ OAHNews_accueil:
         page: \d*
 
 OAHNews_voir:
-    path:     /article/{id}
+    path:     /article/{slugarticle}
     defaults: { _controller: OAHNewsBundle:News:voir }
-    requirements:
-        id: \d+
 
 OAHNews_ajouter:
     path:     /ajouter_news
@@ -25,3 +23,7 @@ OAHNews_supprimer:
     defaults: { _controller: OAHNewsBundle:News:supprimer }
     requirements:
         id: \d+
+
+OAHNews_categorie:
+    path:    /categorie/{slug}
+    defaults: { _controller: OAHNewsBundle:News:categorie }

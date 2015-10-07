@@ -2,3 +2,9 @@ services:
     oah_news_antispam:
         class: OAH\NewsBundle\Antispam\OAHAntispam
         arguments: [@mailer, %locale%, 50]
+
+    # src/OC/PlatformBundle/Resources/config/services.yml
+    oah_news.ckeditor:
+        class: OAH\NewsBundle\Form\Type\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }

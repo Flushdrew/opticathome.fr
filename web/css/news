@@ -1,0 +1,13 @@
+.article_des_news {
+	margin-bottom : 15px;
+}
+
+.titre_article {
+	color : rgb(148,125,93);
+	font-size : 2em;
+}
+
+a:hover {
+	color : white;
+	background : rgb(148,125,93) ;
+}

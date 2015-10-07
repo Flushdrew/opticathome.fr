@@ -12,11 +12,10 @@
 	<div class="container">	
 		<div class="row">
 			<div class="col-md-3">
-				menu des catégories
+				{{ render(controller("OAHNewsBundle:News:menu")) }}
 			</div>
 			
 			<div class="col-md-9">
-				Les news seront ici
 				{% block body_news %}
 				{% endblock %}
 				

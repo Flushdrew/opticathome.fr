@@ -77,3 +77,9 @@ services:
        class: Twig_Extensions_Extension_Text
        tags:
            - { name: twig.extension }
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true

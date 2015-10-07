@@ -4,6 +4,7 @@ namespace OAH\NewsBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleType extends AbstractType
@@ -18,7 +19,7 @@ class ArticleType extends AbstractType
             ->add('date',        'date')
             ->add('titre',       'text' )
             ->add('auteur',      'text')
-            ->add('contenu',     'textarea')
+            ->add('contenu',     'ckeditor')
             ->add('image',        new ImageType())
             ->add('categories','entity', array(
                 'class'         => 'OAHNewsBundle:Categorie',

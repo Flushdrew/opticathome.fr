@@ -3,6 +3,8 @@
 namespace OAH\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Article
@@ -69,6 +71,13 @@ class Article
 	 * @ORM\Column(name="publication", type="boolean")
 	 */
 	 private $publication;
+
+     /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(length=255)
+     */
+    private $slugarticle;
+
 
 	
 	public function __construct()
@@ -292,5 +301,31 @@ class Article
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+
+
+    /**
+     * Set slugarticle
+     *
+     * @param string $slugarticle
+     *
+     * @return Article
+     */
+    public function setSlugarticle($slugarticle)
+    {
+        $this->slugarticle = $slugarticle;
+
+        return $this;
+    }
+
+    /**
+     * Get slugarticle
+     *
+     * @return string
+     */
+    public function getSlugarticle()
+    {
+        return $this->slugarticle;
     }
 }

@@ -135,7 +135,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             if (0 === strpos($pathinfo, '/News/a')) {
                 // OAHNews_voir
-                if (0 === strpos($pathinfo, '/News/article') && preg_match('#^/News/article/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                if (0 === strpos($pathinfo, '/News/article') && preg_match('#^/News/article/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_voir')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::voirAction',));
                 }
 
@@ -154,6 +154,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // OAHNews_supprimer
             if (0 === strpos($pathinfo, '/News/supprimer') && preg_match('#^/News/supprimer/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_supprimer')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::supprimerAction',));
+            }
+
+            // OAHNews_categorie
+            if (0 === strpos($pathinfo, '/News/categorie') && preg_match('#^/News/categorie/(?P<slug>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_categorie')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::categorieAction',));
             }
 
         }

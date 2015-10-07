@@ -3,6 +3,7 @@
 namespace OAH\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Categorie
@@ -27,6 +28,12 @@ class Categorie
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
+
+    /**
+     * @Gedmo\Slug(fields={"nom"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -62,5 +69,29 @@ class Categorie
     {
         return $this->nom;
     }
-}
 
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Categorie
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+}

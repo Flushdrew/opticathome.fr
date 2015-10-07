@@ -12,6 +12,7 @@ use OAH\NewsBundle\Entity\Article;
 use OAH\NewsBundle\Entity\Image;
 use OAH\NewsBundle\Entity\Commentaire;
 use OAH\NewsBundle\Form\ArticleType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class NewsController extends Controller
 {
@@ -44,28 +45,22 @@ class NewsController extends Controller
 	));
   }
 
-	public function voirAction($id)
+
+  /**
+ * @ParamConverter("article", options={"mapping": {"slugarticle": "slugarticle"}})
+ */
+	public function voirAction(Article $article, $slugarticle)
 	{
     // On récupere l'entityManager
-	$em = $this->getDoctrine()
-				->getManager();
-					   
-	$article = $em->getRepository('OAHNewsBundle:Article')
-				  ->find($id);
-
 	
-	if ($article === null)
-	{
-		throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
-	}
 	
 	// On récupere la liste des commentaires
-	$liste_commentaires = $em->getRepository('OAHNewsBundle:Commentaire')
-							 ->findAll();
+	//$liste_commentaires = $em->getRepository('OAHNewsBundle:Commentaire')
+							 //->findAll();
 	
     return $this->render('OAHNewsBundle:News:voir.html.twig', array(
-      'article' => $article,
-	  'liste_commentaires' => $liste_commentaires
+      'article' => $article//,
+	  //'liste_commentaires' => $liste_commentaires
     ));
   }
 	
@@ -82,7 +77,7 @@ class NewsController extends Controller
       $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée.');
 
       // Puis on redirige vers la page de visualisation de cet article
-      return $this->redirect($this->generateUrl('OAHNews_voir', array('id' => $article->getId())));
+      return $this->redirect($this->generateUrl('OAHNews_voir', array('slugarticle' => $article->getSlugarticle())));
     }
 
     // Si on n'est pas en POST, alors on affiche le formulaire
@@ -156,7 +151,31 @@ class NewsController extends Controller
     ));
   }
 	
-	
+	public function menuAction($limit = 3)
+  {
+    $listCategories = $this->getDoctrine()
+      ->getManager()
+      ->getRepository('OAHNewsBundle:Categorie')
+      ->findAll();
+
+    return $this->render('OAHNewsBundle:News:menu.html.twig', array(
+      'listCategories' => $listCategories
+    ));
+  }
+
+  public function categorieAction(array $nom)
+  {
+    $listArticles = $this->getDoctrine()
+    ->getManager()
+    ->getRepository('OAHNewsBundle:Article')
+    ->getAvecCategories() ; 
+  
+    return $this->render('OAHNewsBundle:News:categorie.html.twig',array(
+    'listArticles' => $listArticles,
+    ));
+
+  }
+
 	
 	
    

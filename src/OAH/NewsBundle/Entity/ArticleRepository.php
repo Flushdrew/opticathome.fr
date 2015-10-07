@@ -36,13 +36,16 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 	
    }
 
-   public function getAvecCategories ( array $nom_categories )
+   public function getAvecCategories ( array $nom )
    { 
    $qb = $this -> createQueryBuilder ( 'a' );
    
    // On fait une jointure avec l'entité Categorie, avec pour alias « c »
-   $qb -> join ( 'a.categories' , 'c' ) 
-	   -> where ( $qb -> expr () -> in ( 'c.nom' , $nom_categories ));
+   $qb -> join ( 'a.categorie' , 'c' ) 
+       -> addselct('c')
+       -> where('c.nom = :nom')
+       ->setParameter('nom', $nom); 
+	   //-> where ( $qb -> expr () -> in ( 'c.nom' , $nom ));
 	   // Puis on filtre sur le nom des catégories à l'aide d'un IN
 	   
 	   // Enfin, on retourne le résultat 
