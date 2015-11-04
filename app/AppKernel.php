@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new OAH\DevisBundle\OAHDevisBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new OAH\UserBundle\OAHUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
