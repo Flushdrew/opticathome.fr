@@ -57,7 +57,7 @@
 					<li><a href="#garanties">Garanties</a></li>
 					<li><a href="#contact"> Contact</a></li>
 					{% endblock %}
-					<li><a href="{{ path('OAHNews_accueil') }}"> Actualité</a></li>
+					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}"> Actualité</a></li>
 				</ul>
 				</div>
             </div>			
@@ -71,6 +71,16 @@
 			<img id="header" href="#header" src="{{asset('img/header2.jpg')}}" alt="opticathome">
 		</div>
 	</div>
+
+	{% for flashMessage in app.session.flashbag.get('info') %}
+	<div class="container">
+	  <div class="row">
+    	<div class="alert col-md-offset-3 col-md-6 alert-success text-center">
+        	{{ flashMessage }}
+    	</div>
+      </div>
+    </div>
+	{% endfor %}
 	
 	{% block body %}
 	
@@ -80,7 +90,20 @@
     ================================================== -->
 	
 	  <div class="blocblanc">
-		<h1 class="text-center">QUI SOMMES-NOUS ?</h1>
+	  	<br/>
+	  		<p class="text-center"><font size="6" face="lobster">Optic At Home, spécialiste de vos lunettes à domicile.</font></p>
+
+	  		<div class="row">
+				<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12 ">
+					<video controls poster="{{asset('img/poster.png')}}" >
+						<source src="{{asset('videos/oah.mp4')}}">
+						<source src="{{asset('videos/oah.ogv')}}">
+						<source src="{{asset('videos/oah.webm')}}">
+					</video>
+				</div>
+			</div>
+
+		<h1 class="text-center">COMMENT ÇA MARCHE ?</h1>
 			<div class="row concept">
 				<div style="min-height: 150px;" class="col-lg-offset-3  col-lg-2  col-sm-4  col-xs-12">
 				<p class="text-center"><i class="fa fa-graduation-cap fa-2x"></i></p>
@@ -231,7 +254,7 @@
 	<div class="blocgris" id="devis">
 		<h1 class="text-center">DEMANDER UN DEVIS</h1>
 			<div class="row  concept">
-						<div class="col-md-offset-2 col-md-5 col-sm-offset-1 col-sm-10 col-xs-12" >
+						<div class="col-md-offset-2 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12" >
 							<p><span class="glyphicon glyphicon-ok"></span> Vous souhaitez un devis?</p>
 							<p><span class="glyphicon glyphicon-ok"></span> Comparer les prix avec un opticien?</p>
 							<p><span class="glyphicon glyphicon-ok"></span> Vous hésitez sur nos prestations? Demandez-nous conseil.<br/>Nous nous ferons un plaisir de vous orienter sur ce qui vous conviendras le mieux.</p>
@@ -240,64 +263,101 @@
 							</p>
 						</div>
 				
-						<div class="col-md-offset-1 col-md-2 col-sm-offset-4 col-sm-4 col-xs-offset-4 col-xs-4">
-							<img src="{{asset('img/facture.png')}}" alt="facture">
+						<div class="col-md-offset-1 col-md-3 col-sm-offset-4 col-sm-4 col-xs-offset-4 col-xs-4">
+							
+
+								{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    								{# Les erreurs générales du formulaire. #}
+    								{{ form_errors(form) }}
+
+    							<div class="form-group">
+    							  <div class="row">
+							    	 <div class="col-sm-3">
+     								{# Génération du label. #}
+      								{{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label pull-left'}}) }}
+      								{# Affichage des erreurs pour ce champ précis. #}
+     								{{ form_errors(form.nom) }}
+     								</div>
+      								<div class="col-sm-9">
+        							{# Génération de l'input. #}
+        							{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+      								</div>
+      							  </div>	
+    							</div>
+
+							    {# Idem pour un autre champ. #}
+							    <div class="form-group">
+							      <div class="row">
+							      	<div class="col-sm-3">
+							      	{{ form_label(form.prenom, "Prénom", {'label_attr': {'class': 'control-label pull-left'}}) }}
+							     	 {{ form_errors(form.prenom) }}
+							      	</div>
+							      	<div class="col-sm-9">
+							        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+							     	 </div>
+							      </div>
+							    </div>
+
+							    <div class="form-group">
+							      <div class="row">
+							      	<div class="col-sm-3">
+							      	{{ form_label(form.email, "Email", {'label_attr': {'class': 'control-label pull-left'}}) }}
+							     	{{ form_errors(form.email) }}
+							        </div>
+							        <div class="col-sm-9">
+							        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+							        </div>
+							      </div>
+							    </div>
+
+							    <div class="form-group">
+							      <div class="row">
+							      	<div class="col-sm-3">
+							      	{{ form_label(form.telephone, "Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+							      	{{ form_errors(form.telephone) }}
+							      	</div>
+							      	<div class="col-sm-9">
+							        {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+							      	</div>
+							      </div>
+							    </div>
+
+							    <div class="form-group">
+							      <div class="row">
+							      	<div class="col-sm-3">
+							      	{{ form_label(form.message, "Message", {'label_attr': {'class': 'control-label'}}) }}
+							      	{{ form_errors(form.message) }}
+							    	</div>
+							      	<div class="col-sm-9">
+							        {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+							      	</div>
+							      </div> 
+							    </div>
+							    
+							    <div class="form-group">
+							      <div class="row">
+							    	<div class="col-md-offset-8 col-md-4 col-sm-offset-7 col-sm-5">
+									 {{ form_widget(form.save, {'attr': {'class': 'btn btn-custom btn-block'}}) }}
+									</div> 
+								  </div> 
+								</div>	
+								
+								 {{ form_rest(form) }}
+
+								 {{ form_end(form) }}
+
 						</div>
 			</div>			
 				
 			<div class="row">
-						<div class="col-lg-offset-5 col-lg-2 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
-							<div id="html">
-								<br/><button data-toggle="modal"  href="#formulaire" class="btn btn-custom btn-block">Demander un devis</button>
-							</div>
-					
-				<div class="modal fade" id="formulaire">
-					<div class="modal-dialog">
-						<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">x</button>
-											<h4 class="modal-title">Demander un devis :</h4>
-									</div>
-							<div class="modal-body">
-								<form method="post" action="validation.php" data-toggle="validator" role="form">
-									<div class="form-group">
-										<label for="nom" class="control-label">Nom</label>
-											<input type="text" class="form-control" name ="nom" id="nom" placeholder="Votre nom" required>
-									</div>
-									<div class="form-group">
-										<label for="prenom" class="control-label">Prénom</label>
-											<input type="text" class="form-control" name ="prenom" id="prenom" placeholder="Votre prénom" required>
-									</div>
-									<div class="form-group">
-										<label for="email" class="control-label">Email</label>
-											<input type="email" class="form-control" name="email" id="email" placeholder="Votre Email">
-									</div>
-									<div class="form-group">
-										<label for="telephone" class="control-label">Téléphone</label>
-											<input type="number" class="form-control" name ="telephone" id="telephone" placeholder="Votre numéro de téléphone">
-									</div>
-									<div class="form-group">
-										<label>Produits concernés :</label><br/>
-											<input type="checkbox"  name="montures" id="montures" /> <label for="montures">Montures</label><br/>
-											<input type="checkbox"  name="verres" id="verres" /> <label for="verres">Verres</label><br />
-											<input type="checkbox"  name="lentilles" id="lentilles" /> <label for="lentilles">Lentilles</label><br /> 	
-									</div>		
-									<div class="form-group">
-										<label for="message">Message :</label><br />
-											<textarea class="form-control" name="message" id="message" rows="12" >
-											</textarea>
-									</div>	
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-danger pull-right">Envoyer</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			  </div>	
+				<div class="col-lg-offset-5 col-lg-2 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+
+				
+
+			    </div>	
 			</div>
-		</div>	
+	</div>	
 		
 			<!-- Garanties
     ================================================== -->
@@ -341,10 +401,13 @@
 	<footer class="container-fluid">
 		<div class="container">
 			<div class="row">
+
 				<div class=" col-md-3 col-md-offset-1 col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8 text-center " >	
 					<a href="https://www.facebook.com/opticathomefr?fref=ts" class="btn btn-bloc btn-social btn-facebook">
-						<i class="fa fa-facebook"></i> | Optic At Home</a>	
+						<i class="fa fa-facebook"></i> | Optic At Home</a><br/>
+					<a href="{{ path('oah_core_presse') }}">Presse</a>
 				</div>
+
 				<div class="col-md-4 col-xs-12 text-center ">
 					<button data-toggle="modal" href="#infos" class="btn mentions">Mentions légales</button>
 						<div class="modal" id="infos">
@@ -380,7 +443,7 @@
 
 					<script>
 					$(function () {
-				  $('li>a').on('click', function(e) {
+				  $('li>a').not('.normalLink').on('click', function(e) {
 					e.preventDefault();
 					var hash = this.hash;
 					$('html, body').animate({

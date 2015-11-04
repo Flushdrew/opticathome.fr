@@ -1,0 +1,3 @@
+oah_devis_homepage:
+    path:     /
+    defaults: { _controller: OAHDevisBundle:Devis:Devis }

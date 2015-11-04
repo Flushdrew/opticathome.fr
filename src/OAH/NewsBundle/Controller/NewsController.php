@@ -151,7 +151,7 @@ class NewsController extends Controller
     ));
   }
 	
-	public function menuAction($limit = 3)
+	public function menuAction()
   {
     $listCategories = $this->getDoctrine()
       ->getManager()
@@ -163,19 +163,45 @@ class NewsController extends Controller
     ));
   }
 
-  public function categorieAction(array $nom)
-  {
-    $listArticles = $this->getDoctrine()
+  public function categorieAction($slug,$page)
+  //{
+    //$listArticles = $this->getDoctrine()
+    //->getManager()
+    //->getRepository('OAHNewsBundle:Article')
+    //->getAvecCategories() ; 
+  
+    //return $this->render('OAHNewsBundle:News:categorie.html.twig',array(
+    //'listArticles' => $listArticles,
+    //));
+
+  //}
+{
+    
+    if ($page < 1) {
+      throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+    }
+  
+  $nbPerPage = 5;
+  
+  $listArticles = $this->getDoctrine()
     ->getManager()
     ->getRepository('OAHNewsBundle:Article')
-    ->getAvecCategories() ; 
+    ->getAvecCategories($slug, $page, $nbPerPage)  
+  ; 
+    
+  $nbPages = ceil(count($listArticles)/$nbPerPage);
+  
+  if ($page > $nbPages) {
+    throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+    }
+  
   
     return $this->render('OAHNewsBundle:News:categorie.html.twig',array(
     'listArticles' => $listArticles,
-    ));
-
+    'nbPages'      => $nbPages,
+    'page'         => $page
+  ));
   }
-
 	
 	
    

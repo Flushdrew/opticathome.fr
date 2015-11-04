@@ -1,0 +1,30 @@
+{% extends "OAHCoreBundle:Core:layout.html.twig" %}
+		
+		{% block navigation %}
+		<li><a class="normalLink" href="{{path('oah_core_homepage')}}"> Optic At Home</a></li>
+		{% endblock %}
+
+	
+		{% block body %}
+		<div class="container">	
+			<h2> Ils parlent de nous : </h2>
+
+			<div class="row">	
+				<div class="col-md-6 col-sm-12">
+					<h3>La gazette du Val-d'Oise (28/10/2015) :</h3>
+					<img src={{asset('img/gazette.jpg')}} alt="la gazette du Val-d'Oise">
+				</div>
+				<div class="col-md-6 col-sm-12">
+					<h3>Le journal de la ville de Cergy (Octobre 2015)</h3>
+					<img src={{asset('img/journalcergy.jpg')}} alt="le journal de Cergy">
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+
+
+		{% endblock %}

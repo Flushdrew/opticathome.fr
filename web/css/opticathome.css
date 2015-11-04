@@ -144,6 +144,28 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
   color: rgb(148,125,93) !important;
   -webkit-font-smoothing: antialiased;
 }
+
+    #oah_devisbundle_devis_save {
+    background-color: hsl(0, 100%, 100%) !important;
+  color: rgb(148,125,93) !important;
+  -webkit-font-smoothing: antialiased;	
+    }
+
+    .control-label {
+    	color:white;
+    }
+
+    .cropit-image-preview {
+	/* You can specify preview size in CSS */
+	width: 600px;
+	height: 390px ;
+	cursor: move;
+}
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}
 	    
   @media (min-width: 768px) {
         .navbar .navbar-nav {

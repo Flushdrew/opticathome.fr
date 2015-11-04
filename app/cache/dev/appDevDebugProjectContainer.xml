@@ -4,8 +4,8 @@
     <parameter key="kernel.root_dir">C:\wamp\www\opticathome.fr\app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.name">ap_</parameter>
-    <parameter key="kernel.cache_dir">C:/wamp/www/opticathome.fr/app/cache/dev</parameter>
+    <parameter key="kernel.name">app</parameter>
+    <parameter key="kernel.cache_dir">C:\wamp\www\opticathome.fr\app\cache\dev</parameter>
     <parameter key="kernel.logs_dir">C:\wamp\www\opticathome.fr\app\logs</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
@@ -19,6 +19,9 @@
       <parameter key="OAHNewsBundle">OAH\NewsBundle\OAHNewsBundle</parameter>
       <parameter key="OAHCoreBundle">OAH\CoreBundle\OAHCoreBundle</parameter>
       <parameter key="StofDoctrineExtensionsBundle">Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle</parameter>
+      <parameter key="OAHDevisBundle">OAH\DevisBundle\OAHDevisBundle</parameter>
+      <parameter key="EasyAdminBundle">JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle</parameter>
+      <parameter key="IvoryCKEditorBundle">Ivory\CKEditorBundle\IvoryCKEditorBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -33,11 +36,11 @@
     <parameter key="database_name">opticathome</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">null</parameter>
-    <parameter key="mailer_transport">smtp</parameter>
-    <parameter key="mailer_host">127.0.0.1</parameter>
-    <parameter key="mailer_user">null</parameter>
-    <parameter key="mailer_password">null</parameter>
-    <parameter key="locale">en</parameter>
+    <parameter key="mailer_transport">gmail</parameter>
+    <parameter key="mailer_host">null</parameter>
+    <parameter key="mailer_user">guiardjulien@gmail.com</parameter>
+    <parameter key="mailer_password">nevermind17</parameter>
+    <parameter key="locale">fr</parameter>
     <parameter key="secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="controller_resolver.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver</parameter>
     <parameter key="controller_name_converter.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser</parameter>
@@ -91,7 +94,7 @@
     <parameter key="kernel.http_method_override">true</parameter>
     <parameter key="kernel.trusted_hosts" type="collection"/>
     <parameter key="kernel.trusted_proxies" type="collection"/>
-    <parameter key="kernel.default_locale">en</parameter>
+    <parameter key="kernel.default_locale">fr</parameter>
     <parameter key="session.class">Symfony\Component\HttpFoundation\Session\Session</parameter>
     <parameter key="session.flashbag.class">Symfony\Component\HttpFoundation\Session\Flash\FlashBag</parameter>
     <parameter key="session.attribute_bag.class">Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag</parameter>
@@ -106,7 +109,7 @@
     <parameter key="session.storage.options" type="collection">
       <parameter key="gc_probability">1</parameter>
     </parameter>
-    <parameter key="session.save_path">C:/wamp/www/opticathome.fr/app/cache/dev/sessions</parameter>
+    <parameter key="session.save_path">C:\wamp\www\opticathome.fr\app\cache\dev/sessions</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="security.secure_random.class">Symfony\Component\Security\Core\Util\SecureRandom</parameter>
     <parameter key="form.resolved_type_factory.class">Symfony\Component\Form\ResolvedFormTypeFactory</parameter>
@@ -182,7 +185,7 @@
     <parameter key="data_collector.form.extractor.class">Symfony\Component\Form\Extension\DataCollector\FormDataExtractor</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_master_requests">false</parameter>
-    <parameter key="profiler.storage.dsn">file:C:/wamp/www/opticathome.fr/app/cache/dev/profiler</parameter>
+    <parameter key="profiler.storage.dsn">file:C:\wamp\www\opticathome.fr\app\cache\dev/profiler</parameter>
     <parameter key="profiler.storage.username"></parameter>
     <parameter key="profiler.storage.password"></parameter>
     <parameter key="profiler.storage.lifetime">86400</parameter>
@@ -206,7 +209,7 @@
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
-    <parameter key="router.resource">C:/wamp/www/opticathome.fr/app/cache/dev/assetic/routing.yml</parameter>
+    <parameter key="router.resource">C:\wamp\www\opticathome.fr\app\cache\dev/assetic/routing.yml</parameter>
     <parameter key="router.cache_class_prefix">appDev</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
@@ -217,7 +220,7 @@
     <parameter key="debug.stopwatch.class">Symfony\Component\Stopwatch\Stopwatch</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
     <parameter key="debug.event_dispatcher.class">Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher</parameter>
-    <parameter key="debug.container.dump">C:/wamp/www/opticathome.fr/app/cache/dev/appDevDebugProjectContainer.xml</parameter>
+    <parameter key="debug.container.dump">C:\wamp\www\opticathome.fr\app\cache\dev/appDevDebugProjectContainer.xml</parameter>
     <parameter key="debug.controller_resolver.class">Symfony\Component\HttpKernel\Controller\TraceableControllerResolver</parameter>
     <parameter key="security.context.class">Symfony\Component\Security\Core\SecurityContext</parameter>
     <parameter key="security.user_checker.class">Symfony\Component\Security\Core\User\UserChecker</parameter>
@@ -325,6 +328,7 @@
     <parameter key="twig.controller.preview_error.class">Symfony\Bundle\TwigBundle\Controller\PreviewErrorController</parameter>
     <parameter key="twig.exception_listener.controller">twig.controller.exception:showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
+      <parameter>IvoryCKEditorBundle:Form:ckeditor_widget.html.twig</parameter>
       <parameter>form_div_layout.html.twig</parameter>
     </parameter>
     <parameter key="debug.templating.engine.twig.class">Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine</parameter>
@@ -339,7 +343,7 @@
         <parameter>Symfony\Bundle\TwigBundle\TwigDefaultEscapingStrategy</parameter>
         <parameter>guess</parameter>
       </parameter>
-      <parameter key="cache">C:/wamp/www/opticathome.fr/app/cache/dev/twig</parameter>
+      <parameter key="cache">C:\wamp\www\opticathome.fr\app\cache\dev/twig</parameter>
       <parameter key="charset">UTF-8</parameter>
       <parameter key="paths" type="collection"/>
     </parameter>
@@ -416,15 +420,15 @@
     <parameter key="swiftmailer.data_collector.class">Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector</parameter>
     <parameter key="swiftmailer.mailer.default.transport.name">smtp</parameter>
     <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.port">25</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.host">127.0.0.1</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.username">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.password">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">null</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">ssl</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.port">465</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.host">smtp.gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.username">guiardjulien@gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.password">nevermind17</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">login</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.timeout">30</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.source_ip">null</parameter>
-    <parameter key="swiftmailer.spool.default.memory.path">C:/wamp/www/opticathome.fr/app/cache/dev/swiftmailer/spool/default</parameter>
+    <parameter key="swiftmailer.spool.default.memory.path">C:\wamp\www\opticathome.fr\app\cache\dev/swiftmailer/spool/default</parameter>
     <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
     <parameter key="swiftmailer.mailer.default.plugin.impersonate">null</parameter>
     <parameter key="swiftmailer.mailer.default.single_address">null</parameter>
@@ -449,7 +453,7 @@
     <parameter key="assetic.worker.cache_busting.class">Assetic\Factory\Worker\CacheBustingWorker</parameter>
     <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
     <parameter key="assetic.node.paths" type="collection"/>
-    <parameter key="assetic.cache_dir">C:/wamp/www/opticathome.fr/app/cache/dev/assetic</parameter>
+    <parameter key="assetic.cache_dir">C:\wamp\www\opticathome.fr\app\cache\dev/assetic</parameter>
     <parameter key="assetic.bundles" type="collection"/>
     <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
     <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
@@ -466,6 +470,7 @@
     <parameter key="assetic.node.bin">/usr/bin/node</parameter>
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
+    <parameter key="assetic.reactjsx.bin">/usr/bin/jsx</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
     <parameter key="assetic.twig_extension.functions" type="collection"/>
     <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
@@ -571,7 +576,7 @@
     <parameter key="doctrine.orm.second_level_cache.cache_configuration.class">Doctrine\ORM\Cache\CacheConfiguration</parameter>
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">C:/wamp/www/opticathome.fr/app/cache/dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">C:\wamp\www\opticathome.fr\app\cache\dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="sensio_framework_extra.view.guesser.class">Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser</parameter>
     <parameter key="sensio_framework_extra.controller.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener</parameter>
@@ -605,6 +610,183 @@
     <parameter key="stof_doctrine_extensions.listener.softdeleteable.class">Gedmo\SoftDeleteable\SoftDeleteableListener</parameter>
     <parameter key="stof_doctrine_extensions.listener.uploadable.class">Gedmo\Uploadable\UploadableListener</parameter>
     <parameter key="stof_doctrine_extensions.listener.reference_integrity.class">Gedmo\ReferenceIntegrity\ReferenceIntegrityListener</parameter>
+    <parameter key="easyadmin.config" type="collection">
+      <parameter key="entities" type="collection">
+        <parameter key="Article" type="collection">
+          <parameter key="class">OAH\NewsBundle\Entity\Article</parameter>
+          <parameter key="label">Article</parameter>
+          <parameter key="name">Article</parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="new" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="search" type="collection">
+            <parameter key="fields" type="collection"/>
+          </parameter>
+          <parameter key="show" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">edit</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection"/>
+          <parameter key="templates" type="collection">
+            <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
+            <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
+            <parameter key="list">@EasyAdmin/default/list.html.twig</parameter>
+            <parameter key="new">@EasyAdmin/default/new.html.twig</parameter>
+            <parameter key="show">@EasyAdmin/default/show.html.twig</parameter>
+            <parameter key="form">@EasyAdmin/default/form.html.twig</parameter>
+            <parameter key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</parameter>
+            <parameter key="paginator">@EasyAdmin/default/paginator.html.twig</parameter>
+            <parameter key="field_array">@EasyAdmin/default/field_array.html.twig</parameter>
+            <parameter key="field_association">@EasyAdmin/default/field_association.html.twig</parameter>
+            <parameter key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</parameter>
+            <parameter key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</parameter>
+            <parameter key="field_date">@EasyAdmin/default/field_date.html.twig</parameter>
+            <parameter key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</parameter>
+            <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
+            <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
+            <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
+            <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
+            <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
+            <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
+            <parameter key="field_string">@EasyAdmin/default/field_string.html.twig</parameter>
+            <parameter key="field_text">@EasyAdmin/default/field_text.html.twig</parameter>
+            <parameter key="field_time">@EasyAdmin/default/field_time.html.twig</parameter>
+            <parameter key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</parameter>
+            <parameter key="label_empty">@EasyAdmin/default/label_empty.html.twig</parameter>
+            <parameter key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</parameter>
+            <parameter key="label_null">@EasyAdmin/default/label_null.html.twig</parameter>
+            <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="design" type="collection">
+        <parameter key="assets" type="collection">
+          <parameter key="css" type="collection"/>
+          <parameter key="js" type="collection"/>
+        </parameter>
+        <parameter key="theme">default</parameter>
+        <parameter key="color_scheme">dark</parameter>
+        <parameter key="brand_color">#E67E22</parameter>
+        <parameter key="form_theme" type="collection">
+          <parameter>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</parameter>
+        </parameter>
+      </parameter>
+      <parameter key="site_name">Easy Admin</parameter>
+      <parameter key="formats" type="collection">
+        <parameter key="date">Y-m-d</parameter>
+        <parameter key="time">H:i:s</parameter>
+        <parameter key="datetime">F j, Y H:i</parameter>
+      </parameter>
+      <parameter key="disabled_actions" type="collection"/>
+      <parameter key="list" type="collection">
+        <parameter key="actions" type="collection"/>
+        <parameter key="max_results">15</parameter>
+      </parameter>
+      <parameter key="edit" type="collection">
+        <parameter key="actions" type="collection"/>
+      </parameter>
+      <parameter key="new" type="collection">
+        <parameter key="actions" type="collection"/>
+      </parameter>
+      <parameter key="show" type="collection">
+        <parameter key="actions" type="collection"/>
+      </parameter>
+    </parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -671,6 +853,10 @@
         <parameter>db</parameter>
         <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
+      <parameter key="easyadmin.data_collector" type="collection">
+        <parameter>easyadmin</parameter>
+        <parameter>@EasyAdmin/data_collector/easyadmin.html.twig</parameter>
+      </parameter>
       <parameter key="data_collector.dump" type="collection">
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
@@ -697,7 +883,7 @@
     </service>
     <service id="locale_listener" class="Symfony\Component\HttpKernel\EventListener\LocaleListener">
       <tag name="kernel.event_subscriber"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument type="service" id="router" on-invalid="ignore"/>
       <argument type="service" id="request_stack"/>
     </service>
@@ -867,7 +1053,7 @@
         </argument>
       </argument>
       <argument type="collection">
-        <argument key="cache_dir">C:/wamp/www/opticathome.fr/app/cache/dev/translations</argument>
+        <argument key="cache_dir">C:\wamp\www\opticathome.fr\app\cache\dev/translations</argument>
         <argument key="debug">true</argument>
       </argument>
     </service>
@@ -1080,7 +1266,7 @@
     </service>
     <service id="security.secure_random" class="Symfony\Component\Security\Core\Util\SecureRandom">
       <tag name="monolog.logger" channel="security"/>
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev/secure_random.seed</argument>
+      <argument>C:\wamp\www\opticathome.fr\app\cache\dev/secure_random.seed</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="ignore"/>
     </service>
     <service id="form.resolved_type_factory" class="Symfony\Component\Form\Extension\DataCollector\Proxy\ResolvedTypeFactoryDataCollectorProxy">
@@ -1126,7 +1312,7 @@
               <argument key="reset">form.type.reset</argument>
               <argument key="currency">form.type.currency</argument>
               <argument key="entity">form.type.entity</argument>
-              <argument key="ckeditor">oah_news.ckeditor</argument>
+              <argument key="ckeditor">ivory_ck_editor.form.type</argument>
             </argument>
             <argument type="collection">
               <argument key="form" type="collection">
@@ -1295,7 +1481,7 @@
     <service id="templating.filename_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateFilenameParser"/>
     <service id="templating.locator" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator" public="false">
       <argument type="service" id="file_locator"/>
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev</argument>
+      <argument>C:\wamp\www\opticathome.fr\app\cache\dev</argument>
     </service>
     <service id="templating.helper.slots" class="Symfony\Component\Templating\Helper\SlotsHelper">
       <tag name="templating.helper" alias="slots"/>
@@ -1424,7 +1610,7 @@
       <tag name="monolog.logger" channel="profiler"/>
       <argument type="service">
         <service class="Symfony\Component\HttpKernel\Profiler\FileProfilerStorage" public="false">
-          <argument>file:C:/wamp/www/opticathome.fr/app/cache/dev/profiler</argument>
+          <argument>file:C:\wamp\www\opticathome.fr\app\cache\dev/profiler</argument>
           <argument></argument>
           <argument></argument>
           <argument>86400</argument>
@@ -1522,6 +1708,14 @@
               <argument>default</argument>
               <argument type="service" id="doctrine.dbal.logger.profiling.default"/>
             </call>
+          </service>
+        </argument>
+      </call>
+      <call method="add">
+        <argument type="service">
+          <service class="JavierEguiluz\Bundle\EasyAdminBundle\DataCollector\EasyAdminDataCollector" public="false">
+            <tag name="data_collector" template="@EasyAdmin/data_collector/easyadmin.html.twig" id="easyadmin"/>
+            <argument type="service" id="easyadmin.configurator"/>
           </service>
         </argument>
       </call>
@@ -1681,6 +1875,14 @@
         <argument type="collection">
           <argument>assetic.request_listener</argument>
           <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument>easyadmin.listener.exception</argument>
+          <argument>onKernelException</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -2143,7 +2345,7 @@
           <argument>Symfony\Bundle\TwigBundle\TwigDefaultEscapingStrategy</argument>
           <argument>guess</argument>
         </argument>
-        <argument key="cache">C:/wamp/www/opticathome.fr/app/cache/dev/twig</argument>
+        <argument key="cache">C:\wamp\www\opticathome.fr\app\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="paths" type="collection"/>
       </argument>
@@ -2249,6 +2451,7 @@
                 <argument type="service">
                   <service class="Symfony\Bridge\Twig\Form\TwigRendererEngine" public="false">
                     <argument type="collection">
+                      <argument>IvoryCKEditorBundle:Form:ckeditor_widget.html.twig</argument>
                       <argument>form_div_layout.html.twig</argument>
                     </argument>
                   </service>
@@ -2290,6 +2493,18 @@
             <tag name="twig.extension"/>
           </service>
         </argument>
+      </call>
+      <call method="addExtension">
+        <argument type="service">
+          <service class="JavierEguiluz\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension" public="false">
+            <tag name="twig.extension"/>
+            <argument type="service" id="easyadmin.configurator"/>
+            <argument>true</argument>
+          </service>
+        </argument>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="ivory_ck_editor.twig_extension"/>
       </call>
       <call method="addExtension">
         <argument type="service">
@@ -2392,7 +2607,7 @@
             </argument>
             <argument type="service">
               <service class="Assetic\Cache\ConfigCache" public="false">
-                <argument>C:/wamp/www/opticathome.fr/app/cache/dev/assetic/config</argument>
+                <argument>C:\wamp\www\opticathome.fr\app\cache\dev/assetic/config</argument>
               </service>
             </argument>
             <argument>true</argument>
@@ -2434,15 +2649,15 @@
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
     </service>
-    <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController" scope="prototype">
-      <argument type="service" id="request"/>
+    <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController">
       <argument type="service" id="assetic.asset_manager"/>
-      <argument type="service" id="assetic.cache"/>
+      <argument type="service">
+        <service class="Assetic\Cache\FilesystemCache" public="false">
+          <argument>C:\wamp\www\opticathome.fr\app\cache\dev/assetic/assets</argument>
+        </service>
+      </argument>
       <argument>false</argument>
       <argument type="service" id="profiler" on-invalid="null"/>
-    </service>
-    <service id="assetic.cache" class="Assetic\Cache\FilesystemCache" public="false">
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev/assetic/assets</argument>
     </service>
     <service id="assetic.request_listener" class="Symfony\Bundle\AsseticBundle\EventListener\RequestListener">
       <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
@@ -2565,6 +2780,7 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="OAHNewsBundle">OAH\NewsBundle\Entity</argument>
+              <argument key="OAHDevisBundle">OAH\DevisBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -2585,16 +2801,29 @@
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
                         <argument>C:\wamp\www\opticathome.fr\src\OAH\NewsBundle\Entity</argument>
+                        <argument>C:\wamp\www\opticathome.fr\src\OAH\DevisBundle\Entity</argument>
                       </argument>
                     </service>
                   </argument>
                   <argument>OAH\NewsBundle\Entity</argument>
                 </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\wamp\www\opticathome.fr\src\OAH\NewsBundle\Entity</argument>
+                        <argument>C:\wamp\www\opticathome.fr\src\OAH\DevisBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>OAH\DevisBundle\Entity</argument>
+                </call>
               </service>
             </argument>
           </call>
           <call method="setProxyDir">
-            <argument>C:/wamp/www/opticathome.fr/app/cache/dev/doctrine/orm/Proxies</argument>
+            <argument>C:\wamp\www\opticathome.fr\app\cache\dev/doctrine/orm/Proxies</argument>
           </call>
           <call method="setProxyNamespace">
             <argument>Proxies</argument>
@@ -2677,7 +2906,7 @@
     </service>
     <service id="oah_news_antispam" class="OAH\NewsBundle\Antispam\OAHAntispam">
       <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument>50</argument>
     </service>
     <service id="oah_news.ckeditor" class="OAH\NewsBundle\Form\Type\CkeditorType">
@@ -2698,6 +2927,217 @@
         </service>
       </argument>
       <argument>Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo</argument>
+    </service>
+    <service id="easyadmin.configurator" class="JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator">
+      <argument type="collection">
+        <argument key="entities" type="collection">
+          <argument key="Article" type="collection">
+            <argument key="class">OAH\NewsBundle\Entity\Article</argument>
+            <argument key="label">Article</argument>
+            <argument key="name">Article</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+        </argument>
+        <argument key="design" type="collection">
+          <argument key="assets" type="collection">
+            <argument key="css" type="collection"/>
+            <argument key="js" type="collection"/>
+          </argument>
+          <argument key="theme">default</argument>
+          <argument key="color_scheme">dark</argument>
+          <argument key="brand_color">#E67E22</argument>
+          <argument key="form_theme" type="collection">
+            <argument>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</argument>
+          </argument>
+        </argument>
+        <argument key="site_name">Easy Admin</argument>
+        <argument key="formats" type="collection">
+          <argument key="date">Y-m-d</argument>
+          <argument key="time">H:i:s</argument>
+          <argument key="datetime">F j, Y H:i</argument>
+        </argument>
+        <argument key="disabled_actions" type="collection"/>
+        <argument key="list" type="collection">
+          <argument key="actions" type="collection"/>
+          <argument key="max_results">15</argument>
+        </argument>
+        <argument key="edit" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+        <argument key="new" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+        <argument key="show" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+      </argument>
+      <argument type="service">
+        <service class="JavierEguiluz\Bundle\EasyAdminBundle\Reflection\EntityMetadataInspector" public="false">
+          <argument type="service" id="doctrine"/>
+        </service>
+      </argument>
+      <argument type="service">
+        <service class="JavierEguiluz\Bundle\EasyAdminBundle\Reflection\ClassPropertyReflector" public="false"/>
+      </argument>
+    </service>
+    <service id="easyadmin.listener.exception" class="JavierEguiluz\Bundle\EasyAdminBundle\Listener\ExceptionListener">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
+      <argument type="service" id="templating"/>
+      <argument>true</argument>
+    </service>
+    <service id="ivory_ck_editor.form.type" class="Ivory\CKEditorBundle\Form\Type\CKEditorType">
+      <tag name="form.type" alias="ckeditor"/>
+      <argument type="service" id="ivory_ck_editor.config_manager"/>
+      <argument type="service" id="ivory_ck_editor.plugin_manager"/>
+      <argument type="service" id="ivory_ck_editor.styles_set_manager"/>
+      <argument type="service" id="ivory_ck_editor.template_manager"/>
+    </service>
+    <service id="ivory_ck_editor.config_manager" class="Ivory\CKEditorBundle\Model\ConfigManager"/>
+    <service id="ivory_ck_editor.plugin_manager" class="Ivory\CKEditorBundle\Model\PluginManager"/>
+    <service id="ivory_ck_editor.styles_set_manager" class="Ivory\CKEditorBundle\Model\StylesSetManager"/>
+    <service id="ivory_ck_editor.template_manager" class="Ivory\CKEditorBundle\Model\TemplateManager"/>
+    <service id="ivory_ck_editor.templating.helper" class="Ivory\CKEditorBundle\Templating\CKEditorHelper">
+      <tag name="templating.helper" alias="ivory_ckeditor"/>
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="ivory_ck_editor.twig_extension" class="Ivory\CKEditorBundle\Twig\CKEditorExtension">
+      <tag name="twig.extension"/>
+      <argument type="service" id="ivory_ck_editor.templating.helper"/>
     </service>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig"/>
@@ -2780,6 +3220,10 @@
         <argument key="data_collector.doctrine" type="collection">
           <argument>db</argument>
           <argument>@Doctrine/Collector/db.html.twig</argument>
+        </argument>
+        <argument key="easyadmin.data_collector" type="collection">
+          <argument>easyadmin</argument>
+          <argument>@EasyAdmin/data_collector/easyadmin.html.twig</argument>
         </argument>
         <argument key="data_collector.dump" type="collection">
           <argument>dump</argument>
@@ -2956,7 +3400,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.filesystem" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage">
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev/sessions</argument>
+      <argument>C:\wamp\www\opticathome.fr\app\cache\dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service" id="session.storage.metadata_bag"/>
     </service>
@@ -2987,6 +3431,7 @@
           <argument key="logout_url">templating.helper.logout_url</argument>
           <argument key="security">templating.helper.security</argument>
           <argument key="assetic">assetic.helper.dynamic</argument>
+          <argument key="ivory_ckeditor">ivory_ck_editor.templating.helper</argument>
         </argument>
       </call>
     </service>
@@ -2999,9 +3444,9 @@
     <service id="router" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
       <tag name="monolog.logger" channel="router"/>
       <argument type="service" id="service_container"/>
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev/assetic/routing.yml</argument>
+      <argument>C:\wamp\www\opticathome.fr\app\cache\dev/assetic/routing.yml</argument>
       <argument type="collection">
-        <argument key="cache_dir">C:/wamp/www/opticathome.fr/app/cache/dev</argument>
+        <argument key="cache_dir">C:\wamp\www\opticathome.fr\app\cache\dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
         <argument key="generator_base_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
@@ -3021,7 +3466,7 @@
       <argument type="service">
         <service class="Doctrine\Common\Annotations\AnnotationReader" public="false"/>
       </argument>
-      <argument>C:/wamp/www/opticathome.fr/app/cache/dev/annotations</argument>
+      <argument>C:\wamp\www\opticathome.fr\app\cache\dev/annotations</argument>
       <argument>true</argument>
     </service>
     <service id="security.encoder_factory" class="Symfony\Component\Security\Core\Encoder\EncoderFactory">
@@ -3068,6 +3513,18 @@
       <call method="addPath">
         <argument>C:\wamp\www\opticathome.fr\src\OAH\CoreBundle/Resources/views</argument>
         <argument>OAHCore</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp\www\opticathome.fr\src\OAH\DevisBundle/Resources/views</argument>
+        <argument>OAHDevis</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp\www\opticathome.fr\vendor\javiereguiluz\easyadmin-bundle/Resources/views</argument>
+        <argument>EasyAdmin</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp\www\opticathome.fr\vendor\egeloen\ckeditor-bundle/Resources/views</argument>
+        <argument>IvoryCKEditor</argument>
       </call>
       <call method="addPath">
         <argument>C:\wamp\www\opticathome.fr\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>
@@ -3131,26 +3588,26 @@
               </argument>
             </argument>
             <call method="setUsername">
-              <argument>null</argument>
+              <argument>guiardjulien@gmail.com</argument>
             </call>
             <call method="setPassword">
-              <argument>null</argument>
+              <argument>nevermind17</argument>
             </call>
             <call method="setAuthMode">
-              <argument>null</argument>
+              <argument>login</argument>
             </call>
           </service>
         </argument>
       </argument>
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <call method="setHost">
-        <argument>127.0.0.1</argument>
+        <argument>smtp.gmail.com</argument>
       </call>
       <call method="setPort">
-        <argument>25</argument>
+        <argument>465</argument>
       </call>
       <call method="setEncryption">
-        <argument>null</argument>
+        <argument>ssl</argument>
       </call>
       <call method="setTimeout">
         <argument>30</argument>
@@ -3175,5 +3632,6 @@
     <service id="doctrine.orm.default_query_cache" alias="doctrine_cache.providers.doctrine.orm.default_query_cache"/>
     <service id="sensio.distribution.webconfigurator" alias="sensio_distribution.webconfigurator"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>
+    <service id="assets.packages" alias="templating.helper.assets"/>
   </services>
 </container>

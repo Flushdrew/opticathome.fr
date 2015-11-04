@@ -1,3 +1,7 @@
 oah_core_homepage:
     path:     /
     defaults: { _controller: OAHCoreBundle:Core:index }
+
+oah_core_presse:
+    path: /presse
+    defaults: { _controller: OAHCoreBundle:Core:presse }

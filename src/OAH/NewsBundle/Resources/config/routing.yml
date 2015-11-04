@@ -25,5 +25,7 @@ OAHNews_supprimer:
         id: \d+
 
 OAHNews_categorie:
-    path:    /categorie/{slug}
-    defaults: { _controller: OAHNewsBundle:News:categorie }
+    path:    /categorie/{slug}/{page}
+    defaults: { _controller: OAHNewsBundle:News:categorie , page: 1 }
+    requirements:
+        page: \d*

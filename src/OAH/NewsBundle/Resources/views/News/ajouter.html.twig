@@ -15,8 +15,7 @@
     <div class="flash-notice">
         {{ flashMessage }}
     </div>
-
-{% endfor %}
+	{% endfor %}
 
 
 <p>
@@ -39,5 +38,12 @@
 		Retour aux news
 	</a>
 </p>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/cropit-master/dist/jquery.cropit.js') }}"></script>
+
+<script>
+$('.image-cropper').cropit();
+</script>
 
 {% endblock %}

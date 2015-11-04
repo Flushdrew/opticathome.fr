@@ -1,6 +1,15 @@
+oah_devis:
+    resource: "@OAHDevisBundle/Resources/config/routing.yml"
+    prefix:   /
+
 oahnews:
     resource: "@OAHNewsBundle/Resources/config/routing.yml"
     prefix:    /News
 
 oahcore:
     resource: "@OAHCoreBundle/resources/config/routing.yml"
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin

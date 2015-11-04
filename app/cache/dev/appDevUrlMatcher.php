@@ -127,6 +127,15 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // oah_devis_homepage
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'oah_devis_homepage');
+            }
+
+            return array (  '_controller' => 'OAH\\DevisBundle\\Controller\\DevisController::DevisAction',  '_route' => 'oah_devis_homepage',);
+        }
+
         if (0 === strpos($pathinfo, '/News')) {
             // OAHNews_accueil
             if (preg_match('#^/News(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
@@ -157,8 +166,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             // OAHNews_categorie
-            if (0 === strpos($pathinfo, '/News/categorie') && preg_match('#^/News/categorie/(?P<slug>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_categorie')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::categorieAction',));
+            if (0 === strpos($pathinfo, '/News/categorie') && preg_match('#^/News/categorie/(?P<slug>[^/]++)(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_categorie')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::categorieAction',  'page' => 1,));
             }
 
         }
@@ -170,6 +179,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             return array (  '_controller' => 'OAH\\CoreBundle\\Controller\\CoreController::indexAction',  '_route' => 'oah_core_homepage',);
+        }
+
+        // oah_core_presse
+        if ($pathinfo === '/presse') {
+            return array (  '_controller' => 'OAH\\CoreBundle\\Controller\\CoreController::presseAction',  '_route' => 'oah_core_presse',);
+        }
+
+        if (0 === strpos($pathinfo, '/admin')) {
+            // admin
+            if (rtrim($pathinfo, '/') === '/admin') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'admin');
+                }
+
+                return array (  '_controller' => 'JavierEguiluz\\Bundle\\EasyAdminBundle\\Controller\\AdminController::indexAction',  '_route' => 'admin',);
+            }
+
+            // _easyadmin_render_css
+            if ($pathinfo === '/admin/_css/admin.css') {
+                return array (  '_controller' => 'JavierEguiluz\\Bundle\\EasyAdminBundle\\Controller\\AdminController::renderCssAction',  '_route' => '_easyadmin_render_css',);
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

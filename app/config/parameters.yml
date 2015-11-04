@@ -6,9 +6,9 @@ parameters:
     database_name: opticathome
     database_user: root
     database_password: null
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
-    locale: en
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: guiardjulien@gmail.com
+    mailer_password: nevermind17
+    locale: fr
     secret: ThisTokenIsNotSoSecretChangeIt

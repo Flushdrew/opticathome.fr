@@ -10,4 +10,9 @@ class CoreController extends Controller
     {
         return $this->render('OAHCoreBundle:Core:Layout.html.twig');
     }
+
+    public function presseAction()
+    {
+    	return $this->render('OAHCoreBundle:Core:presse.html.twig');
+    }
 }

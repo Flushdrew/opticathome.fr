@@ -1,7 +1,7 @@
 <ul class="nav nav-pills nav-stacked">
   {% for categorie in listCategories %}
     <li class='menu'>
-      <a class="titre_article" href="{{ path('OAHNews_categorie', {'slug': categorie.slug}) }}">
+      <a class="titre_article normalLink" href="{{ path('OAHNews_categorie', {'slug': categorie.slug}) }}">
         {{ categorie.nom }}
       </a>
     </li>

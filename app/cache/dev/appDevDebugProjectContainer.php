@@ -39,7 +39,6 @@ class appDevDebugProjectContainer extends Container
             'annotation_reader' => 'getAnnotationReaderService',
             'assetic.asset_factory' => 'getAssetic_AssetFactoryService',
             'assetic.asset_manager' => 'getAssetic_AssetManagerService',
-            'assetic.cache' => 'getAssetic_CacheService',
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
@@ -71,6 +70,8 @@ class appDevDebugProjectContainer extends Container
             'doctrine_cache.providers.doctrine.orm.default_metadata_cache' => 'getDoctrineCache_Providers_Doctrine_Orm_DefaultMetadataCacheService',
             'doctrine_cache.providers.doctrine.orm.default_query_cache' => 'getDoctrineCache_Providers_Doctrine_Orm_DefaultQueryCacheService',
             'doctrine_cache.providers.doctrine.orm.default_result_cache' => 'getDoctrineCache_Providers_Doctrine_Orm_DefaultResultCacheService',
+            'easyadmin.configurator' => 'getEasyadmin_ConfiguratorService',
+            'easyadmin.listener.exception' => 'getEasyadmin_Listener_ExceptionService',
             'file_locator' => 'getFileLocatorService',
             'filesystem' => 'getFilesystemService',
             'form.csrf_provider' => 'getForm_CsrfProviderService',
@@ -123,6 +124,13 @@ class appDevDebugProjectContainer extends Container
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
             'fragment.renderer.ssi' => 'getFragment_Renderer_SsiService',
             'http_kernel' => 'getHttpKernelService',
+            'ivory_ck_editor.config_manager' => 'getIvoryCkEditor_ConfigManagerService',
+            'ivory_ck_editor.form.type' => 'getIvoryCkEditor_Form_TypeService',
+            'ivory_ck_editor.plugin_manager' => 'getIvoryCkEditor_PluginManagerService',
+            'ivory_ck_editor.styles_set_manager' => 'getIvoryCkEditor_StylesSetManagerService',
+            'ivory_ck_editor.template_manager' => 'getIvoryCkEditor_TemplateManagerService',
+            'ivory_ck_editor.templating.helper' => 'getIvoryCkEditor_Templating_HelperService',
+            'ivory_ck_editor.twig_extension' => 'getIvoryCkEditor_TwigExtensionService',
             'kernel' => 'getKernelService',
             'locale_listener' => 'getLocaleListenerService',
             'logger' => 'getLoggerService',
@@ -268,6 +276,7 @@ class appDevDebugProjectContainer extends Container
             'web_profiler.debug_toolbar' => 'getWebProfiler_DebugToolbarService',
         );
         $this->aliases = array(
+            'assets.packages' => 'templating.helper.assets',
             'console.command.sensiolabs_security_command_securitycheckercommand' => 'sensio_distribution.security_checker.command',
             'database_connection' => 'doctrine.dbal.default_connection',
             'debug.templating.engine.twig' => 'templating',
@@ -328,11 +337,14 @@ class appDevDebugProjectContainer extends Container
     /**
      * Gets the 'assetic.controller' service.
      *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
      * @return \Symfony\Bundle\AsseticBundle\Controller\AsseticController A Symfony\Bundle\AsseticBundle\Controller\AsseticController instance.
      */
     protected function getAssetic_ControllerService()
     {
-        return new \Symfony\Bundle\AsseticBundle\Controller\AsseticController($this->get('request'), $this->get('assetic.asset_manager'), $this->get('assetic.cache'), false, $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['assetic.controller'] = new \Symfony\Bundle\AsseticBundle\Controller\AsseticController($this->get('assetic.asset_manager'), new \Assetic\Cache\FilesystemCache((__DIR__.'/assetic/assets')), false, $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -523,6 +535,7 @@ class appDevDebugProjectContainer extends Container
 
         $instance->addListenerService('kernel.controller', array(0 => 'data_collector.router', 1 => 'onKernelController'), 0);
         $instance->addListenerService('kernel.request', array(0 => 'assetic.request_listener', 1 => 'onKernelRequest'), 0);
+        $instance->addListenerService('kernel.exception', array(0 => 'easyadmin.listener.exception', 1 => 'onKernelException'), 0);
         $instance->addSubscriberService('response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener');
         $instance->addSubscriberService('streamed_response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener');
         $instance->addSubscriberService('locale_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener');
@@ -577,7 +590,7 @@ class appDevDebugProjectContainer extends Container
         $this->services['debug.templating.engine.php'] = $instance = new \Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine($this->get('templating.name_parser'), $this, $this->get('templating.loader'), $this->get('debug.stopwatch'), $this->get('templating.globals'));
 
         $instance->setCharset('UTF-8');
-        $instance->setHelpers(array('slots' => 'templating.helper.slots', 'assets' => 'templating.helper.assets', 'request' => 'templating.helper.request', 'session' => 'templating.helper.session', 'router' => 'templating.helper.router', 'actions' => 'templating.helper.actions', 'code' => 'templating.helper.code', 'translator' => 'templating.helper.translator', 'form' => 'templating.helper.form', 'stopwatch' => 'templating.helper.stopwatch', 'logout_url' => 'templating.helper.logout_url', 'security' => 'templating.helper.security', 'assetic' => 'assetic.helper.dynamic'));
+        $instance->setHelpers(array('slots' => 'templating.helper.slots', 'assets' => 'templating.helper.assets', 'request' => 'templating.helper.request', 'session' => 'templating.helper.session', 'router' => 'templating.helper.router', 'actions' => 'templating.helper.actions', 'code' => 'templating.helper.code', 'translator' => 'templating.helper.translator', 'form' => 'templating.helper.form', 'stopwatch' => 'templating.helper.stopwatch', 'logout_url' => 'templating.helper.logout_url', 'security' => 'templating.helper.security', 'assetic' => 'assetic.helper.dynamic', 'ivory_ckeditor' => 'ivory_ck_editor.templating.helper'));
 
         return $instance;
     }
@@ -658,25 +671,30 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
-        $a = new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-        $a->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => ($this->targetDirs[3].'\\src\\OAH\\NewsBundle\\Entity'))), 'OAH\\NewsBundle\\Entity');
+        $a = $this->get('annotation_reader');
 
-        $b = new \Doctrine\ORM\Configuration();
-        $b->setEntityNamespaces(array('OAHNewsBundle' => 'OAH\\NewsBundle\\Entity'));
-        $b->setMetadataCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_metadata_cache'));
-        $b->setQueryCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_query_cache'));
-        $b->setResultCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_result_cache'));
-        $b->setMetadataDriverImpl($a);
-        $b->setProxyDir((__DIR__.'/doctrine/orm/Proxies'));
-        $b->setProxyNamespace('Proxies');
-        $b->setAutoGenerateProxyClasses(true);
-        $b->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $b->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $b->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
-        $b->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
-        $b->setEntityListenerResolver($this->get('doctrine.orm.default_entity_listener_resolver'));
+        $b = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => ($this->targetDirs[3].'\\src\\OAH\\NewsBundle\\Entity'), 1 => ($this->targetDirs[3].'\\src\\OAH\\DevisBundle\\Entity')));
 
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $b);
+        $c = new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
+        $c->addDriver($b, 'OAH\\NewsBundle\\Entity');
+        $c->addDriver($b, 'OAH\\DevisBundle\\Entity');
+
+        $d = new \Doctrine\ORM\Configuration();
+        $d->setEntityNamespaces(array('OAHNewsBundle' => 'OAH\\NewsBundle\\Entity', 'OAHDevisBundle' => 'OAH\\DevisBundle\\Entity'));
+        $d->setMetadataCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_metadata_cache'));
+        $d->setQueryCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_query_cache'));
+        $d->setResultCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_result_cache'));
+        $d->setMetadataDriverImpl($c);
+        $d->setProxyDir((__DIR__.'/doctrine/orm/Proxies'));
+        $d->setProxyNamespace('Proxies');
+        $d->setAutoGenerateProxyClasses(true);
+        $d->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $d->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $d->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+        $d->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
+        $d->setEntityListenerResolver($this->get('doctrine.orm.default_entity_listener_resolver'));
+
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $d);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -787,6 +805,32 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'easyadmin.configurator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator A JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator instance.
+     */
+    protected function getEasyadmin_ConfiguratorService()
+    {
+        return $this->services['easyadmin.configurator'] = new \JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator(array('entities' => array('Article' => array('class' => 'OAH\\NewsBundle\\Entity\\Article', 'label' => 'Article', 'name' => 'Article', 'edit' => array('fields' => array(), 'form_options' => array(), 'actions' => array('delete' => array('name' => 'delete', 'type' => 'method', 'label' => 'action.delete', 'class' => '', 'icon' => 'trash'), 'list' => array('name' => 'list', 'type' => 'method', 'label' => 'action.list', 'class' => '', 'icon' => NULL))), 'list' => array('fields' => array(), 'actions' => array('show' => array('name' => 'show', 'type' => 'method', 'label' => 'action.show', 'class' => '', 'icon' => NULL), 'edit' => array('name' => 'edit', 'type' => 'method', 'label' => 'action.edit', 'class' => '', 'icon' => NULL), 'search' => array('name' => 'search', 'type' => 'method', 'label' => 'action.search', 'class' => '', 'icon' => NULL), 'new' => array('name' => 'new', 'type' => 'method', 'label' => 'action.new', 'class' => '', 'icon' => NULL), 'list' => array('name' => 'list', 'type' => 'method', 'label' => 'action.list', 'class' => '', 'icon' => NULL))), 'new' => array('fields' => array(), 'form_options' => array(), 'actions' => array('list' => array('name' => 'list', 'type' => 'method', 'label' => 'action.list', 'class' => '', 'icon' => NULL))), 'search' => array('fields' => array()), 'show' => array('fields' => array(), 'actions' => array('delete' => array('name' => 'delete', 'type' => 'method', 'label' => 'action.delete', 'class' => '', 'icon' => 'trash'), 'list' => array('name' => 'list', 'type' => 'method', 'label' => 'action.list', 'class' => '', 'icon' => NULL), 'edit' => array('name' => 'edit', 'type' => 'method', 'label' => 'action.edit', 'class' => '', 'icon' => 'edit'))), 'disabled_actions' => array(), 'templates' => array('layout' => '@EasyAdmin/default/layout.html.twig', 'edit' => '@EasyAdmin/default/edit.html.twig', 'list' => '@EasyAdmin/default/list.html.twig', 'new' => '@EasyAdmin/default/new.html.twig', 'show' => '@EasyAdmin/default/show.html.twig', 'form' => '@EasyAdmin/default/form.html.twig', 'flash_messages' => '@EasyAdmin/default/flash_messages.html.twig', 'paginator' => '@EasyAdmin/default/paginator.html.twig', 'field_array' => '@EasyAdmin/default/field_array.html.twig', 'field_association' => '@EasyAdmin/default/field_association.html.twig', 'field_bigint' => '@EasyAdmin/default/field_bigint.html.twig', 'field_boolean' => '@EasyAdmin/default/field_boolean.html.twig', 'field_date' => '@EasyAdmin/default/field_date.html.twig', 'field_datetime' => '@EasyAdmin/default/field_datetime.html.twig', 'field_datetimetz' => '@EasyAdmin/default/field_datetimetz.html.twig', 'field_decimal' => '@EasyAdmin/default/field_decimal.html.twig', 'field_float' => '@EasyAdmin/default/field_float.html.twig', 'field_id' => '@EasyAdmin/default/field_id.html.twig', 'field_image' => '@EasyAdmin/default/field_image.html.twig', 'field_integer' => '@EasyAdmin/default/field_integer.html.twig', 'field_raw' => '@EasyAdmin/default/field_raw.html.twig', 'field_simple_array' => '@EasyAdmin/default/field_simple_array.html.twig', 'field_smallint' => '@EasyAdmin/default/field_smallint.html.twig', 'field_string' => '@EasyAdmin/default/field_string.html.twig', 'field_text' => '@EasyAdmin/default/field_text.html.twig', 'field_time' => '@EasyAdmin/default/field_time.html.twig', 'field_toggle' => '@EasyAdmin/default/field_toggle.html.twig', 'label_empty' => '@EasyAdmin/default/label_empty.html.twig', 'label_inaccessible' => '@EasyAdmin/default/label_inaccessible.html.twig', 'label_null' => '@EasyAdmin/default/label_null.html.twig', 'label_undefined' => '@EasyAdmin/default/label_undefined.html.twig'))), 'design' => array('assets' => array('css' => array(), 'js' => array()), 'theme' => 'default', 'color_scheme' => 'dark', 'brand_color' => '#E67E22', 'form_theme' => array(0 => '@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig')), 'site_name' => 'Easy Admin', 'formats' => array('date' => 'Y-m-d', 'time' => 'H:i:s', 'datetime' => 'F j, Y H:i'), 'disabled_actions' => array(), 'list' => array('actions' => array(), 'max_results' => 15), 'edit' => array('actions' => array()), 'new' => array('actions' => array()), 'show' => array('actions' => array())), new \JavierEguiluz\Bundle\EasyAdminBundle\Reflection\EntityMetadataInspector($this->get('doctrine')), new \JavierEguiluz\Bundle\EasyAdminBundle\Reflection\ClassPropertyReflector());
+    }
+
+    /**
+     * Gets the 'easyadmin.listener.exception' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \JavierEguiluz\Bundle\EasyAdminBundle\Listener\ExceptionListener A JavierEguiluz\Bundle\EasyAdminBundle\Listener\ExceptionListener instance.
+     */
+    protected function getEasyadmin_Listener_ExceptionService()
+    {
+        return $this->services['easyadmin.listener.exception'] = new \JavierEguiluz\Bundle\EasyAdminBundle\Listener\ExceptionListener($this->get('templating'), true);
+    }
+
+    /**
      * Gets the 'file_locator' service.
      *
      * This service is shared.
@@ -848,7 +892,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getForm_RegistryService()
     {
-        return $this->services['form.registry'] = new \Symfony\Component\Form\FormRegistry(array(0 => new \Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension($this, array('form' => 'form.type.form', 'birthday' => 'form.type.birthday', 'checkbox' => 'form.type.checkbox', 'choice' => 'form.type.choice', 'collection' => 'form.type.collection', 'country' => 'form.type.country', 'date' => 'form.type.date', 'datetime' => 'form.type.datetime', 'email' => 'form.type.email', 'file' => 'form.type.file', 'hidden' => 'form.type.hidden', 'integer' => 'form.type.integer', 'language' => 'form.type.language', 'locale' => 'form.type.locale', 'money' => 'form.type.money', 'number' => 'form.type.number', 'password' => 'form.type.password', 'percent' => 'form.type.percent', 'radio' => 'form.type.radio', 'repeated' => 'form.type.repeated', 'search' => 'form.type.search', 'textarea' => 'form.type.textarea', 'text' => 'form.type.text', 'time' => 'form.type.time', 'timezone' => 'form.type.timezone', 'url' => 'form.type.url', 'button' => 'form.type.button', 'submit' => 'form.type.submit', 'reset' => 'form.type.reset', 'currency' => 'form.type.currency', 'entity' => 'form.type.entity', 'ckeditor' => 'oah_news.ckeditor'), array('form' => array(0 => 'form.type_extension.form.http_foundation', 1 => 'form.type_extension.form.validator', 2 => 'form.type_extension.csrf', 3 => 'form.type_extension.form.data_collector'), 'repeated' => array(0 => 'form.type_extension.repeated.validator'), 'submit' => array(0 => 'form.type_extension.submit.validator')), array(0 => 'form.type_guesser.validator', 1 => 'form.type_guesser.doctrine'))), $this->get('form.resolved_type_factory'));
+        return $this->services['form.registry'] = new \Symfony\Component\Form\FormRegistry(array(0 => new \Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension($this, array('form' => 'form.type.form', 'birthday' => 'form.type.birthday', 'checkbox' => 'form.type.checkbox', 'choice' => 'form.type.choice', 'collection' => 'form.type.collection', 'country' => 'form.type.country', 'date' => 'form.type.date', 'datetime' => 'form.type.datetime', 'email' => 'form.type.email', 'file' => 'form.type.file', 'hidden' => 'form.type.hidden', 'integer' => 'form.type.integer', 'language' => 'form.type.language', 'locale' => 'form.type.locale', 'money' => 'form.type.money', 'number' => 'form.type.number', 'password' => 'form.type.password', 'percent' => 'form.type.percent', 'radio' => 'form.type.radio', 'repeated' => 'form.type.repeated', 'search' => 'form.type.search', 'textarea' => 'form.type.textarea', 'text' => 'form.type.text', 'time' => 'form.type.time', 'timezone' => 'form.type.timezone', 'url' => 'form.type.url', 'button' => 'form.type.button', 'submit' => 'form.type.submit', 'reset' => 'form.type.reset', 'currency' => 'form.type.currency', 'entity' => 'form.type.entity', 'ckeditor' => 'ivory_ck_editor.form.type'), array('form' => array(0 => 'form.type_extension.form.http_foundation', 1 => 'form.type_extension.form.validator', 2 => 'form.type_extension.csrf', 3 => 'form.type_extension.form.data_collector'), 'repeated' => array(0 => 'form.type_extension.repeated.validator'), 'submit' => array(0 => 'form.type_extension.submit.validator')), array(0 => 'form.type_guesser.validator', 1 => 'form.type_guesser.doctrine'))), $this->get('form.resolved_type_factory'));
     }
 
     /**
@@ -1486,6 +1530,97 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'ivory_ck_editor.config_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Model\ConfigManager A Ivory\CKEditorBundle\Model\ConfigManager instance.
+     */
+    protected function getIvoryCkEditor_ConfigManagerService()
+    {
+        return $this->services['ivory_ck_editor.config_manager'] = new \Ivory\CKEditorBundle\Model\ConfigManager();
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.form.type' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Form\Type\CKEditorType A Ivory\CKEditorBundle\Form\Type\CKEditorType instance.
+     */
+    protected function getIvoryCkEditor_Form_TypeService()
+    {
+        return $this->services['ivory_ck_editor.form.type'] = new \Ivory\CKEditorBundle\Form\Type\CKEditorType($this->get('ivory_ck_editor.config_manager'), $this->get('ivory_ck_editor.plugin_manager'), $this->get('ivory_ck_editor.styles_set_manager'), $this->get('ivory_ck_editor.template_manager'));
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.plugin_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Model\PluginManager A Ivory\CKEditorBundle\Model\PluginManager instance.
+     */
+    protected function getIvoryCkEditor_PluginManagerService()
+    {
+        return $this->services['ivory_ck_editor.plugin_manager'] = new \Ivory\CKEditorBundle\Model\PluginManager();
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.styles_set_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Model\StylesSetManager A Ivory\CKEditorBundle\Model\StylesSetManager instance.
+     */
+    protected function getIvoryCkEditor_StylesSetManagerService()
+    {
+        return $this->services['ivory_ck_editor.styles_set_manager'] = new \Ivory\CKEditorBundle\Model\StylesSetManager();
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.template_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Model\TemplateManager A Ivory\CKEditorBundle\Model\TemplateManager instance.
+     */
+    protected function getIvoryCkEditor_TemplateManagerService()
+    {
+        return $this->services['ivory_ck_editor.template_manager'] = new \Ivory\CKEditorBundle\Model\TemplateManager();
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.templating.helper' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Templating\CKEditorHelper A Ivory\CKEditorBundle\Templating\CKEditorHelper instance.
+     */
+    protected function getIvoryCkEditor_Templating_HelperService()
+    {
+        return $this->services['ivory_ck_editor.templating.helper'] = new \Ivory\CKEditorBundle\Templating\CKEditorHelper($this);
+    }
+
+    /**
+     * Gets the 'ivory_ck_editor.twig_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ivory\CKEditorBundle\Twig\CKEditorExtension A Ivory\CKEditorBundle\Twig\CKEditorExtension instance.
+     */
+    protected function getIvoryCkEditor_TwigExtensionService()
+    {
+        return $this->services['ivory_ck_editor.twig_extension'] = new \Ivory\CKEditorBundle\Twig\CKEditorExtension($this->get('ivory_ck_editor.templating.helper'));
+    }
+
+    /**
      * Gets the 'kernel' service.
      *
      * This service is shared.
@@ -1508,7 +1643,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getLocaleListenerService()
     {
-        return $this->services['locale_listener'] = new \Symfony\Component\HttpKernel\EventListener\LocaleListener('en', $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('request_stack'));
+        return $this->services['locale_listener'] = new \Symfony\Component\HttpKernel\EventListener\LocaleListener('fr', $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('request_stack'));
     }
 
     /**
@@ -1795,7 +1930,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getOahNewsAntispamService()
     {
-        return $this->services['oah_news_antispam'] = new \OAH\NewsBundle\Antispam\OAHAntispam($this->get('swiftmailer.mailer.default'), 'en', 50);
+        return $this->services['oah_news_antispam'] = new \OAH\NewsBundle\Antispam\OAHAntispam($this->get('swiftmailer.mailer.default'), 'fr', 50);
     }
 
     /**
@@ -1834,6 +1969,7 @@ class appDevDebugProjectContainer extends Container
         $instance->add(new \Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector($this->get('security.token_storage', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->add(new \Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector($this));
         $instance->add($d);
+        $instance->add(new \JavierEguiluz\Bundle\EasyAdminBundle\DataCollector\EasyAdminDataCollector($this->get('easyadmin.configurator')));
         $instance->add($this->get('data_collector.dump'));
 
         return $instance;
@@ -2532,15 +2668,15 @@ class appDevDebugProjectContainer extends Container
     protected function getSwiftmailer_Mailer_Default_Transport_RealService()
     {
         $a = new \Swift_Transport_Esmtp_AuthHandler(array(0 => new \Swift_Transport_Esmtp_Auth_CramMd5Authenticator(), 1 => new \Swift_Transport_Esmtp_Auth_LoginAuthenticator(), 2 => new \Swift_Transport_Esmtp_Auth_PlainAuthenticator()));
-        $a->setUsername(NULL);
-        $a->setPassword(NULL);
-        $a->setAuthMode(NULL);
+        $a->setUsername('guiardjulien@gmail.com');
+        $a->setPassword('nevermind17');
+        $a->setAuthMode('login');
 
         $this->services['swiftmailer.mailer.default.transport.real'] = $instance = new \Swift_Transport_EsmtpTransport(new \Swift_Transport_StreamBuffer(new \Swift_StreamFilters_StringReplacementFilterFactory()), array(0 => $a), $this->get('swiftmailer.mailer.default.transport.eventdispatcher'));
 
-        $instance->setHost('127.0.0.1');
-        $instance->setPort(25);
-        $instance->setEncryption(NULL);
+        $instance->setHost('smtp.gmail.com');
+        $instance->setPort(465);
+        $instance->setEncryption('ssl');
         $instance->setTimeout(30);
         $instance->setSourceIp(NULL);
 
@@ -3214,10 +3350,12 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\StopwatchExtension($this->get('debug.stopwatch', ContainerInterface::NULL_ON_INVALID_REFERENCE), true));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\ExpressionExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'IvoryCKEditorBundle:Form:ckeditor_widget.html.twig', 1 => 'form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), new \Symfony\Bundle\AsseticBundle\DefaultValueSupplier($this)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
+        $instance->addExtension(new \JavierEguiluz\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension($this->get('easyadmin.configurator'), true));
+        $instance->addExtension($this->get('ivory_ck_editor.twig_extension'));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\DumpExtension($this->get('var_dumper.cloner')));
         $instance->addExtension(new \Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension());
         $instance->addGlobal('app', $this->get('templating.globals'));
@@ -3296,6 +3434,9 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath(($this->targetDirs[3].'\\vendor\\doctrine\\doctrine-bundle/Resources/views'), 'Doctrine');
         $instance->addPath(($this->targetDirs[3].'\\src\\OAH\\NewsBundle/Resources/views'), 'OAHNews');
         $instance->addPath(($this->targetDirs[3].'\\src\\OAH\\CoreBundle/Resources/views'), 'OAHCore');
+        $instance->addPath(($this->targetDirs[3].'\\src\\OAH\\DevisBundle/Resources/views'), 'OAHDevis');
+        $instance->addPath(($this->targetDirs[3].'\\vendor\\javiereguiluz\\easyadmin-bundle/Resources/views'), 'EasyAdmin');
+        $instance->addPath(($this->targetDirs[3].'\\vendor\\egeloen\\ckeditor-bundle/Resources/views'), 'IvoryCKEditor');
         $instance->addPath(($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\DebugBundle/Resources/views'), 'Debug');
         $instance->addPath(($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views'), 'WebProfiler');
         $instance->addPath(($this->targetDirs[3].'\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views'), 'SensioDistribution');
@@ -3448,7 +3589,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getWebProfiler_Controller_ProfilerService()
     {
-        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig'), 'data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.ajax' => array(0 => 'ajax', 1 => '@WebProfiler/Collector/ajax.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.form' => array(0 => 'form', 1 => '@WebProfiler/Collector/form.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => '@Security/Collector/security.html.twig'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => '@Swiftmailer/Collector/swiftmailer.html.twig'), 'data_collector.doctrine' => array(0 => 'db', 1 => '@Doctrine/Collector/db.html.twig'), 'data_collector.dump' => array(0 => 'dump', 1 => '@Debug/Profiler/dump.html.twig')), 'bottom');
+        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig'), 'data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.ajax' => array(0 => 'ajax', 1 => '@WebProfiler/Collector/ajax.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.form' => array(0 => 'form', 1 => '@WebProfiler/Collector/form.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => '@Security/Collector/security.html.twig'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => '@Swiftmailer/Collector/swiftmailer.html.twig'), 'data_collector.doctrine' => array(0 => 'db', 1 => '@Doctrine/Collector/db.html.twig'), 'easyadmin.data_collector' => array(0 => 'easyadmin', 1 => '@EasyAdmin/data_collector/easyadmin.html.twig'), 'data_collector.dump' => array(0 => 'dump', 1 => '@Debug/Profiler/dump.html.twig')), 'bottom');
     }
 
     /**
@@ -3496,23 +3637,6 @@ class appDevDebugProjectContainer extends Container
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
         return $instance;
-    }
-
-    /**
-     * Gets the 'assetic.cache' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * This service is private.
-     * If you want to be able to request this service from the container directly,
-     * make it public, otherwise you might end up with broken code.
-     *
-     * @return \Assetic\Cache\FilesystemCache A Assetic\Cache\FilesystemCache instance.
-     */
-    protected function getAssetic_CacheService()
-    {
-        return $this->services['assetic.cache'] = new \Assetic\Cache\FilesystemCache((__DIR__.'/assetic/assets'));
     }
 
     /**
@@ -3786,7 +3910,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => $this->targetDirs[2],
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'ap_',
+            'kernel.name' => 'app',
             'kernel.cache_dir' => __DIR__,
             'kernel.logs_dir' => ($this->targetDirs[2].'\\logs'),
             'kernel.bundles' => array(
@@ -3801,6 +3925,9 @@ class appDevDebugProjectContainer extends Container
                 'OAHNewsBundle' => 'OAH\\NewsBundle\\OAHNewsBundle',
                 'OAHCoreBundle' => 'OAH\\CoreBundle\\OAHCoreBundle',
                 'StofDoctrineExtensionsBundle' => 'Stof\\DoctrineExtensionsBundle\\StofDoctrineExtensionsBundle',
+                'OAHDevisBundle' => 'OAH\\DevisBundle\\OAHDevisBundle',
+                'EasyAdminBundle' => 'JavierEguiluz\\Bundle\\EasyAdminBundle\\EasyAdminBundle',
+                'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle',
                 'DebugBundle' => 'Symfony\\Bundle\\DebugBundle\\DebugBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -3815,11 +3942,11 @@ class appDevDebugProjectContainer extends Container
             'database_name' => 'opticathome',
             'database_user' => 'root',
             'database_password' => NULL,
-            'mailer_transport' => 'smtp',
-            'mailer_host' => '127.0.0.1',
-            'mailer_user' => NULL,
-            'mailer_password' => NULL,
-            'locale' => 'en',
+            'mailer_transport' => 'gmail',
+            'mailer_host' => NULL,
+            'mailer_user' => 'guiardjulien@gmail.com',
+            'mailer_password' => 'nevermind17',
+            'locale' => 'fr',
             'secret' => 'ThisTokenIsNotSoSecretChangeIt',
             'controller_resolver.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver',
             'controller_name_converter.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerNameParser',
@@ -3877,7 +4004,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.trusted_proxies' => array(
 
             ),
-            'kernel.default_locale' => 'en',
+            'kernel.default_locale' => 'fr',
             'session.class' => 'Symfony\\Component\\HttpFoundation\\Session\\Session',
             'session.flashbag.class' => 'Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBag',
             'session.attribute_bag.class' => 'Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBag',
@@ -4111,7 +4238,8 @@ class appDevDebugProjectContainer extends Container
             'twig.controller.preview_error.class' => 'Symfony\\Bundle\\TwigBundle\\Controller\\PreviewErrorController',
             'twig.exception_listener.controller' => 'twig.controller.exception:showAction',
             'twig.form.resources' => array(
-                0 => 'form_div_layout.html.twig',
+                0 => 'IvoryCKEditorBundle:Form:ckeditor_widget.html.twig',
+                1 => 'form_div_layout.html.twig',
             ),
             'debug.templating.engine.twig.class' => 'Symfony\\Bundle\\TwigBundle\\Debug\\TimedTwigEngine',
             'twig.options' => array(
@@ -4206,12 +4334,12 @@ class appDevDebugProjectContainer extends Container
             'swiftmailer.data_collector.class' => 'Symfony\\Bundle\\SwiftmailerBundle\\DataCollector\\MessageDataCollector',
             'swiftmailer.mailer.default.transport.name' => 'smtp',
             'swiftmailer.mailer.default.delivery.enabled' => true,
-            'swiftmailer.mailer.default.transport.smtp.encryption' => NULL,
-            'swiftmailer.mailer.default.transport.smtp.port' => 25,
-            'swiftmailer.mailer.default.transport.smtp.host' => '127.0.0.1',
-            'swiftmailer.mailer.default.transport.smtp.username' => NULL,
-            'swiftmailer.mailer.default.transport.smtp.password' => NULL,
-            'swiftmailer.mailer.default.transport.smtp.auth_mode' => NULL,
+            'swiftmailer.mailer.default.transport.smtp.encryption' => 'ssl',
+            'swiftmailer.mailer.default.transport.smtp.port' => 465,
+            'swiftmailer.mailer.default.transport.smtp.host' => 'smtp.gmail.com',
+            'swiftmailer.mailer.default.transport.smtp.username' => 'guiardjulien@gmail.com',
+            'swiftmailer.mailer.default.transport.smtp.password' => 'nevermind17',
+            'swiftmailer.mailer.default.transport.smtp.auth_mode' => 'login',
             'swiftmailer.mailer.default.transport.smtp.timeout' => 30,
             'swiftmailer.mailer.default.transport.smtp.source_ip' => NULL,
             'swiftmailer.spool.default.memory.path' => (__DIR__.'/swiftmailer/spool/default'),
@@ -4262,6 +4390,7 @@ class appDevDebugProjectContainer extends Container
             'assetic.node.bin' => '/usr/bin/node',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
+            'assetic.reactjsx.bin' => '/usr/bin/jsx',
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
             'assetic.twig_extension.functions' => array(
 
@@ -4405,6 +4534,213 @@ class appDevDebugProjectContainer extends Container
             'stof_doctrine_extensions.listener.softdeleteable.class' => 'Gedmo\\SoftDeleteable\\SoftDeleteableListener',
             'stof_doctrine_extensions.listener.uploadable.class' => 'Gedmo\\Uploadable\\UploadableListener',
             'stof_doctrine_extensions.listener.reference_integrity.class' => 'Gedmo\\ReferenceIntegrity\\ReferenceIntegrityListener',
+            'easyadmin.config' => array(
+                'entities' => array(
+                    'Article' => array(
+                        'class' => 'OAH\\NewsBundle\\Entity\\Article',
+                        'label' => 'Article',
+                        'name' => 'Article',
+                        'edit' => array(
+                            'fields' => array(
+
+                            ),
+                            'form_options' => array(
+
+                            ),
+                            'actions' => array(
+                                'delete' => array(
+                                    'name' => 'delete',
+                                    'type' => 'method',
+                                    'label' => 'action.delete',
+                                    'class' => '',
+                                    'icon' => 'trash',
+                                ),
+                                'list' => array(
+                                    'name' => 'list',
+                                    'type' => 'method',
+                                    'label' => 'action.list',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                            ),
+                        ),
+                        'list' => array(
+                            'fields' => array(
+
+                            ),
+                            'actions' => array(
+                                'show' => array(
+                                    'name' => 'show',
+                                    'type' => 'method',
+                                    'label' => 'action.show',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                                'edit' => array(
+                                    'name' => 'edit',
+                                    'type' => 'method',
+                                    'label' => 'action.edit',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                                'search' => array(
+                                    'name' => 'search',
+                                    'type' => 'method',
+                                    'label' => 'action.search',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                                'new' => array(
+                                    'name' => 'new',
+                                    'type' => 'method',
+                                    'label' => 'action.new',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                                'list' => array(
+                                    'name' => 'list',
+                                    'type' => 'method',
+                                    'label' => 'action.list',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                            ),
+                        ),
+                        'new' => array(
+                            'fields' => array(
+
+                            ),
+                            'form_options' => array(
+
+                            ),
+                            'actions' => array(
+                                'list' => array(
+                                    'name' => 'list',
+                                    'type' => 'method',
+                                    'label' => 'action.list',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                            ),
+                        ),
+                        'search' => array(
+                            'fields' => array(
+
+                            ),
+                        ),
+                        'show' => array(
+                            'fields' => array(
+
+                            ),
+                            'actions' => array(
+                                'delete' => array(
+                                    'name' => 'delete',
+                                    'type' => 'method',
+                                    'label' => 'action.delete',
+                                    'class' => '',
+                                    'icon' => 'trash',
+                                ),
+                                'list' => array(
+                                    'name' => 'list',
+                                    'type' => 'method',
+                                    'label' => 'action.list',
+                                    'class' => '',
+                                    'icon' => NULL,
+                                ),
+                                'edit' => array(
+                                    'name' => 'edit',
+                                    'type' => 'method',
+                                    'label' => 'action.edit',
+                                    'class' => '',
+                                    'icon' => 'edit',
+                                ),
+                            ),
+                        ),
+                        'disabled_actions' => array(
+
+                        ),
+                        'templates' => array(
+                            'layout' => '@EasyAdmin/default/layout.html.twig',
+                            'edit' => '@EasyAdmin/default/edit.html.twig',
+                            'list' => '@EasyAdmin/default/list.html.twig',
+                            'new' => '@EasyAdmin/default/new.html.twig',
+                            'show' => '@EasyAdmin/default/show.html.twig',
+                            'form' => '@EasyAdmin/default/form.html.twig',
+                            'flash_messages' => '@EasyAdmin/default/flash_messages.html.twig',
+                            'paginator' => '@EasyAdmin/default/paginator.html.twig',
+                            'field_array' => '@EasyAdmin/default/field_array.html.twig',
+                            'field_association' => '@EasyAdmin/default/field_association.html.twig',
+                            'field_bigint' => '@EasyAdmin/default/field_bigint.html.twig',
+                            'field_boolean' => '@EasyAdmin/default/field_boolean.html.twig',
+                            'field_date' => '@EasyAdmin/default/field_date.html.twig',
+                            'field_datetime' => '@EasyAdmin/default/field_datetime.html.twig',
+                            'field_datetimetz' => '@EasyAdmin/default/field_datetimetz.html.twig',
+                            'field_decimal' => '@EasyAdmin/default/field_decimal.html.twig',
+                            'field_float' => '@EasyAdmin/default/field_float.html.twig',
+                            'field_id' => '@EasyAdmin/default/field_id.html.twig',
+                            'field_image' => '@EasyAdmin/default/field_image.html.twig',
+                            'field_integer' => '@EasyAdmin/default/field_integer.html.twig',
+                            'field_raw' => '@EasyAdmin/default/field_raw.html.twig',
+                            'field_simple_array' => '@EasyAdmin/default/field_simple_array.html.twig',
+                            'field_smallint' => '@EasyAdmin/default/field_smallint.html.twig',
+                            'field_string' => '@EasyAdmin/default/field_string.html.twig',
+                            'field_text' => '@EasyAdmin/default/field_text.html.twig',
+                            'field_time' => '@EasyAdmin/default/field_time.html.twig',
+                            'field_toggle' => '@EasyAdmin/default/field_toggle.html.twig',
+                            'label_empty' => '@EasyAdmin/default/label_empty.html.twig',
+                            'label_inaccessible' => '@EasyAdmin/default/label_inaccessible.html.twig',
+                            'label_null' => '@EasyAdmin/default/label_null.html.twig',
+                            'label_undefined' => '@EasyAdmin/default/label_undefined.html.twig',
+                        ),
+                    ),
+                ),
+                'design' => array(
+                    'assets' => array(
+                        'css' => array(
+
+                        ),
+                        'js' => array(
+
+                        ),
+                    ),
+                    'theme' => 'default',
+                    'color_scheme' => 'dark',
+                    'brand_color' => '#E67E22',
+                    'form_theme' => array(
+                        0 => '@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig',
+                    ),
+                ),
+                'site_name' => 'Easy Admin',
+                'formats' => array(
+                    'date' => 'Y-m-d',
+                    'time' => 'H:i:s',
+                    'datetime' => 'F j, Y H:i',
+                ),
+                'disabled_actions' => array(
+
+                ),
+                'list' => array(
+                    'actions' => array(
+
+                    ),
+                    'max_results' => 15,
+                ),
+                'edit' => array(
+                    'actions' => array(
+
+                    ),
+                ),
+                'new' => array(
+                    'actions' => array(
+
+                    ),
+                ),
+                'show' => array(
+                    'actions' => array(
+
+                    ),
+                ),
+            ),
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',
             'web_profiler.controller.exception.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ExceptionController',
@@ -4470,6 +4806,10 @@ class appDevDebugProjectContainer extends Container
                 'data_collector.doctrine' => array(
                     0 => 'db',
                     1 => '@Doctrine/Collector/db.html.twig',
+                ),
+                'easyadmin.data_collector' => array(
+                    0 => 'easyadmin',
+                    1 => '@EasyAdmin/data_collector/easyadmin.html.twig',
                 ),
                 'data_collector.dump' => array(
                     0 => 'dump',

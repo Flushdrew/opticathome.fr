@@ -36,19 +36,25 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 	
    }
 
-   public function getAvecCategories ( array $nom )
+   public function getAvecCategories ($page ,$slug, $nbPerPage )
    { 
-   $qb = $this -> createQueryBuilder ( 'a' );
-   
-   // On fait une jointure avec l'entité Categorie, avec pour alias « c »
-   $qb -> join ( 'a.categorie' , 'c' ) 
-       -> addselct('c')
-       -> where('c.nom = :nom')
-       ->setParameter('nom', $nom); 
-	   //-> where ( $qb -> expr () -> in ( 'c.nom' , $nom ));
-	   // Puis on filtre sur le nom des catégories à l'aide d'un IN
-	   
-	   // Enfin, on retourne le résultat 
-	 return $qb -> getQuery () -> getResult ();
+   $query = $this -> createQueryBuilder ('a')
+   	   ->leftjoin ( 'a.categories' , 'c' ) 
+       ->addselect('c')
+       ->where('c.slug = :slug')
+       ->setParameter('slug', $slug)
+       ->leftjoin('a.image', 'i')
+	   ->addselect('i')
+	   ->orderBy('a.date', 'DESC')
+       ->getQuery() 
+      ;
+
+      $query
+		->setFirstResult(($page-1) * $nbPerPage)
+		->setMaxResults($nbPerPage)
+	;
+		
+	return new Paginator($query, true);
+ 
 	} 
 }

@@ -19,6 +19,9 @@ class AppKernel extends Kernel
 			new OAH\NewsBundle\OAHNewsBundle(),
 			new OAH\CoreBundle\OAHCoreBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new OAH\DevisBundle\OAHDevisBundle(),
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
