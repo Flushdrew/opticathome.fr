@@ -3,6 +3,7 @@
 namespace OAH\DevisBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Devis
@@ -25,6 +26,7 @@ class Devis
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50)
+     * @Assert\Length(min=2, minMessage="Minimum deux caractères")
      */
     private $nom;
 
@@ -32,6 +34,7 @@ class Devis
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=50)
+     * @Assert\Length(min=2, minMessage="Minimum deux caractères")
      */
     private $prenom;
 
@@ -39,6 +42,7 @@ class Devis
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=150)
+     * @Assert\Email(message="Vous devez entrer une adresse Email valide !")
      */
     private $email;
 
@@ -46,6 +50,7 @@ class Devis
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=10)
+     * @Assert\Regex(pattern="#^0[1-9][0-9]{8}$#", message="le numéro n'est pas valide")
      */
     private $telephone;
 
@@ -53,6 +58,7 @@ class Devis
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     * @Assert\NotBlank()
      */
     private $message;
 
