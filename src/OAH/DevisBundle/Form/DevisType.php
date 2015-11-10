@@ -20,7 +20,7 @@ class DevisType extends AbstractType
             ->add('email',      'text')
             ->add('telephone',  'text')
             ->add('message',    'textarea')
-            ->add('save',       'submit')
+            ->add('envoyer',     'submit')
         ;
     }
     

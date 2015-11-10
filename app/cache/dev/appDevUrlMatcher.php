@@ -207,7 +207,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if (0 === strpos($pathinfo, '/login')) {
                 // login
                 if ($pathinfo === '/login') {
-                    return array (  '_controller' => 'OAHUserBundle:Security:login',  '_route' => 'login',);
+                    return array (  '_controller' => 'OAH\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
                 }
 
                 // login_check

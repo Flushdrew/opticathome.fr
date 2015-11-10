@@ -29,14 +29,13 @@ class DevisController extends Controller
       		->setTo($devis->getEmail())
       		->setBody(
       			$this->renderView(
-      				'OAHDevisBundle:Devis:devis_email.html.twig', $image_src
+      				'OAHDevisBundle:Devis:devis_email.html.twig'
       				),
       			'text/html'
       			);
 
       	$this->get('mailer')->send($message); 
 
-$image_src = $message->embed(\Swift_Image::fromPath('logo.jpg'));
 
       	$message = \Swift_Message::newInstance()
       		->setSubject('Nouvelle demande de devis')
@@ -44,7 +43,7 @@ $image_src = $message->embed(\Swift_Image::fromPath('logo.jpg'));
       		->setTo('guiardjulien@gmail.com')
       		->setBody(
       			$this->renderView(
-      				'OAHDevisBundle:Devis:devis_recu.html.twig', $image_src
+      				'OAHDevisBundle:Devis:devis_recu.html.twig'
       				),
       			'text/html'
       			);
