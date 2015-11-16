@@ -27,7 +27,7 @@ class ArticleType extends AbstractType
                 'multiple'    => true,
                 'expanded' => true,
             ))
-            ->add('Enregistrer',        'submit')
+            ->add('enregistrer',        'submit')
         ;
     }
     

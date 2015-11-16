@@ -4,6 +4,7 @@ namespace OAH\NewsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * ArticleRepository

@@ -4,6 +4,7 @@
 		
 		{% block navigation %}
 		<li><a class="normalLink" href="{{path('oah_core_homepage')}}"> Optic At Home</a></li>
+		{{ render(controller("OAHNewsBundle:News:menu")) }}
 		{% endblock %}
 
 	
@@ -11,10 +12,20 @@
 		
 	<div class="container">	
 		<div class="row">
+
 			<div class="col-md-3">
-				{{ render(controller("OAHNewsBundle:News:menu")) }}
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    				Connecté en tant que {{ app.user.username }}
+    					-
+    				<button type="button" class="btn btn-menu ">
+    				<a href="{{ path('OAHNews_ajouter') }}"><span class="glyphicon glyphicon-pencil"></span> Ajouter un article</a><br/>
+    				</button>
+    				<button type="button" class="btn btn-danger btn-deco">
+    				<a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a>
+    				</button>
+
+				{% endif %}
 			</div>
-			
 			<div class="col-md-9">
 				{% block body_news %}
 				{% endblock %}

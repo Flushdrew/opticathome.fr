@@ -145,6 +145,26 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
   -webkit-font-smoothing: antialiased;
 }
 
+ .btn-menu a {
+ 	color : rgb(148,125,93) !important;
+ 	background-color : white;
+ }
+
+ .btn-menu a:hover {
+ 	color : rgb(148,125,93) !important;
+ 	background-color : white;
+ 	text-decoration: none;
+ }
+
+ .btn-deco a {
+ 	color : white;
+ }
+
+ .btn-deco a:hover {
+ 	color: white;
+ 	text-decoration: none;
+ }
+
     #oah_devisbundle_devis_save {
     background-color: hsl(0, 100%, 100%) !important;
   color: rgb(148,125,93) !important;
@@ -160,11 +180,17 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
 	width: 600px;
 	height: 390px ;
 	cursor: move;
+	background-color:white;
 }
 
 video {
   width: 100%    !important;
   height: auto   !important;
+}
+
+.btn-menu {
+border-top : 1px solid rgb(148,125,93);
+background-color : white;
 }
 	    
   @media (min-width: 768px) {

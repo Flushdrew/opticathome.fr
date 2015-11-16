@@ -58,7 +58,9 @@
                 <div class="col-sm-4">
                   {{ form_widget(form.image) }}
                 </div>
+          <div class="cropit-image-preview-container">
             <div class="cropit-image-preview"></div>
+          </div>
 
           <!-- This range input controls zoom -->
           <!-- You can add additional elements here, e.g. the image icons -->
@@ -92,7 +94,7 @@
   {{ form_rest(form) }}
 
   {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+  {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
   
   {# Fermeture de la balise <form> du formulaire HTML #}
   {{ form_end(form) }}
@@ -112,10 +114,10 @@ $('.image-cropper').cropit({imageState: {src: { 'http://lorempixel.com/500/400/'
    $('.cropit-image-input').click();
 });
 
-  $('#oah_newsbundle_article_save').click(function() {
+  $('form').submit(function() {
         // Move cropped image data to hidden input
         var imageData = $('.image-cropper').cropit('export');
-        $('#oah_newsbundle_article_image_file').val(imageData);
+        $('.hidden-image-data').val(imageData);
       };
    });
 </script>

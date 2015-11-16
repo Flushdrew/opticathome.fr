@@ -107,14 +107,16 @@ class Image
 
   public function setFile(UploadedFile $file = null)
   {
-    $this->file = $file;
+    $decoded = urldecode($file);
+    $exp = explode(';', $decoded);
+    $exp = explode(':', $exp[0]);
+    $data = array_pop($exp);
+    $this->file = $data;
 
-    // On vérifie si on avait déjà un fichier pour cette entité
+
     if (null !== $this->url) {
-      // On sauvegarde l'extension du fichier pour le supprimer plus tard
       $this->tempFilename = $this->url;
 
-      // On réinitialise les valeurs des attributs url et alt
       $this->url = null;
       $this->alt = null;
     }

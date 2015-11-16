@@ -12,6 +12,7 @@ use OAH\NewsBundle\Entity\Article;
 use OAH\NewsBundle\Entity\Image;
 use OAH\NewsBundle\Entity\Commentaire;
 use OAH\NewsBundle\Form\ArticleType;
+use OAH\NewsBundle\Form\ArticleEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class NewsController extends Controller
@@ -86,17 +87,17 @@ class NewsController extends Controller
       ));
   }
   
-	public function modifierAction($id, Request $request)
+	public function modifierAction($slugarticle, Request $request)
 	{
     // On récupère l'EntityManager
     $em = $this->getDoctrine()->getManager();
 
     // On récupère l'entité correspondant à l'id $id
-    $article = $em->getRepository('OAHNewsBundle:Article')->find($id);
+    $article = $em->getRepository('OAHNewsBundle:Article')->findOneBySlugarticle($slugarticle);
 
     // Si l'annonce n'existe pas, on affiche une erreur 404
     if ($article == null) {
-      throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
+      throw $this->createNotFoundException("L'annonce ".$slugarticle." n'existe pas.");
     }
 
     $form = $this->createForm(new ArticleEditType(), $article);
@@ -107,7 +108,7 @@ class NewsController extends Controller
 
       $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
 
-      return $this->redirect($this->generateUrl('OAHNews_voir', array('id' => $article->getId())));
+      return $this->redirect($this->generateUrl('OAHNews_voir', array('slugarticle' => $article->getSlugarticle())));
     }
 
     return $this->render('OAHNewsBundle:News:modifier.html.twig', array(
@@ -118,17 +119,17 @@ class NewsController extends Controller
 
 		
 		
-	public function supprimerAction($id, Request $request)
+	public function supprimerAction($slugarticle, Request $request)
 		{
     // On récupère l'EntityManager
     $em = $this->getDoctrine()->getManager();
 
     // On récupère l'entité correspondant à l'id $id
-    $article = $em->getRepository('OAHNewsBundle:Article')->find($id);
+    $article = $em->getRepository('OAHNewsBundle:Article')->findOneBySlugarticle($slugarticle);
 
     // Si l'annonce n'existe pas, on affiche une erreur 404
     if ($article == null) {
-      throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
+      throw $this->createNotFoundException("L'annonce  ".$slugarticle." n'existe pas.");
     }
     // On crée un formulaire vide, qui ne contiendra que le champ CSRF
     // Cela permet de protéger la suppression d'annonce contre cette faille
@@ -163,7 +164,7 @@ class NewsController extends Controller
     ));
   }
 
-  public function categorieAction($slug,$page)
+  public function categorieAction($page, $slug)
   //{
     //$listArticles = $this->getDoctrine()
     //->getManager()
@@ -186,7 +187,7 @@ class NewsController extends Controller
   $listArticles = $this->getDoctrine()
     ->getManager()
     ->getRepository('OAHNewsBundle:Article')
-    ->getAvecCategories($slug, $page, $nbPerPage)  
+    ->getAvecCategories($page, $slug, $nbPerPage)  
   ; 
     
   $nbPages = ceil(count($listArticles)/$nbPerPage);
@@ -197,7 +198,7 @@ class NewsController extends Controller
   
   
     return $this->render('OAHNewsBundle:News:categorie.html.twig',array(
-    'listArticles' => $listArticles,
+    'listArticles' => $listArticles->getIterator(),
     'nbPages'      => $nbPages,
     'page'         => $page
   ));

@@ -9,23 +9,19 @@ OAHNews_voir:
     defaults: { _controller: OAHNewsBundle:News:voir }
 
 OAHNews_ajouter:
-    path:     /ajouter_news
+    path:     /ajouter_article
     defaults: { _controller: OAHNewsBundle:News:ajouter }
 
 OAHNews_modifier:
-    path:     /modifier/{id}
+    path:     /modifier/{slugarticle}
     defaults: { _controller: OAHNewsBundle:News:modifier }
-    requirements:
-        id: \d+
 
 OAHNews_supprimer:
-    path:     /supprimer/{id}
+    path:     /supprimer/{slugarticle}
     defaults: { _controller: OAHNewsBundle:News:supprimer }
-    requirements:
-        id: \d+
 
 OAHNews_categorie:
-    path:    /categorie/{slug}/{page}
+    path:     /categorie/{slug}/{page}
     defaults: { _controller: OAHNewsBundle:News:categorie , page: 1 }
     requirements:
         page: \d*

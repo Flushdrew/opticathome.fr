@@ -24,8 +24,8 @@
   </p>
 
   {# On met l'id de l'annonce dans la route de l'action du formulaire #}
-  <form action="{{ path('OAHNews_supprimer', {'id': article.id}) }}" method="post">
-    <a href="{{ path('OAHNews_voir', {'id': article.id}) }}" class="btn btn-default">
+  <form action="{{ path('OAHNews_supprimer', {'slugarticle': article.slugarticle}) }}" method="post">
+    <a href="{{ path('OAHNews_voir', {'slugarticle': article.slugarticle}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à l'annonce
     </a>

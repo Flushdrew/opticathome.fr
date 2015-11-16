@@ -5,17 +5,17 @@
 {% block title %} {{ parent() }} - Index{% endblock %}
 
 {% block body_news %}
-
-	{% for article in listArticles %}
+{% for article in listArticles %}
+    
 	<div class="article_des_news">
 
 		<div class="row">
 
-  		    <div class="col-sm-3">
+  		    <div class="col-sm-2">
   				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
  		    </div>
 
- 		    <div class="col-sm-9">
+ 		    <div class="col-sm-4">
 				<a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre}}
 				</a>
 			  		<p><i class="glyphicon glyphicon-pencil"></i> par {{article.auteur}},
@@ -32,7 +32,7 @@
 
 		</div>
 	</div>
-	{% endfor %}
+{% endfor %}	
 
 
 <ul class="pagination pull-right">
