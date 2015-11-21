@@ -11,6 +11,7 @@
 
 	<link rel="stylesheet" href="{{asset('css/opticathome.css')}}" type="text/css">
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" type="text/css" >
+	<link rel="stylesheet" href="{{asset('css/clean-blog.min.css')}}" type="text/css" >
 	<link rel="stylesheet" href="{{asset('css/news.css')}}" type="text/css" >
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -35,21 +36,21 @@
 			
 	<!-- Menu navigation
       ================================================== -->
-	<header>
-		<nav class="navbar navbar-inverse navbar-fixed-top"> 
-			<div class="container">
-				<div class="navbar-header"> 
+	
+		<nav class="navbar  navbar-default navbar-custom navbar-fixed-top"> 
+			<div class="container-fluid">
+				<div class="navbar-header page-scroll"> 
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
+					<a class="navbar-brand" href="#header">Optic at home</a>
 				</div>
 				
 				<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav navbar-right">
 					{% block navigation %}
-					<li><a href="#header"><strong>Opticathome.fr</strong></a></li>
 					<li><a href="#accueil">Qui sommes-nous ?</a></li>
 					<li><a href="#produits"> Nos produits</a></li>
 					<li><a href="#offres"> Nos pack'Optic</a></li>
@@ -62,15 +63,21 @@
 				</div>
             </div>			
 		</nav>
+
+	<header class="intro-header" style="background-image: url('../img/header1.jpg')">
+		<div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Optic at home</h1>
+                        <hr class="small">
+                        <span class="subheading">Votre opticien à domicile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 	
-	
-
-	<div class="container-fluid">
-		<div class="row">
-			<img id="header" href="#header" src="{{asset('img/header2.jpg')}}" alt="opticathome">
-		</div>
-	</div>
 
 	{% for flashMessage in app.session.flashbag.get('info') %}
 	<div class="container">
@@ -460,6 +467,7 @@
 					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 					<!-- Javascript de Bootstrap -->
 					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+					<script src="{{ asset('js/clean-blog.min.js') }}"></script>
 					
 
 					<script>

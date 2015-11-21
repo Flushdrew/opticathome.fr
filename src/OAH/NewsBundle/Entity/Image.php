@@ -111,7 +111,7 @@ class Image
     $exp = explode(';', $decoded);
     $exp = explode(':', $exp[0]);
     $data = array_pop($exp);
-    $this->file = $data;
+    $this->file = imagecreatefromstring($data);
 
 
     if (null !== $this->url) {

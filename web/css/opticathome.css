@@ -6,7 +6,7 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
 
 #header {
 	width : 100% ;
-	margin-top : 28px;
+	margin-top : 0px;
 	padding-right : -15px ;
 	padding-left : -15px;
 	margin-bottom : 20px;
@@ -99,7 +99,7 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
 	body {
 	font-family:'bitter' ,"Times New Roman", Verdana, sans-serif;
 	background-color : rgb(68,68,68) ;
-	padding-top : 20px;
+	padding-top : 0px;
 	}
 	
 	
@@ -193,7 +193,7 @@ border-top : 1px solid rgb(148,125,93);
 background-color : white;
 }
 	    
-  @media (min-width: 768px) {
+  /*@media (min-width: 768px) {
         .navbar .navbar-nav {
             display: inline-block;
             float: none;
