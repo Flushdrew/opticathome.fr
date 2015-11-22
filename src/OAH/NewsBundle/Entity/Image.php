@@ -108,10 +108,10 @@ class Image
   public function setFile(UploadedFile $file = null)
   {
     $decoded = urldecode($file);
-    $exp = explode(';', $decoded);
-    $exp = explode(':', $exp[0]);
-    $data = array_pop($exp);
-    $this->file = imagecreatefromstring($data);
+    //$exp = explode(';', $decoded);
+    //$exp = explode(':', $exp[0]);
+    //$data = array_pop($exp);
+    $this->file = imagecreatefromstring($decoded);
 
 
     if (null !== $this->url) {

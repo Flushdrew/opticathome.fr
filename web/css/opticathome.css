@@ -9,7 +9,7 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
 	margin-top : 0px;
 	padding-right : -15px ;
 	padding-left : -15px;
-	margin-bottom : 20px;
+	margin-bottom : 0px;
 	}
 
 	#titre_site {
@@ -89,7 +89,7 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
 	}
 	
 	h1 {
-	padding-top : 20px;
+	padding-top : 0px;
 	}
 	
 	img {

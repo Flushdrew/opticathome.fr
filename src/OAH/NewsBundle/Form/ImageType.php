@@ -15,7 +15,7 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Image', 'file', array('mapped' => false),array(
+            ->add('Image', 'file', array(
                 'attr' => array('class' => 'cropit-image-input')))
             ->add('file', 'hidden', array('attr' => array('class' => 'hidden-image-data')))
             
