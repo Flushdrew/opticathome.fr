@@ -7,16 +7,14 @@
 {% block body_news %}
 
     
-	<div class="article_des_news">
 
-		<div class="row">
+		<div class="row blog">
 {% for article in listArticles %}
-      <div>
   		    <div class="col-sm-2">
   				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
  		    </div>
 
- 		    <div class="col-sm-4">
+ 		    <div class="col-sm-10">
 				<a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre}}
 				</a>
 			  		<p><i class="glyphicon glyphicon-pencil"></i> par {{article.auteur}},
@@ -28,12 +26,16 @@
     						{% endfor %}
     					{% endif %}
     		  		</p>
-    			{{ article.contenu|truncate(100, false, "...")}}	
-		    </div>
-      </div>
+              <!--NOT USEFUL FOR THE MOMENT-->
+    			<!--{{ article.contenu|truncate(100, false, "...")}}-->	
+          </div>
+		    <div class="col-sm-12">
+          <hr class="ligne">
+        </div><br/>
+        <hr class="ligne">
+
 {% endfor %}
 		</div>
-	</div>
 	
 
 

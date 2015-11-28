@@ -136,37 +136,37 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'OAH\\DevisBundle\\Controller\\DevisController::DevisAction',  '_route' => 'oah_devis_homepage',);
         }
 
-        if (0 === strpos($pathinfo, '/actualites')) {
+        if (0 === strpos($pathinfo, '/blog')) {
             // OAHNews_accueil
-            if (preg_match('#^/actualites(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
+            if (preg_match('#^/blog(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_accueil')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::indexAction',  'page' => 1,));
             }
 
-            if (0 === strpos($pathinfo, '/actualites/a')) {
+            if (0 === strpos($pathinfo, '/blog/a')) {
                 // OAHNews_voir
-                if (0 === strpos($pathinfo, '/actualites/article') && preg_match('#^/actualites/article/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
+                if (0 === strpos($pathinfo, '/blog/article') && preg_match('#^/blog/article/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_voir')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::voirAction',));
                 }
 
                 // OAHNews_ajouter
-                if ($pathinfo === '/actualites/ajouter_article') {
+                if ($pathinfo === '/blog/ajouter_article') {
                     return array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::ajouterAction',  '_route' => 'OAHNews_ajouter',);
                 }
 
             }
 
             // OAHNews_modifier
-            if (0 === strpos($pathinfo, '/actualites/modifier') && preg_match('#^/actualites/modifier/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
+            if (0 === strpos($pathinfo, '/blog/modifier') && preg_match('#^/blog/modifier/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_modifier')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::modifierAction',));
             }
 
             // OAHNews_supprimer
-            if (0 === strpos($pathinfo, '/actualites/supprimer') && preg_match('#^/actualites/supprimer/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
+            if (0 === strpos($pathinfo, '/blog/supprimer') && preg_match('#^/blog/supprimer/(?P<slugarticle>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_supprimer')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::supprimerAction',));
             }
 
             // OAHNews_categorie
-            if (0 === strpos($pathinfo, '/actualites/categorie') && preg_match('#^/actualites/categorie/(?P<slug>[^/]++)(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
+            if (0 === strpos($pathinfo, '/blog/categorie') && preg_match('#^/blog/categorie/(?P<slug>[^/]++)(?:/(?P<page>\\d*))?$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'OAHNews_categorie')), array (  '_controller' => 'OAH\\NewsBundle\\Controller\\NewsController::categorieAction',  'page' => 1,));
             }
 
@@ -212,7 +212,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                         goto not_fos_user_security_login;
                     }
 
-                    return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
+                    return array (  '_controller' => 'OAH\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
                 }
                 not_fos_user_security_login:
 
@@ -223,7 +223,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                         goto not_fos_user_security_check;
                     }
 
-                    return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::checkAction',  '_route' => 'fos_user_security_check',);
+                    return array (  '_controller' => 'OAH\\UserBundle\\Controller\\SecurityController::checkAction',  '_route' => 'fos_user_security_check',);
                 }
                 not_fos_user_security_check:
 
@@ -236,7 +236,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     goto not_fos_user_security_logout;
                 }
 
-                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
+                return array (  '_controller' => 'OAH\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
             }
             not_fos_user_security_logout:
 

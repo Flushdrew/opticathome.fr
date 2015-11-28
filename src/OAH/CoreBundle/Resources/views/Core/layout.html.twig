@@ -8,26 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Optic At Home</title>
     <meta name="description" content="Opticien à domicile">
+    <link href="{{ asset('bundles/oahcore/css/opticathome.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oahcore/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oahcore/css/clean-blog.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oahcore/css/social-buttons.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oahcore/css/news.css') }}" rel="stylesheet" type="text/css" />
 
-	<link rel="stylesheet" href="{{asset('css/opticathome.css')}}" type="text/css">
-	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" type="text/css" >
-	<link rel="stylesheet" href="{{asset('css/clean-blog.min.css')}}" type="text/css" >
-	<link rel="stylesheet" href="{{asset('css/news.css')}}" type="text/css" >
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-	<link href="{{asset('css/social-buttons.css')}}" rel="stylesheet">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
+  
     </head>
 
 	
@@ -53,26 +46,28 @@
 				<ul class="nav navbar-nav navbar-right">
 					{% block navigation %}
 					<li><a href="#accueil">Qui sommes-nous ?</a></li>
-					<li><a href="#produits"> Nos produits</a></li>
-					<li><a href="#offres"> Nos pack'Optic</a></li>
-					<li><a href="#devis"> Devis</a></li>
+					<li><a href="#produits">Nos produits</a></li>
+					<li><a href="#offres">Nos pack'Optic</a></li>
+					<li><a href="#devis">Devis</a></li>
 					<li><a href="#garanties">Garanties</a></li>
-					<li><a href="#contact"> Contact</a></li>
+					<li><a href="#contact">Contact</a></li>
 					{% endblock %}
-					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}"> Actualité</a></li>
+					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}">Blog</a></li>
 				</ul>
 				</div>
             </div>			
 		</nav>
 
-	<header class="intro-header" style="background-image: url('../img/header.jpg')">
+	<header id="header" class="intro-header" >
 		<div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
                         <h1><font font-weight="50" face="lobster">Optic at home</font></h1>
                         <hr class="small">
+                        {% block subtitle %}
                         <span class="subheading">Votre opticien à domicile</span>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -84,7 +79,7 @@
 	<div class="container">
 	  <div class="row">
     	<div class="alert col-md-offset-3 col-md-6 alert-dismissable alert-success text-center">
-    		<button type="button" class="close" data-dismiss="alert">&times;</button>
+    		<button type="button" class="close" data-dismiss="alert">X</button>
         	{{ flashMessage }}
     	</div>
       </div>
@@ -102,7 +97,7 @@
 
 	  		<div class="row">
 				<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12 ">
-					<video controls poster="{{asset('img/poster.png')}}" >
+					<video controls poster="{{asset('img/poster_presse.png')}}" >
 						<source src="{{asset('videos/oah.mp4')}}">
 						<source src="{{asset('videos/oah.ogv')}}">
 						<source src="{{asset('videos/oah.webm')}}">
@@ -112,29 +107,37 @@
 
 		<h1 class="text-center">COMMENT ÇA MARCHE ?</h1>
 			<div class="row concept">
-				<div style="min-height: 150px;" class="col-lg-offset-3  col-lg-2  col-sm-4  col-xs-12">
+				<div style="min-height: 150px;" class="col-lg-offset-2  col-lg-2  col-sm-3  col-xs-12">
 				<p class="text-center"><i class="fa fa-graduation-cap fa-2x"></i></p>
 				<p class="text-justify">Un opticien diplômé chez vous ou sur votre lieu de travail <strong>gratuitement</strong>.</p>
 				</div>
-				<div style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-3 col-xs-12">
 				<p class="text-center"><i class="fa fa-calendar fa-2x"></i></span></p>
 				<p class="text-justify">Vous choisissez le rendez-vous suivant <strong>vos disponibilités</strong>.</p>
 				</div>
-				<div style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-3 col-xs-12">
+				<p class="text-center"><i class="fa fa-file fa-2x"></i></span></p>
+				<p class="text-justify">Nous réalisons le tiers-payant avec la <strong>sécurité sociale</strong> et la <strong>mutuelle</strong>.</p>
+				</div>
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-3 col-xs-12">
 				<p class="text-center"><i class="fa fa-truck fa-2x"></i></p>
 				<p class="text-justify">Nous vous ramenons votre commande lors d'un 2ème rendez-vous.</p>
 				</div>
 			</div>
 			<div class="row concept">	
-				<div style="min-height: 150px;" class="col-lg-offset-3 col-lg-2  col-sm-4 col-xs-12">
+				<div style="min-height: 150px;" class="col-lg-offset-2 col-lg-2  col-sm-3 col-xs-12">
 				<p class="text-center"><i class="fa fa-check-square-o fa-2x"></i></span></p>
 				<p class="text-justify">Vous bénéficiez du même suivi et des mêmes garanties qu'en magasin.</p>
 				</div>
-				<div  style="min-height: 150px;" class="col-lg-2 col-sm-4 col-xs-12">
+				<div  style="min-height: 150px;" class="col-lg-2 col-sm-3 col-xs-12">
 				<p class="text-center"><i class="fa fa-road fa-2x"></i></span></p>
-				<p class="text-justify">Disponible dans toute la région Ile-de-France.</p>
+				<p class="text-justify">Disponible <strong>7j/7</strong> dans toute la région Ile-de-France.</p>
 				</div>
-				<div style="min-height: 150px;" class="col-lg-2 col-sm-4  col-xs-12">
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-3  col-xs-12">
+				<p class="text-center"><i class="fa fa-gift fa-2x"></i></span></p>
+				<p class="text-justify"><strong>Tous</strong> les déplacements et ajustages sont <strong>offerts</strong>.</p>
+				</div>
+				<div style="min-height: 150px;" class="col-lg-2 col-sm-3  col-xs-12">
 				<p class="text-center"><i class="fa fa-thumbs-up fa-2x"></i></span></p>
 				<p class="text-justify">Vous bénéficiez d'un prix attractif et d'un large choix de montures.</p>
 				</div>
@@ -432,7 +435,7 @@
 				<div class=" col-md-3 col-md-offset-1 col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8 text-center " >	
 					<a href="https://www.facebook.com/opticathomefr?fref=ts" class="btn btn-bloc btn-social btn-facebook">
 						<i class="fa fa-facebook"></i> | Optic At Home</a><br/>
-					<a href="{{ path('oah_core_presse') }}">Presse</a>
+					<button class="btn mentions"><a href="{{ path('oah_core_presse') }}">Presse</a></button>
 				</div>
 
 				<div class="col-md-4 col-xs-12 text-center ">
@@ -466,7 +469,7 @@
 					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 					<!-- Javascript de Bootstrap -->
 					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-					<script src="{{ asset('js/clean-blog.min.js') }}"></script>
+					<script src="{{ asset('js/clean-blog.js') }}"></script>
 					
 
 					<script>

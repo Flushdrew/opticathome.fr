@@ -9,6 +9,7 @@
 
 
 {% block body_news %}
+
 <script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
 
 	{% for flashMessage in app.session.flashbag.get('info') %}
@@ -22,14 +23,14 @@
 
 <h2>Ajouter un article :</h2>
 
-{% include "OAHNewsBundle:News:formulaire.html.twig" %}
+	{% include "OAHNewsBundle:News:formulaire.html.twig" %}
 
 <p>
 	{% for flashMessage in app.session.flashbag.get('info') %}
-    <div class="flash-notice">
-        {{ flashMessage }}
-    </div>
-{% endfor %}
+    	<div class="flash-notice">
+        	{{ flashMessage }}
+    	</div>
+	{% endfor %}
 </p>
 
 <p>
@@ -38,12 +39,5 @@
 		Retour aux news
 	</a>
 </p>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/cropit-master/dist/jquery.cropit.js') }}"></script>
-
-<script>
-$('.image-cropper').cropit();
-</script>
 
 {% endblock %}

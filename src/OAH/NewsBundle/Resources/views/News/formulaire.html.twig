@@ -1,124 +1,120 @@
 {# src/OAH/NewsBundle/Resources/views/News/formulaire.html.twig #}
 
 
-<{# src/OC/PlatformBundle/Resources/views/Article/formulaire.html.twig #}
+{# src/OC/PlatformBundle/Resources/views/Article/formulaire.html.twig #}
 
-
-<div class="blocgris">
+<div >
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
       {# Les erreurs générales du formulaire. #}
      {{ form_errors(form) }}
 
     <div class="form-group">
-      {# Génération du label. #}
-      {{ form_label(form.titre, "Titre de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {# Génération du label. #}
+        {{ form_label(form.titre, "Titre de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-      {# Affichage des erreurs pour ce champ précis. #}
-      {{ form_errors(form.titre) }}
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.titre) }}
 
-      <div class="col-sm-4">
-        {# Génération de l'input. #}
-        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
-      </div>
+        <div class="col-sm-4">
+            {# Génération de l'input. #}
+            {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+         </div>
     </div>
 
-    {# Idem pour un autre champ. #}
+      {# Idem pour un autre champ. #}
     <div class="form-group">
-      {{ form_label(form.contenu, "Contenu de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.contenu) }}
-      <div class="col-sm-8">
-        {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
-      </div>
-    </div>
-
-    <div class="form-group">
-      {{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.date) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
-      </div>
+          {{ form_label(form.contenu, "Contenu de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+          {{ form_errors(form.contenu) }}
+        <div class="col-sm-8">
+          {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+        </div>
     </div>
 
     <div class="form-group">
-      {{ form_label(form.auteur, "Auteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-      {{ form_errors(form.auteur) }}
-      <div class="col-sm-4">
-        {{ form_widget(form.auteur, {'attr': {'class': 'form-control'}}) }}
-      </div>
+          {{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+          {{ form_errors(form.date) }}
+        <div class="col-sm-4">
+          {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+        </div>
     </div>
 
     <div class="form-group">
-    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
-      <div class="image-cropper">
-          <!-- This is where the preview image is displayed -->
-          <div class="row">
-            <div class="col-sm-offset-2">
-        
+          {{ form_label(form.auteur, "Auteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+          {{ form_errors(form.auteur) }}
+        <div class="col-sm-4">
+          {{ form_widget(form.auteur, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
+          <div class="image-cropper">
+               <!-- This is where the preview image is displayed -->
+              <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                  <div class="cropit-image-preview-container">
+                   <div class="cropit-image-preview"></div>
+                 </div>
+               </div>
+             </div> 
+                    <!-- This range input controls zoom -->
+                        <!-- You can add additional elements here, e.g. the image icons -->
+              <div class="row">
+                <div class="col-sm-offset-4 col-sm-4">
+                  <input type="range" class="cropit-image-zoom-input" />
+                </div>
+              </div>
+                  {{ form_errors(form.image) }}
+              
+              <div class="row">    
                 <div class="col-sm-4">
                   {{ form_widget(form.image) }}
+                    <div class="select-image-btn">Select new image</div>
+                    <div class="send_image">Get Cropped image.</div>
                 </div>
-          <div class="cropit-image-preview-container">
-            <div class="cropit-image-preview"></div>
+              </div>
           </div>
+    </div>  
 
-          <!-- This range input controls zoom -->
-          <!-- You can add additional elements here, e.g. the image icons -->
-            <div class="col-sm-offset-4 col-sm-4">
-                <input type="range" class="cropit-image-zoom-input" />
-            </div>
+            {# Génération du label + error + widget pour un champ #}
+            {{ form_row(form.date) }}
 
-            {{ form_errors(form.image) }}
-            <div class="col-sm-4">
-            {{ form_widget(form.image, {'attr': {'class': 'cropit-image-input'}}) }}
-            </div>
-              <div class="select-image-btn">Select new image</div>
-      </div>
-    </div>
-    </div>
-    </div>
+            {{ form_row(form.auteur) }}
 
+            
+            {# Génération automatique des champs pas encore écrits.
+               Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+               et tous les champs cachés (type « hidden »). #}
+            {{ form_rest(form) }}
 
-
-   
-
-  {# Génération du label + error + widget pour un champ #}
-  {{ form_row(form.date) }}
-
-  {{ form_row(form.auteur) }}
-
-  
-  {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
-  {{ form_rest(form) }}
-
-  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-  {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
-  
-  {# Fermeture de la balise <form> du formulaire HTML #}
-  {{ form_end(form) }}
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+            
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('js/cropit-master/dist/jquery.cropit.js') }}"></script>
 
 <script>
-$(function() {
-$('.image-cropper').cropit({imageState: {src: { 'http://lorempixel.com/500/400/' },
-          },
-  });
-// When user clicks select image button,
-// open select file dialog programmatically
-  $('.select-image-btn').click(function() {
-   $('.cropit-image-input').click();
-});
+ $(function () {
+     $('.select-image-btn').click(function(){
+         $('.cropit-image-input').click();
+    });
 
-  $('form').submit(function() {
-        // Move cropped image data to hidden input
-        var imageData = $('.image-cropper').cropit('export');
-        $('.hidden-image-data').val(imageData);
-      };
+
+      var z = $('.image-cropper');
+      z.cropit({
+          exportZoom: 0.5,
+          imageBackground: true,
+          imageBackgroundBorderWidth: 15
+      });
+      $('.send_image').click(function() {
+            var h =z.cropit('export');
+            alert(h);
+       });
    });
 </script>
 

@@ -2,6 +2,11 @@
 	
 {% extends "OAHCoreBundle:Core:layout.html.twig" %}
 		
+		{% block subtitle %}
+		<span class="subheading">Le blog</span>
+		{% endblock %}
+
+
 		{% block navigation %}
 		<li><a class="normalLink" href="{{path('oah_core_homepage')}}"> Optic At Home</a></li>
 		{{ render(controller("OAHNewsBundle:News:menu")) }}
@@ -10,10 +15,10 @@
 	
 		{% block body %}
 		
-	<div class="container">	
+	<div class="container-fluid">	
 		<div class="row">
 
-			<div class="col-md-3">
+			<div class="col-md-offset-1 col-md-2">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     				Connecté en tant que {{ app.user.username }}
     					-
@@ -26,7 +31,7 @@
 
 				{% endif %}
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-6">
 				{% block body_news %}
 				{% endblock %}
 				

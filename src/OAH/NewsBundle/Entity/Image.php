@@ -41,6 +41,8 @@ class Image
 
     private $tempFilename;
 
+    private $image;
+
 
     /**
      * Get id
@@ -108,10 +110,10 @@ class Image
   public function setFile(UploadedFile $file = null)
   {
     $decoded = urldecode($file);
-    //$exp = explode(';', $decoded);
-    //$exp = explode(':', $exp[0]);
-    //$data = array_pop($exp);
-    $this->file = imagecreatefromstring($decoded);
+    $exp = explode(';', $decoded);
+    $exp = explode(':', $exp[0]);
+    $data = array_pop($exp);
+    $this->file = $file; //imagecreatefromstring($file);
 
 
     if (null !== $this->url) {
@@ -138,7 +140,7 @@ class Image
 
     
     $this->alt = $this->file->getClientOriginalName();
-  }
+ }
 
   /**
    * @ORM\PostPersist()
@@ -202,4 +204,3 @@ class Image
     return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
   }
 }
-

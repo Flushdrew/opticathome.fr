@@ -4,6 +4,7 @@ src: url('glyphicons-halflings-regular.eot');
 src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('glyphicons-halflings-regular.woff') format('woff'), url('glyphicons-halflings-regular.ttf') format('truetype'), url('glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
 
+
 #header {
 	width : 100% ;
 	margin-top : 0px;
@@ -178,14 +179,24 @@ src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
     .cropit-image-preview {
 	/* You can specify preview size in CSS */
 	width: 600px;
-	height: 390px ;
+	height: 200px ;
 	cursor: move;
-	background-color:white;
+	background-color:grey;
+}
+
+.cropit-image-input {
+	display : none;
 }
 
 video {
   width: 100%    !important;
   height: auto   !important;
+}
+
+.article_des_news {
+	margin-bottom : 20px;
+	border-bottom : solid grey;
+	padding-bottom : 20px;
 }
 
 .btn-menu {

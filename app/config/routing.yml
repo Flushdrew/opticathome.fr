@@ -4,7 +4,7 @@ oah_devis:
 
 oahnews:
     resource: "@OAHNewsBundle/Resources/config/routing.yml"
-    prefix:    /actualites
+    prefix:    /blog
 
 oahcore:
     resource: "@OAHCoreBundle/resources/config/routing.yml"
