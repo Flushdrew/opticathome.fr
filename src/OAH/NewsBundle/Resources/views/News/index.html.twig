@@ -11,7 +11,7 @@
 		<div class="row blog">
 {% for article in listArticles %}
   		    <div class="col-sm-3">
-  				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img class="thumbnail" src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
+  				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img class="thumbnail" src='{{ (article.image.webPath) | imagine_filter('thumbnail') }}' alt="{{ article.image.alt}}"/></a>
  		    </div>
 
  		    <div class="col-sm-9">

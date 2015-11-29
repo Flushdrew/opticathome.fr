@@ -93,3 +93,14 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    OAH\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        thumbnail:
+            filters:
+                thumbnail: { size: [240, 180], mode: outbound }
