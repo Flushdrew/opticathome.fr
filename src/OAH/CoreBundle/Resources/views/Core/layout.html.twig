@@ -26,7 +26,6 @@
 	
 	
 		<body data-spy="scroll" data-target=".navbar">
-
 			
 	<!-- Menu navigation
       ================================================== -->
@@ -53,6 +52,7 @@
 					<li><a href="#contact">Contact</a></li>
 					{% endblock %}
 					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}">Blog</a></li>
+					<li><a class="normalLink" href="{{ path('oah_core_presse') }}">Presse</a></li>
 				</ul>
 				</div>
             </div>			
@@ -66,7 +66,7 @@
                         <h1><font font-weight="50" face="lobster">Optic at home</font></h1>
                         <hr class="small">
                         {% block subtitle %}
-                        <span class="subheading">Votre opticien à domicile</span>
+                        <span class="subheading">Votre opticien à domicile<br/>06 95 43 94 11</span>
                         {% endblock %}
                     </div>
                 </div>
@@ -203,7 +203,7 @@
 				<img class="thumbnail" src="{{asset('img/logo_essilor.png')}}" alt="essilor">
 			</div>
 			<div class="col-lg-1 col-sm-3 col-md-2 col-xs-4">
-				<img class="thumbnail" src="{{asset('img/BBGR2.gif')}}" alt="BBGR">
+				<img class="thumbnail" src="{{asset('img/megaoptic.png')}}" alt="Mega Optic">
 			</div>
 					
 		</div>	
@@ -421,6 +421,31 @@
 	</div>
   </div>
 </div>
+
+		<!-- Partenaires
+    ================================================== -->
+	<div class="blocblanc" id="partenaires">
+		<h1 class="text-center">NOS PARTENAIRES</h1>
+			<div class="row  concept">
+
+				<div class="col-lg-offset-4 col-lg-1 col-sm-3 col-md-offset-2 col-md-2 col-xs-3">
+					<a href="http://www.wearethemodels.co/look"><img class="thumbnail" src="{{asset('img/wam-carre.png')}}" alt="We Are The Models"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.promedica.fr/"><img class="thumbnail" src="{{asset('img/promedica-carre.jpg')}}" alt="Promedica"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.cardif.fr"><img class="thumbnail" src="{{asset('img/bnpcardiff.jpg')}}" alt="BNP Paribas Cardiff"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.ameli.fr/assures/soins-et-remboursements/combien-serez-vous-rembourse/optique-et-audition/les-lunettes-et-les-lentilles/le-remboursement-des-lunettes.php"><img class="thumbnail" src="{{asset('img/securitesociale.gif')}}" alt="Securité sociale"></a>
+				</div>
+				
+			</div>
+	</div>	
 	
 	
 	{% endblock %}
@@ -466,9 +491,11 @@
 	</footer>	
 
 					<!-- jQuery -->
-					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+					</script>
 					<!-- Javascript de Bootstrap -->
-					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous">
+					</script>
 					<script src="{{ asset('js/clean-blog.js') }}"></script>
 					
 

@@ -8,17 +8,19 @@
 
 {% block body_news %}
 
+<div class="article">
 
 {% if article.image is not null %}
- <h2>	
 	<img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/>
 {% endif %}
 
-	{{ article.titre }} </h2
-<i>Par {{ article.auteur }}, le {{ article.date|date('d/m/y') }}</i>
+	<h2>	{{ article.titre }} </h2
+		<p class="auteur"><i class="glyphicon glyphicon-pencil"></i> Par {{ article.auteur }}, <i class="glyphicon glyphicon-time"> </i> {{ article.date|date('d/m/y') }}</p>
 
-<div class="well">
-	{{ article.contenu }}
+	<div class="">
+		{{ article.contenu | raw }}
+	</div>
+
 </div>
 
 <p>

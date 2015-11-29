@@ -67,7 +67,9 @@ class NewsController extends Controller
 	
 	 public function ajouterAction(Request $request)
   {
+
     $article = new Article();
+    
     $form = $this->createForm(new ArticleType(), $article);
 
     if ($form->handleRequest($request)->isValid()) {

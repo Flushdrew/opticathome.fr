@@ -17,8 +17,14 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('date',        'date')
-            ->add('titre',       'text' )
-            ->add('auteur',      'text')
+            ->add('titre',       'text' , array(
+                    'attr' => array(
+                    'placeholder' => 'Titre',
+                    )) )
+            ->add('auteur',      'text' , array(
+                    'attr' => array(
+                    'placeholder' => 'Auteur',
+    )))
             ->add('contenu',     'ckeditor')
             ->add('image',        new ImageType())
             ->add('categories','entity', array(
