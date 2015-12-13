@@ -10,7 +10,9 @@
 
 <h2>Modifier une news</h2>
 
-<div class="blocgris">
+<script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+
+<div >
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
       {# Les erreurs générales du formulaire. #}
@@ -48,33 +50,20 @@
     </div>
 
     <div class="form-group">
-    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
-      <div class="image-cropper">
-          <!-- This is where the preview image is displayed -->
-          <div class="row">
-            <div class="col-sm-offset-2">
-        
-                <div class="col-sm-4">
-                  {{ form_widget(form.image) }}
-                </div>
-            <div class="cropit-image-preview"></div>
-
-          <!-- This range input controls zoom -->
-          <!-- You can add additional elements here, e.g. the image icons -->
-            <div class="col-sm-offset-4 col-sm-4">
-                <input type="range" class="cropit-image-zoom-input" />
-            </div>
-
+            {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
             {{ form_errors(form.image) }}
-            <div class="col-sm-4">
-            {{ form_widget(form.image, {'attr': {'class': 'cropit-image-input'}}) }}
-            </div>
-              <div class="select-image-btn">Select new image</div>
-      </div>
-    </div>
-    </div>
-    </div>
+        <div class="col-sm-8">
+            {{ form_widget(form.image) }}  
+        </div>
+    </div>  
 
+    <div class="form-group">
+            {{ form_label(form.categories, 'Categories', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
+            {{ form_errors(form.categories) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.categories) }}  
+        </div>
+    </div>
 
 
    
@@ -94,30 +83,9 @@
   
   {# Fermeture de la balise <form> du formulaire HTML #}
   {{ form_end(form) }}
+  <br />
 </div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/cropit-master/dist/jquery.cropit.js') }}"></script>
-
-<script>
-$(function() {
-$('.image-cropper').cropit({imageState: {src: { 'http://lorempixel.com/500/400/' },
-          },
-  });
-// When user clicks select image button,
-// open select file dialog programmatically
-  $('.select-image-btn').click(function() {
-   $('.cropit-image-input').click();
-});
-
-  $('#oah_newsbundle_article_save').click(function() {
-        // Move cropped image data to hidden input
-        var imageData = $('.image-cropper').cropit('export');
-        $('#oah_newsbundle_article_image_file').val(imageData);
-      };
-   });
-</script>
-
+<p></p>
 
 <p>
 	<a href="{{ path('OAHNews_voir',{'slugarticle':article.slugarticle})}}" class="btn btn-default">
@@ -125,5 +93,15 @@ $('.image-cropper').cropit({imageState: {src: { 'http://lorempixel.com/500/400/'
 		Retour à l'article
 	</a>
 </p>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/oahcore/js/bootstrap-datepicker-master/js/locales/bootstrap-datepicker.fr.js') }}"></script>
+
+<script>
+ $(function () {
+     $('input').datepicker() ;
+   });
+</script>
 
 {% endblock %}

@@ -16,7 +16,16 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date',        'date')
+            ->add('date',        'date' , array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                    'attr' => array(
+                        'class' => 'form-control input-inline datepicker',
+                        'class' => 'datepicker',
+                        'data-provide' => 'datepicker',
+                        'data-date-format' => 'dd-mm-yyyy')
+                    ))
+
             ->add('titre',       'text' , array(
                     'attr' => array(
                     'placeholder' => 'Titre',
@@ -33,7 +42,9 @@ class ArticleType extends AbstractType
                 'multiple'    => true,
                 'expanded' => true,
             ))
-            ->add('enregistrer',        'submit')
+            ->add('enregistrer',     'submit',array( 
+                'attr'=> array(
+                'class'=>'pull-right btn btn-custom2')))
         ;
     }
     

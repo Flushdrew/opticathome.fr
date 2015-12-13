@@ -85,9 +85,30 @@ stof_doctrine_extensions:
             sluggable: true
 
 easy_admin:
+
+    design:
+        brand_color: 'rgb(148,125,93)'
+
+    site_name: 'Optic at home'
+    
     entities:
         Article:
             class: OAH\NewsBundle\Entity\Article
+            form:
+                fields:
+                    - titre
+                    - auteur
+                    - contenu
+                    - categories
+                    - { property : 'Image', type : oah_newsbundle_image}
+        Categories:
+            class: OAH\NewsBundle\Entity\Categorie
+        Devis:
+            class: OAH\DevisBundle\Entity\Devis
+        Utilisateurs:
+            class: OAH\UserBundle\Entity\User
+        Newsletter:
+            class: OAH\DevisBundle\Entity\Newsletter
 
 fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début

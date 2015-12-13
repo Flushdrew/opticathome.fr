@@ -20,11 +20,10 @@
 
 			<div class="col-md-offset-1 col-md-2">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    				Connecté en tant que {{ app.user.username }}
-    					-
-    				<button type="button" class="btn btn-menu ">
+    				<p><i class="fa fa-user"></i> {{ app.user.username }}</p>
+    				<button type="button" class="btn btn-custom2 ">
     				<a href="{{ path('OAHNews_ajouter') }}"><span class="glyphicon glyphicon-pencil"></span> Ajouter un article</a><br/>
-    				</button>
+    				</button><br /><br>
     				<button type="button" class="btn btn-danger btn-deco">
     				<a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a>
     				</button>

@@ -487,18 +487,12 @@
     <parameter key="assetic.request_listener.class">Symfony\Bundle\AsseticBundle\EventListener\RequestListener</parameter>
     <parameter key="doctrine_cache.apc.class">Doctrine\Common\Cache\ApcCache</parameter>
     <parameter key="doctrine_cache.array.class">Doctrine\Common\Cache\ArrayCache</parameter>
+    <parameter key="doctrine_cache.chain.class">Doctrine\Common\Cache\ChainCache</parameter>
+    <parameter key="doctrine_cache.couchbase.class">Doctrine\Common\Cache\CouchbaseCache</parameter>
+    <parameter key="doctrine_cache.couchbase.connection.class">Couchbase</parameter>
+    <parameter key="doctrine_cache.couchbase.hostnames">localhost:8091</parameter>
     <parameter key="doctrine_cache.file_system.class">Doctrine\Common\Cache\FilesystemCache</parameter>
     <parameter key="doctrine_cache.php_file.class">Doctrine\Common\Cache\PhpFileCache</parameter>
-    <parameter key="doctrine_cache.mongodb.class">Doctrine\Common\Cache\MongoDBCache</parameter>
-    <parameter key="doctrine_cache.mongodb.collection.class">MongoCollection</parameter>
-    <parameter key="doctrine_cache.mongodb.connection.class">MongoClient</parameter>
-    <parameter key="doctrine_cache.mongodb.server">localhost:27017</parameter>
-    <parameter key="doctrine_cache.riak.class">Doctrine\Common\Cache\RiakCache</parameter>
-    <parameter key="doctrine_cache.riak.bucket.class">Riak\Bucket</parameter>
-    <parameter key="doctrine_cache.riak.connection.class">Riak\Connection</parameter>
-    <parameter key="doctrine_cache.riak.bucket_property_list.class">Riak\BucketPropertyList</parameter>
-    <parameter key="doctrine_cache.riak.host">localhost</parameter>
-    <parameter key="doctrine_cache.riak.port">8087</parameter>
     <parameter key="doctrine_cache.memcache.class">Doctrine\Common\Cache\MemcacheCache</parameter>
     <parameter key="doctrine_cache.memcache.connection.class">Memcache</parameter>
     <parameter key="doctrine_cache.memcache.host">localhost</parameter>
@@ -507,13 +501,23 @@
     <parameter key="doctrine_cache.memcached.connection.class">Memcached</parameter>
     <parameter key="doctrine_cache.memcached.host">localhost</parameter>
     <parameter key="doctrine_cache.memcached.port">11211</parameter>
+    <parameter key="doctrine_cache.mongodb.class">Doctrine\Common\Cache\MongoDBCache</parameter>
+    <parameter key="doctrine_cache.mongodb.collection.class">MongoCollection</parameter>
+    <parameter key="doctrine_cache.mongodb.connection.class">MongoClient</parameter>
+    <parameter key="doctrine_cache.mongodb.server">localhost:27017</parameter>
     <parameter key="doctrine_cache.redis.class">Doctrine\Common\Cache\RedisCache</parameter>
     <parameter key="doctrine_cache.redis.connection.class">Redis</parameter>
     <parameter key="doctrine_cache.redis.host">localhost</parameter>
     <parameter key="doctrine_cache.redis.port">6379</parameter>
-    <parameter key="doctrine_cache.couchbase.class">Doctrine\Common\Cache\CouchbaseCache</parameter>
-    <parameter key="doctrine_cache.couchbase.connection.class">Couchbase</parameter>
-    <parameter key="doctrine_cache.couchbase.hostnames">localhost:8091</parameter>
+    <parameter key="doctrine_cache.riak.class">Doctrine\Common\Cache\RiakCache</parameter>
+    <parameter key="doctrine_cache.riak.bucket.class">Riak\Bucket</parameter>
+    <parameter key="doctrine_cache.riak.connection.class">Riak\Connection</parameter>
+    <parameter key="doctrine_cache.riak.bucket_property_list.class">Riak\BucketPropertyList</parameter>
+    <parameter key="doctrine_cache.riak.host">localhost</parameter>
+    <parameter key="doctrine_cache.riak.port">8087</parameter>
+    <parameter key="doctrine_cache.sqlite3.class">Doctrine\Common\Cache\SQLite3Cache</parameter>
+    <parameter key="doctrine_cache.sqlite3.connection.class">SQLite3</parameter>
+    <parameter key="doctrine_cache.void.class">Doctrine\Common\Cache\VoidCache</parameter>
     <parameter key="doctrine_cache.wincache.class">Doctrine\Common\Cache\WinCacheCache</parameter>
     <parameter key="doctrine_cache.xcache.class">Doctrine\Common\Cache\XcacheCache</parameter>
     <parameter key="doctrine_cache.zenddata.class">Doctrine\Common\Cache\ZendDataCache</parameter>
@@ -618,11 +622,214 @@
     <parameter key="stof_doctrine_extensions.listener.uploadable.class">Gedmo\Uploadable\UploadableListener</parameter>
     <parameter key="stof_doctrine_extensions.listener.reference_integrity.class">Gedmo\ReferenceIntegrity\ReferenceIntegrityListener</parameter>
     <parameter key="easyadmin.config" type="collection">
+      <parameter key="design" type="collection">
+        <parameter key="brand_color">rgb(148,125,93)</parameter>
+        <parameter key="theme">default</parameter>
+        <parameter key="color_scheme">dark</parameter>
+        <parameter key="form_theme" type="collection">
+          <parameter>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</parameter>
+        </parameter>
+        <parameter key="assets" type="collection">
+          <parameter key="css" type="collection"/>
+          <parameter key="js" type="collection"/>
+        </parameter>
+      </parameter>
+      <parameter key="site_name">Optic at home</parameter>
       <parameter key="entities" type="collection">
         <parameter key="Article" type="collection">
           <parameter key="class">OAH\NewsBundle\Entity\Article</parameter>
+          <parameter key="form" type="collection">
+            <parameter key="fields" type="collection">
+              <parameter>titre</parameter>
+              <parameter>auteur</parameter>
+              <parameter>contenu</parameter>
+              <parameter>categories</parameter>
+              <parameter type="collection">
+                <parameter key="property">Image</parameter>
+                <parameter key="type">oah_newsbundle_image</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
           <parameter key="label">Article</parameter>
           <parameter key="name">Article</parameter>
+          <parameter key="new" type="collection">
+            <parameter key="fields" type="collection">
+              <parameter key="titre" type="collection">
+                <parameter key="property">titre</parameter>
+              </parameter>
+              <parameter key="auteur" type="collection">
+                <parameter key="property">auteur</parameter>
+              </parameter>
+              <parameter key="contenu" type="collection">
+                <parameter key="property">contenu</parameter>
+              </parameter>
+              <parameter key="categories" type="collection">
+                <parameter key="property">categories</parameter>
+              </parameter>
+              <parameter key="Image" type="collection">
+                <parameter key="property">Image</parameter>
+                <parameter key="type">oah_newsbundle_image</parameter>
+              </parameter>
+            </parameter>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection">
+              <parameter key="titre" type="collection">
+                <parameter key="property">titre</parameter>
+              </parameter>
+              <parameter key="auteur" type="collection">
+                <parameter key="property">auteur</parameter>
+              </parameter>
+              <parameter key="contenu" type="collection">
+                <parameter key="property">contenu</parameter>
+              </parameter>
+              <parameter key="categories" type="collection">
+                <parameter key="property">categories</parameter>
+              </parameter>
+              <parameter key="Image" type="collection">
+                <parameter key="property">Image</parameter>
+                <parameter key="type">oah_newsbundle_image</parameter>
+              </parameter>
+            </parameter>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="search" type="collection">
+            <parameter key="fields" type="collection"/>
+          </parameter>
+          <parameter key="show" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">edit</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection"/>
+          <parameter key="templates" type="collection">
+            <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
+            <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
+            <parameter key="list">@EasyAdmin/default/list.html.twig</parameter>
+            <parameter key="new">@EasyAdmin/default/new.html.twig</parameter>
+            <parameter key="show">@EasyAdmin/default/show.html.twig</parameter>
+            <parameter key="form">@EasyAdmin/default/form.html.twig</parameter>
+            <parameter key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</parameter>
+            <parameter key="paginator">@EasyAdmin/default/paginator.html.twig</parameter>
+            <parameter key="field_array">@EasyAdmin/default/field_array.html.twig</parameter>
+            <parameter key="field_association">@EasyAdmin/default/field_association.html.twig</parameter>
+            <parameter key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</parameter>
+            <parameter key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</parameter>
+            <parameter key="field_date">@EasyAdmin/default/field_date.html.twig</parameter>
+            <parameter key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</parameter>
+            <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
+            <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
+            <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_guid">@EasyAdmin/default/field_guid.html.twig</parameter>
+            <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
+            <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</parameter>
+            <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_object">@EasyAdmin/default/field_object.html.twig</parameter>
+            <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
+            <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
+            <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
+            <parameter key="field_string">@EasyAdmin/default/field_string.html.twig</parameter>
+            <parameter key="field_text">@EasyAdmin/default/field_text.html.twig</parameter>
+            <parameter key="field_time">@EasyAdmin/default/field_time.html.twig</parameter>
+            <parameter key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</parameter>
+            <parameter key="label_empty">@EasyAdmin/default/label_empty.html.twig</parameter>
+            <parameter key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</parameter>
+            <parameter key="label_null">@EasyAdmin/default/label_null.html.twig</parameter>
+            <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="Categories" type="collection">
+          <parameter key="class">OAH\NewsBundle\Entity\Categorie</parameter>
+          <parameter key="label">Categories</parameter>
+          <parameter key="name">Categories</parameter>
           <parameter key="edit" type="collection">
             <parameter key="fields" type="collection"/>
             <parameter key="form_options" type="collection"/>
@@ -744,9 +951,444 @@
             <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
             <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
             <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_guid">@EasyAdmin/default/field_guid.html.twig</parameter>
             <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
             <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</parameter>
             <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_object">@EasyAdmin/default/field_object.html.twig</parameter>
+            <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
+            <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
+            <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
+            <parameter key="field_string">@EasyAdmin/default/field_string.html.twig</parameter>
+            <parameter key="field_text">@EasyAdmin/default/field_text.html.twig</parameter>
+            <parameter key="field_time">@EasyAdmin/default/field_time.html.twig</parameter>
+            <parameter key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</parameter>
+            <parameter key="label_empty">@EasyAdmin/default/label_empty.html.twig</parameter>
+            <parameter key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</parameter>
+            <parameter key="label_null">@EasyAdmin/default/label_null.html.twig</parameter>
+            <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="Devis" type="collection">
+          <parameter key="class">OAH\DevisBundle\Entity\Devis</parameter>
+          <parameter key="label">Devis</parameter>
+          <parameter key="name">Devis</parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="new" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="search" type="collection">
+            <parameter key="fields" type="collection"/>
+          </parameter>
+          <parameter key="show" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">edit</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection"/>
+          <parameter key="templates" type="collection">
+            <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
+            <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
+            <parameter key="list">@EasyAdmin/default/list.html.twig</parameter>
+            <parameter key="new">@EasyAdmin/default/new.html.twig</parameter>
+            <parameter key="show">@EasyAdmin/default/show.html.twig</parameter>
+            <parameter key="form">@EasyAdmin/default/form.html.twig</parameter>
+            <parameter key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</parameter>
+            <parameter key="paginator">@EasyAdmin/default/paginator.html.twig</parameter>
+            <parameter key="field_array">@EasyAdmin/default/field_array.html.twig</parameter>
+            <parameter key="field_association">@EasyAdmin/default/field_association.html.twig</parameter>
+            <parameter key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</parameter>
+            <parameter key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</parameter>
+            <parameter key="field_date">@EasyAdmin/default/field_date.html.twig</parameter>
+            <parameter key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</parameter>
+            <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
+            <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
+            <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_guid">@EasyAdmin/default/field_guid.html.twig</parameter>
+            <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
+            <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</parameter>
+            <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_object">@EasyAdmin/default/field_object.html.twig</parameter>
+            <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
+            <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
+            <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
+            <parameter key="field_string">@EasyAdmin/default/field_string.html.twig</parameter>
+            <parameter key="field_text">@EasyAdmin/default/field_text.html.twig</parameter>
+            <parameter key="field_time">@EasyAdmin/default/field_time.html.twig</parameter>
+            <parameter key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</parameter>
+            <parameter key="label_empty">@EasyAdmin/default/label_empty.html.twig</parameter>
+            <parameter key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</parameter>
+            <parameter key="label_null">@EasyAdmin/default/label_null.html.twig</parameter>
+            <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="Utilisateurs" type="collection">
+          <parameter key="class">OAH\UserBundle\Entity\User</parameter>
+          <parameter key="label">Utilisateurs</parameter>
+          <parameter key="name">Utilisateurs</parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="new" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="search" type="collection">
+            <parameter key="fields" type="collection"/>
+          </parameter>
+          <parameter key="show" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">edit</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection"/>
+          <parameter key="templates" type="collection">
+            <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
+            <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
+            <parameter key="list">@EasyAdmin/default/list.html.twig</parameter>
+            <parameter key="new">@EasyAdmin/default/new.html.twig</parameter>
+            <parameter key="show">@EasyAdmin/default/show.html.twig</parameter>
+            <parameter key="form">@EasyAdmin/default/form.html.twig</parameter>
+            <parameter key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</parameter>
+            <parameter key="paginator">@EasyAdmin/default/paginator.html.twig</parameter>
+            <parameter key="field_array">@EasyAdmin/default/field_array.html.twig</parameter>
+            <parameter key="field_association">@EasyAdmin/default/field_association.html.twig</parameter>
+            <parameter key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</parameter>
+            <parameter key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</parameter>
+            <parameter key="field_date">@EasyAdmin/default/field_date.html.twig</parameter>
+            <parameter key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</parameter>
+            <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
+            <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
+            <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_guid">@EasyAdmin/default/field_guid.html.twig</parameter>
+            <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
+            <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</parameter>
+            <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_object">@EasyAdmin/default/field_object.html.twig</parameter>
+            <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
+            <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
+            <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
+            <parameter key="field_string">@EasyAdmin/default/field_string.html.twig</parameter>
+            <parameter key="field_text">@EasyAdmin/default/field_text.html.twig</parameter>
+            <parameter key="field_time">@EasyAdmin/default/field_time.html.twig</parameter>
+            <parameter key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</parameter>
+            <parameter key="label_empty">@EasyAdmin/default/label_empty.html.twig</parameter>
+            <parameter key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</parameter>
+            <parameter key="label_null">@EasyAdmin/default/label_null.html.twig</parameter>
+            <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="Newsletter" type="collection">
+          <parameter key="class">OAH\DevisBundle\Entity\Newsletter</parameter>
+          <parameter key="label">Newsletter</parameter>
+          <parameter key="name">Newsletter</parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="new" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="search" type="collection">
+            <parameter key="fields" type="collection"/>
+          </parameter>
+          <parameter key="show" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">edit</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection"/>
+          <parameter key="templates" type="collection">
+            <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
+            <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
+            <parameter key="list">@EasyAdmin/default/list.html.twig</parameter>
+            <parameter key="new">@EasyAdmin/default/new.html.twig</parameter>
+            <parameter key="show">@EasyAdmin/default/show.html.twig</parameter>
+            <parameter key="form">@EasyAdmin/default/form.html.twig</parameter>
+            <parameter key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</parameter>
+            <parameter key="paginator">@EasyAdmin/default/paginator.html.twig</parameter>
+            <parameter key="field_array">@EasyAdmin/default/field_array.html.twig</parameter>
+            <parameter key="field_association">@EasyAdmin/default/field_association.html.twig</parameter>
+            <parameter key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</parameter>
+            <parameter key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</parameter>
+            <parameter key="field_date">@EasyAdmin/default/field_date.html.twig</parameter>
+            <parameter key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</parameter>
+            <parameter key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</parameter>
+            <parameter key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</parameter>
+            <parameter key="field_float">@EasyAdmin/default/field_float.html.twig</parameter>
+            <parameter key="field_guid">@EasyAdmin/default/field_guid.html.twig</parameter>
+            <parameter key="field_id">@EasyAdmin/default/field_id.html.twig</parameter>
+            <parameter key="field_image">@EasyAdmin/default/field_image.html.twig</parameter>
+            <parameter key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</parameter>
+            <parameter key="field_integer">@EasyAdmin/default/field_integer.html.twig</parameter>
+            <parameter key="field_object">@EasyAdmin/default/field_object.html.twig</parameter>
             <parameter key="field_raw">@EasyAdmin/default/field_raw.html.twig</parameter>
             <parameter key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</parameter>
             <parameter key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</parameter>
@@ -761,19 +1403,6 @@
           </parameter>
         </parameter>
       </parameter>
-      <parameter key="design" type="collection">
-        <parameter key="assets" type="collection">
-          <parameter key="css" type="collection"/>
-          <parameter key="js" type="collection"/>
-        </parameter>
-        <parameter key="theme">default</parameter>
-        <parameter key="color_scheme">dark</parameter>
-        <parameter key="brand_color">#E67E22</parameter>
-        <parameter key="form_theme" type="collection">
-          <parameter>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</parameter>
-        </parameter>
-      </parameter>
-      <parameter key="site_name">Easy Admin</parameter>
       <parameter key="formats" type="collection">
         <parameter key="date">Y-m-d</parameter>
         <parameter key="time">H:i:s</parameter>
@@ -793,6 +1422,7 @@
       <parameter key="show" type="collection">
         <parameter key="actions" type="collection"/>
       </parameter>
+      <parameter key="default_entity_name">Article</parameter>
     </parameter>
     <parameter key="fos_user.backend_type_orm">true</parameter>
     <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\EventListener\LastLoginListener</parameter>
@@ -856,6 +1486,7 @@
     <parameter key="liip_imagine.filter.loader.strip.class">Liip\ImagineBundle\Imagine\Filter\Loader\StripFilterLoader</parameter>
     <parameter key="liip_imagine.filter.loader.background.class">Liip\ImagineBundle\Imagine\Filter\Loader\BackgroundFilterLoader</parameter>
     <parameter key="liip_imagine.filter.loader.upscale.class">Liip\ImagineBundle\Imagine\Filter\Loader\UpscaleFilterLoader</parameter>
+    <parameter key="liip_imagine.filter.loader.downscale.class">Liip\ImagineBundle\Imagine\Filter\Loader\DownscaleFilterLoader</parameter>
     <parameter key="liip_imagine.filter.loader.auto_rotate.class">Liip\ImagineBundle\Imagine\Filter\Loader\AutoRotateFilterLoader</parameter>
     <parameter key="liip_imagine.filter.loader.rotate.class">Liip\ImagineBundle\Imagine\Filter\Loader\RotateFilterLoader</parameter>
     <parameter key="liip_imagine.filter.loader.interlace.class">Liip\ImagineBundle\Imagine\Filter\Loader\InterlaceFilterLoader</parameter>
@@ -965,17 +1596,17 @@
         <parameter>form</parameter>
         <parameter>@WebProfiler/Collector/form.html.twig</parameter>
       </parameter>
-      <parameter key="data_collector.security" type="collection">
-        <parameter>security</parameter>
-        <parameter>@Security/Collector/security.html.twig</parameter>
+      <parameter key="data_collector.doctrine" type="collection">
+        <parameter>db</parameter>
+        <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
       <parameter key="swiftmailer.data_collector" type="collection">
         <parameter>swiftmailer</parameter>
         <parameter>@Swiftmailer/Collector/swiftmailer.html.twig</parameter>
       </parameter>
-      <parameter key="data_collector.doctrine" type="collection">
-        <parameter>db</parameter>
-        <parameter>@Doctrine/Collector/db.html.twig</parameter>
+      <parameter key="data_collector.security" type="collection">
+        <parameter>security</parameter>
+        <parameter>@Security/Collector/security.html.twig</parameter>
       </parameter>
       <parameter key="easyadmin.data_collector" type="collection">
         <parameter>easyadmin</parameter>
@@ -991,6 +1622,9 @@
     </parameter>
   </parameters>
   <services>
+    <service id="oah_newsbundle_image" class="OAH\NewsBundle\Form\ImageType">
+      <tag name="form.type"/>
+    </service>
     <service id="twig.extension.text" class="Twig_Extensions_Extension_Text">
       <tag name="twig.extension"/>
     </service>
@@ -2047,6 +2681,12 @@
       </call>
       <call method="addResource">
         <argument>xlf</argument>
+        <argument>C:\wamp\www\opticathome.fr\vendor\javiereguiluz\easyadmin-bundle/Resources/translations\EasyAdminBundle.tr.xlf</argument>
+        <argument>tr</argument>
+        <argument>EasyAdminBundle</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
         <argument>C:\wamp\www\opticathome.fr\vendor\javiereguiluz\easyadmin-bundle/Resources/translations\messages.bg.xlf</argument>
         <argument>bg</argument>
         <argument>messages</argument>
@@ -2133,6 +2773,12 @@
         <argument>xlf</argument>
         <argument>C:\wamp\www\opticathome.fr\vendor\javiereguiluz\easyadmin-bundle/Resources/translations\messages.sv.xlf</argument>
         <argument>sv</argument>
+        <argument>messages</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>C:\wamp\www\opticathome.fr\vendor\javiereguiluz\easyadmin-bundle/Resources/translations\messages.tr.xlf</argument>
+        <argument>tr</argument>
         <argument>messages</argument>
       </call>
       <call method="addResource">
@@ -2812,6 +3458,7 @@
           <service class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
             <argument type="service" id="service_container"/>
             <argument type="collection">
+              <argument key="oah_newsbundle_image">oah_newsbundle_image</argument>
               <argument key="form">form.type.form</argument>
               <argument key="birthday">form.type.birthday</argument>
               <argument key="checkbox">form.type.checkbox</argument>
@@ -2844,6 +3491,7 @@
               <argument key="currency">form.type.currency</argument>
               <argument key="entity">form.type.entity</argument>
               <argument key="ckeditor">ivory_ck_editor.form.type</argument>
+              <argument key="easyadmin">easyadmin.form.type</argument>
               <argument key="fos_user_username">fos_user.username_form_type</argument>
               <argument key="fos_user_profile">fos_user.profile.form.type</argument>
               <argument key="fos_user_registration">fos_user.registration.form.type</argument>
@@ -2857,6 +3505,7 @@
                 <argument>form.type_extension.form.validator</argument>
                 <argument>form.type_extension.csrf</argument>
                 <argument>form.type_extension.form.data_collector</argument>
+                <argument>easyadmin.form.type.extension</argument>
               </argument>
               <argument key="repeated" type="collection">
                 <argument>form.type_extension.repeated.validator</argument>
@@ -3232,29 +3881,29 @@
       </call>
       <call method="add">
         <argument type="service">
-          <service class="Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector" public="false">
-            <tag name="data_collector" template="@Security/Collector/security.html.twig" id="security"/>
-            <argument type="service" id="security.token_storage" on-invalid="ignore"/>
+          <service class="Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector" public="false">
+            <tag name="data_collector" template="@Doctrine/Collector/db.html.twig" id="db" priority="250"/>
+            <argument type="service" id="doctrine"/>
+            <call method="addLogger">
+              <argument>default</argument>
+              <argument type="service" id="doctrine.dbal.logger.profiling.default"/>
+            </call>
           </service>
         </argument>
       </call>
       <call method="add">
         <argument type="service">
           <service class="Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector" public="false">
-            <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer"/>
+            <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer" priority="245"/>
             <argument type="service" id="service_container"/>
           </service>
         </argument>
       </call>
       <call method="add">
         <argument type="service">
-          <service class="Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector" public="false">
-            <tag name="data_collector" template="@Doctrine/Collector/db.html.twig" id="db"/>
-            <argument type="service" id="doctrine"/>
-            <call method="addLogger">
-              <argument>default</argument>
-              <argument type="service" id="doctrine.dbal.logger.profiling.default"/>
-            </call>
+          <service class="Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector" public="false">
+            <tag name="data_collector" template="@Security/Collector/security.html.twig" id="security"/>
+            <argument type="service" id="security.token_storage" on-invalid="ignore"/>
           </service>
         </argument>
       </call>
@@ -3426,10 +4075,10 @@
         <argument>0</argument>
       </call>
       <call method="addListenerService">
-        <argument>kernel.exception</argument>
+        <argument>easy_admin.post_initialize</argument>
         <argument type="collection">
-          <argument>easyadmin.listener.exception</argument>
-          <argument>onKernelException</argument>
+          <argument>easyadmin.listener.request_post_initialize</argument>
+          <argument>initializeRequest</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -3588,7 +4237,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>565b17726e5930.89058539</argument>
+            <argument>566d44c9ec6937.91080109</argument>
           </service>
         </argument>
       </argument>
@@ -3897,7 +4546,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>565b17726e5930.89058539</argument>
+            <argument>566d44c9ec6937.91080109</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -4337,6 +4986,7 @@
         <argument key="password">null</argument>
         <argument key="charset">UTF8</argument>
         <argument key="driverOptions" type="collection"/>
+        <argument key="defaultTableOptions" type="collection"/>
       </argument>
       <argument type="service">
         <service class="Doctrine\DBAL\Configuration" public="false">
@@ -4619,11 +5269,214 @@
     </service>
     <service id="easyadmin.configurator" class="JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator">
       <argument type="collection">
+        <argument key="design" type="collection">
+          <argument key="brand_color">rgb(148,125,93)</argument>
+          <argument key="theme">default</argument>
+          <argument key="color_scheme">dark</argument>
+          <argument key="form_theme" type="collection">
+            <argument>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</argument>
+          </argument>
+          <argument key="assets" type="collection">
+            <argument key="css" type="collection"/>
+            <argument key="js" type="collection"/>
+          </argument>
+        </argument>
+        <argument key="site_name">Optic at home</argument>
         <argument key="entities" type="collection">
           <argument key="Article" type="collection">
             <argument key="class">OAH\NewsBundle\Entity\Article</argument>
+            <argument key="form" type="collection">
+              <argument key="fields" type="collection">
+                <argument>titre</argument>
+                <argument>auteur</argument>
+                <argument>contenu</argument>
+                <argument>categories</argument>
+                <argument type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+            </argument>
             <argument key="label">Article</argument>
             <argument key="name">Article</argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                </argument>
+                <argument key="categories" type="collection">
+                  <argument key="property">categories</argument>
+                </argument>
+                <argument key="Image" type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                </argument>
+                <argument key="categories" type="collection">
+                  <argument key="property">categories</argument>
+                </argument>
+                <argument key="Image" type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Categories" type="collection">
+            <argument key="class">OAH\NewsBundle\Entity\Categorie</argument>
+            <argument key="label">Categories</argument>
+            <argument key="name">Categories</argument>
             <argument key="edit" type="collection">
               <argument key="fields" type="collection"/>
               <argument key="form_options" type="collection"/>
@@ -4745,9 +5598,444 @@
               <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
               <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
               <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
               <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
               <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
               <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Devis" type="collection">
+            <argument key="class">OAH\DevisBundle\Entity\Devis</argument>
+            <argument key="label">Devis</argument>
+            <argument key="name">Devis</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Utilisateurs" type="collection">
+            <argument key="class">OAH\UserBundle\Entity\User</argument>
+            <argument key="label">Utilisateurs</argument>
+            <argument key="name">Utilisateurs</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Newsletter" type="collection">
+            <argument key="class">OAH\DevisBundle\Entity\Newsletter</argument>
+            <argument key="label">Newsletter</argument>
+            <argument key="name">Newsletter</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
               <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
               <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
               <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
@@ -4762,19 +6050,6 @@
             </argument>
           </argument>
         </argument>
-        <argument key="design" type="collection">
-          <argument key="assets" type="collection">
-            <argument key="css" type="collection"/>
-            <argument key="js" type="collection"/>
-          </argument>
-          <argument key="theme">default</argument>
-          <argument key="color_scheme">dark</argument>
-          <argument key="brand_color">#E67E22</argument>
-          <argument key="form_theme" type="collection">
-            <argument>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</argument>
-          </argument>
-        </argument>
-        <argument key="site_name">Easy Admin</argument>
         <argument key="formats" type="collection">
           <argument key="date">Y-m-d</argument>
           <argument key="time">H:i:s</argument>
@@ -4794,6 +6069,7 @@
         <argument key="show" type="collection">
           <argument key="actions" type="collection"/>
         </argument>
+        <argument key="default_entity_name">Article</argument>
       </argument>
       <argument type="service">
         <service class="JavierEguiluz\Bundle\EasyAdminBundle\Reflection\EntityMetadataInspector" public="false">
@@ -4804,10 +6080,829 @@
         <service class="JavierEguiluz\Bundle\EasyAdminBundle\Reflection\ClassPropertyReflector" public="false"/>
       </argument>
     </service>
-    <service id="easyadmin.listener.exception" class="JavierEguiluz\Bundle\EasyAdminBundle\Listener\ExceptionListener">
-      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
-      <argument type="service" id="templating"/>
-      <argument>true</argument>
+    <service id="easyadmin.form.type" class="JavierEguiluz\Bundle\EasyAdminBundle\Form\Type\EasyAdminFormType">
+      <tag name="form.type" alias="easyadmin"/>
+      <argument type="service" id="easyadmin.configurator"/>
+      <argument type="collection">
+        <argument key="design" type="collection">
+          <argument key="brand_color">rgb(148,125,93)</argument>
+          <argument key="theme">default</argument>
+          <argument key="color_scheme">dark</argument>
+          <argument key="form_theme" type="collection">
+            <argument>@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig</argument>
+          </argument>
+          <argument key="assets" type="collection">
+            <argument key="css" type="collection"/>
+            <argument key="js" type="collection"/>
+          </argument>
+        </argument>
+        <argument key="site_name">Optic at home</argument>
+        <argument key="entities" type="collection">
+          <argument key="Article" type="collection">
+            <argument key="class">OAH\NewsBundle\Entity\Article</argument>
+            <argument key="form" type="collection">
+              <argument key="fields" type="collection">
+                <argument>titre</argument>
+                <argument>auteur</argument>
+                <argument>contenu</argument>
+                <argument>categories</argument>
+                <argument type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="label">Article</argument>
+            <argument key="name">Article</argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                </argument>
+                <argument key="categories" type="collection">
+                  <argument key="property">categories</argument>
+                </argument>
+                <argument key="Image" type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                </argument>
+                <argument key="categories" type="collection">
+                  <argument key="property">categories</argument>
+                </argument>
+                <argument key="Image" type="collection">
+                  <argument key="property">Image</argument>
+                  <argument key="type">oah_newsbundle_image</argument>
+                </argument>
+              </argument>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Categories" type="collection">
+            <argument key="class">OAH\NewsBundle\Entity\Categorie</argument>
+            <argument key="label">Categories</argument>
+            <argument key="name">Categories</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Devis" type="collection">
+            <argument key="class">OAH\DevisBundle\Entity\Devis</argument>
+            <argument key="label">Devis</argument>
+            <argument key="name">Devis</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Utilisateurs" type="collection">
+            <argument key="class">OAH\UserBundle\Entity\User</argument>
+            <argument key="label">Utilisateurs</argument>
+            <argument key="name">Utilisateurs</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+          <argument key="Newsletter" type="collection">
+            <argument key="class">OAH\DevisBundle\Entity\Newsletter</argument>
+            <argument key="label">Newsletter</argument>
+            <argument key="name">Newsletter</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="new" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="search" type="collection">
+              <argument key="fields" type="collection"/>
+            </argument>
+            <argument key="show" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">edit</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection"/>
+            <argument key="templates" type="collection">
+              <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
+              <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
+              <argument key="list">@EasyAdmin/default/list.html.twig</argument>
+              <argument key="new">@EasyAdmin/default/new.html.twig</argument>
+              <argument key="show">@EasyAdmin/default/show.html.twig</argument>
+              <argument key="form">@EasyAdmin/default/form.html.twig</argument>
+              <argument key="flash_messages">@EasyAdmin/default/flash_messages.html.twig</argument>
+              <argument key="paginator">@EasyAdmin/default/paginator.html.twig</argument>
+              <argument key="field_array">@EasyAdmin/default/field_array.html.twig</argument>
+              <argument key="field_association">@EasyAdmin/default/field_association.html.twig</argument>
+              <argument key="field_bigint">@EasyAdmin/default/field_bigint.html.twig</argument>
+              <argument key="field_boolean">@EasyAdmin/default/field_boolean.html.twig</argument>
+              <argument key="field_date">@EasyAdmin/default/field_date.html.twig</argument>
+              <argument key="field_datetime">@EasyAdmin/default/field_datetime.html.twig</argument>
+              <argument key="field_datetimetz">@EasyAdmin/default/field_datetimetz.html.twig</argument>
+              <argument key="field_decimal">@EasyAdmin/default/field_decimal.html.twig</argument>
+              <argument key="field_float">@EasyAdmin/default/field_float.html.twig</argument>
+              <argument key="field_guid">@EasyAdmin/default/field_guid.html.twig</argument>
+              <argument key="field_id">@EasyAdmin/default/field_id.html.twig</argument>
+              <argument key="field_image">@EasyAdmin/default/field_image.html.twig</argument>
+              <argument key="field_json_array">@EasyAdmin/default/field_json_array.html.twig</argument>
+              <argument key="field_integer">@EasyAdmin/default/field_integer.html.twig</argument>
+              <argument key="field_object">@EasyAdmin/default/field_object.html.twig</argument>
+              <argument key="field_raw">@EasyAdmin/default/field_raw.html.twig</argument>
+              <argument key="field_simple_array">@EasyAdmin/default/field_simple_array.html.twig</argument>
+              <argument key="field_smallint">@EasyAdmin/default/field_smallint.html.twig</argument>
+              <argument key="field_string">@EasyAdmin/default/field_string.html.twig</argument>
+              <argument key="field_text">@EasyAdmin/default/field_text.html.twig</argument>
+              <argument key="field_time">@EasyAdmin/default/field_time.html.twig</argument>
+              <argument key="field_toggle">@EasyAdmin/default/field_toggle.html.twig</argument>
+              <argument key="label_empty">@EasyAdmin/default/label_empty.html.twig</argument>
+              <argument key="label_inaccessible">@EasyAdmin/default/label_inaccessible.html.twig</argument>
+              <argument key="label_null">@EasyAdmin/default/label_null.html.twig</argument>
+              <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
+            </argument>
+          </argument>
+        </argument>
+        <argument key="formats" type="collection">
+          <argument key="date">Y-m-d</argument>
+          <argument key="time">H:i:s</argument>
+          <argument key="datetime">F j, Y H:i</argument>
+        </argument>
+        <argument key="disabled_actions" type="collection"/>
+        <argument key="list" type="collection">
+          <argument key="actions" type="collection"/>
+          <argument key="max_results">15</argument>
+        </argument>
+        <argument key="edit" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+        <argument key="new" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+        <argument key="show" type="collection">
+          <argument key="actions" type="collection"/>
+        </argument>
+        <argument key="default_entity_name">Article</argument>
+      </argument>
+      <argument type="service">
+        <service class="Symfony\Component\Form\FormTypeGuesserChain">
+          <argument type="collection">
+            <argument type="service" id="form.type_guesser.validator"/>
+            <argument type="service" id="form.type_guesser.doctrine"/>
+          </argument>
+        </service>
+      </argument>
+    </service>
+    <service id="easyadmin.form.type.extension" class="JavierEguiluz\Bundle\EasyAdminBundle\Form\Extension\EasyAdminExtension">
+      <tag name="form.type_extension" alias="form" extended_type="Symfony\Component\Form\Extension\Core\Type\FormType" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
+    </service>
+    <service id="easyadmin.listener.request_post_initialize" class="JavierEguiluz\Bundle\EasyAdminBundle\EventListener\RequestPostInitializeListener">
+      <tag name="kernel.event_listener" event="easy_admin.post_initialize" method="initializeRequest"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
     </service>
     <service id="ivory_ck_editor.form.type" class="Ivory\CKEditorBundle\Form\Type\CKEditorType">
       <tag name="form.type" alias="ckeditor"/>
@@ -4973,6 +7068,10 @@
         <argument type="service" id="liip_imagine.filter.loader.upscale"/>
       </call>
       <call method="addLoader">
+        <argument>downscale</argument>
+        <argument type="service" id="liip_imagine.filter.loader.downscale"/>
+      </call>
+      <call method="addLoader">
         <argument>auto_rotate</argument>
         <argument type="service" id="liip_imagine.filter.loader.auto_rotate"/>
       </call>
@@ -5096,6 +7195,9 @@
     <service id="liip_imagine.filter.loader.upscale" class="Liip\ImagineBundle\Imagine\Filter\Loader\UpscaleFilterLoader">
       <tag name="liip_imagine.filter.loader" loader="upscale"/>
     </service>
+    <service id="liip_imagine.filter.loader.downscale" class="Liip\ImagineBundle\Imagine\Filter\Loader\DownscaleFilterLoader">
+      <tag name="liip_imagine.filter.loader" loader="downscale"/>
+    </service>
     <service id="liip_imagine.filter.loader.auto_rotate" class="Liip\ImagineBundle\Imagine\Filter\Loader\AutoRotateFilterLoader">
       <tag name="liip_imagine.filter.loader" loader="auto_rotate"/>
     </service>
@@ -5207,17 +7309,17 @@
           <argument>form</argument>
           <argument>@WebProfiler/Collector/form.html.twig</argument>
         </argument>
-        <argument key="data_collector.security" type="collection">
-          <argument>security</argument>
-          <argument>@Security/Collector/security.html.twig</argument>
+        <argument key="data_collector.doctrine" type="collection">
+          <argument>db</argument>
+          <argument>@Doctrine/Collector/db.html.twig</argument>
         </argument>
         <argument key="swiftmailer.data_collector" type="collection">
           <argument>swiftmailer</argument>
           <argument>@Swiftmailer/Collector/swiftmailer.html.twig</argument>
         </argument>
-        <argument key="data_collector.doctrine" type="collection">
-          <argument>db</argument>
-          <argument>@Doctrine/Collector/db.html.twig</argument>
+        <argument key="data_collector.security" type="collection">
+          <argument>security</argument>
+          <argument>@Security/Collector/security.html.twig</argument>
         </argument>
         <argument key="easyadmin.data_collector" type="collection">
           <argument>easyadmin</argument>
@@ -5541,7 +7643,7 @@
         <argument>FOSUser</argument>
       </call>
       <call method="addPath">
-        <argument>C:\wamp\www\opticathome.fr\vendor\liip\imagine-bundle\Liip\ImagineBundle/Resources/views</argument>
+        <argument>C:\wamp\www\opticathome.fr\vendor\liip\imagine-bundle/Resources/views</argument>
         <argument>LiipImagine</argument>
       </call>
       <call method="addPath">

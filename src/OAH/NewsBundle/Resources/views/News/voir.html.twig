@@ -14,7 +14,7 @@
 	<img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/>
 {% endif %}
 
-	<h2>	{{ article.titre }} </h2
+	<h1 class="titre_news"></script>	{{ article.titre }} </h1>
 		<p class="auteur"><i class="glyphicon glyphicon-pencil"></i> Par {{ article.auteur }}, <i class="glyphicon glyphicon-time"> </i> {{ article.date|date('d/m/y') }}</p>
 
 	<div class="">
@@ -24,16 +24,16 @@
 </div>
 
 <p>
-	<a href="{{ path('OAHNews_accueil')}}" class="btn btn-default">
+	<a href="{{ path('OAHNews_accueil')}}" class="btn btnA btn-default">
 		<i class="glyphicon glyphicon-chevron-left"></i>
 		Retour aux news
 	</a>
 	{% if is_granted('ROLE_USER') %}
-	<a href="{{ path('OAHNews_modifier',{'slugarticle':article.slugarticle})}}" class="btn btn-default">
+	<a href="{{ path('OAHNews_modifier',{'slugarticle':article.slugarticle})}}" class="btn btnA btn-default">
 		<i class="glyphicon glyphicon-edit"></i>
 		Modifier l'article
 	</a>
-	<a href="{{ path('OAHNews_supprimer',{'slugarticle':article.slugarticle})}}" class="btn btn-danger">
+	<a href="{{ path('OAHNews_supprimer',{'slugarticle':article.slugarticle})}}" class="btn btnA btn-danger">
 		<i class="glyphicon glyphicon-trash"></i>
 		Supprimer l'article
 	</a>

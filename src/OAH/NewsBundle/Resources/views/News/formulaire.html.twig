@@ -16,7 +16,7 @@
         {# Affichage des erreurs pour ce champ précis. #}
         {{ form_errors(form.titre) }}
 
-        <div class="col-sm-4">
+        <div class="col-sm-8">
             {# Génération de l'input. #}
             {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
          </div>
@@ -42,40 +42,26 @@
     <div class="form-group">
           {{ form_label(form.auteur, "Auteur", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
           {{ form_errors(form.auteur) }}
-        <div class="col-sm-4">
+        <div class="col-sm-8">
           {{ form_widget(form.auteur, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
 
     <div class="form-group">
-        {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
-          <div class="image-cropper">
-               <!-- This is where the preview image is displayed -->
-              <div class="row">
-                <div class="col-sm-offset-2 col-sm-8">
-                  <div class="cropit-image-preview-container">
-                   <div class="cropit-image-preview"></div>
-                 </div>
-               </div>
-             </div> 
-                    <!-- This range input controls zoom -->
-                        <!-- You can add additional elements here, e.g. the image icons -->
-              <div class="row">
-                <div class="col-sm-offset-4 col-sm-4">
-                  <input type="range" class="cropit-image-zoom-input" />
-                </div>
-              </div>
-                  {{ form_errors(form.image) }}
-              
-              <div class="row">    
-                <div class="col-sm-4">
-                  {{ form_widget(form.image) }}
-                    <div class="select-image-btn">Select new image</div>
-                    <div class="send_image">Get Cropped image.</div>
-                </div>
-              </div>
-          </div>
+            {{ form_label(form.image, 'Image', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
+            {{ form_errors(form.image) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.image) }}  
+        </div>
     </div>  
+
+    <div class="form-group">
+            {{ form_label(form.categories, 'Categories', {'label_attr': {'class': 'col-sm-3 control-label'}})}}
+            {{ form_errors(form.categories) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.categories) }}  
+        </div>
+    </div>
 
             {# Génération du label + error + widget pour un champ #}
             {{ form_row(form.date) }}
@@ -88,33 +74,24 @@
                et tous les champs cachés (type « hidden »). #}
             {{ form_rest(form) }}
 
+    <div class="form-group">        
             {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            <div class="col-sm-offset- 8 col-sm-4 col-xs-6 pull-right">
             {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
-            
+            </div>
+    </div>
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}
 </div>
 
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/cropit-master/dist/jquery.cropit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/oahcore/js/bootstrap-datepicker-master/js/locales/bootstrap-datepicker.fr.js') }}"></script>
 
 <script>
  $(function () {
-     $('.select-image-btn').click(function(){
-         $('.cropit-image-input').click();
-    });
-
-
-      var z = $('.image-cropper');
-      z.cropit({
-          exportZoom: 0.5,
-          imageBackground: true,
-          imageBackgroundBorderWidth: 15
-      });
-      $('.send_image').click(function() {
-            var h =z.cropit('export');
-            alert(h);
-       });
+     $('input').datepicker() ;
    });
 </script>
 

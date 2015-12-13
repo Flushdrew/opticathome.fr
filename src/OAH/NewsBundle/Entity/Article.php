@@ -328,4 +328,5 @@ class Article
     {
         return $this->slugarticle;
     }
+
 }

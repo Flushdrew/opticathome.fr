@@ -20,7 +20,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
 		"doctrine/doctrine-fixtures-bundle": "~2.2",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "javiereguiluz/easyadmin-bundle": "^1.7",
+        "javiereguiluz/easyadmin-bundle": "^1.9",
         "egeloen/ckeditor-bundle": "^3.0",
         "friendsofsymfony/user-bundle": "dev-master",
         "liip/imagine-bundle": "^1.3"

@@ -13,7 +13,8 @@
     <link href="{{ asset('bundles/oahcore/css/clean-blog.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/oahcore/css/social-buttons.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/oahcore/css/news.css') }}" rel="stylesheet" type="text/css" />
-
+    <link href="{{ asset('bundles/oahcore/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -38,7 +39,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#header">Optic at home</a>
+					<a class="navbar-brand" href="#header"></a>
 				</div>
 				
 				<div class="collapse navbar-collapse">
@@ -51,8 +52,8 @@
 					<li><a href="#garanties">Garanties</a></li>
 					<li><a href="#contact">Contact</a></li>
 					{% endblock %}
-					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}">Blog</a></li>
 					<li><a class="normalLink" href="{{ path('oah_core_presse') }}">Presse</a></li>
+					<li><a class="normalLink" href="{{ path('OAHNews_accueil') }}">Blog</a></li>
 				</ul>
 				</div>
             </div>			
@@ -79,6 +80,7 @@
 	{% for flashMessage in app.session.flashbag.get('info') %}
 	<div class="container">
 	  <div class="row">
+	  <br />
     	<div class="alert col-md-offset-3 col-md-6 alert-dismissable alert-success text-center">
     		<button type="button" class="close" data-dismiss="alert">X</button>
         	{{ flashMessage }}
@@ -163,7 +165,7 @@
 				</div>
 				
 				<div class="col-lg-offset-1 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-					<img class="thumbnail" src="{{asset('img/wall-of-eyeglasses.jpg')}}" alt="montures">	
+					<img class="thumbnail" src="{{asset('img/catalogue.jpg')}}" alt="montures">	
 				</div> 
 	
 			</div>
@@ -251,7 +253,7 @@
 						<strong class="pull-right prix">Sur devis</strong></p>
 						<p>Verres seuls
 						<strong class="pull-right prix">Sur devis</strong></p>
-						<p>* Le traitement anti-rayures est un traitement qui limite les rayures.
+						<p><i><font size="2">* Le traitement anti-rayures est un traitement qui limite les rayures.</i></font></p>
 						<div class="row">
 							</div>
 					</div>
@@ -369,7 +371,7 @@
 							    <div class="form-group">
 							      <div class="row">
 							    	<div class="col-md-offset-8 col-md-4 col-sm-offset-7 col-sm-5">
-									 {{ form_widget(form.envoyer, {'attr': {'class': 'btn btn-custom btn-block'}}) }}
+									 {{ form_widget(form.envoyer, {'attr': {'class': 'btn btnA btn-custom btn-block'}}) }}
 									</div> 
 								  </div> 
 								</div>	
@@ -380,12 +382,38 @@
 
 						</div>
 			</div>			
-				
+		
 			<div class="row">
-				<div class="col-lg-offset-5 col-lg-2 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+				<div class="col-lg-offset-2 col-lg-8 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+
+				{{ form_start(formEmail, {'attr': {'class': 'form-horizontal'}}) }}
+
+								<div class="form-group">
+							        <div class="row">
+								       		{% if formEmail.email.vars.errors|length %}
+								      	<div class="col-sm-12 alert alert-danger">
+								      		{{ form_errors(formEmail.email, {'attr': {'class': 'alert alert-danger'}}) }}
+								      	</div>
+								      		{% endif %}
+								      	<div class="col-sm-offset-2 col-sm-1">
+								      		{{ form_label(formEmail.email, "Email", {'label_attr': {'class': 'control-label pull-left'}}) }}
+								        </div>
+								        <div class="col-sm-4">
+								        	{{ form_widget(formEmail.email, {'attr': {'class': 'form-control'}}) }}
+							        	</div>
+							        	<div class="col-md-2">
+									 {{ form_widget(formEmail.envoyer, {'attr': {'class': 'btn btnA btn-custom btn-block'}}) }}
+									</div>
+							      </div>
+							    </div>
+
+    			{{ form_errors(formEmail) }}
+
+    			{{ form_rest(formEmail) }}
+				{{ form_end(formEmail) }}
+
 
 				
-
 			    </div>	
 			</div>
 	</div>	
@@ -420,8 +448,8 @@
 			<p class="text-center"><span class="glyphicon glyphicon-time"></span> Lundi - Samedi : 9h - 20h,Dimanche : 11h - 14h</p>
 		</div>	
 	</div>
-  </div>
-</div>
+  
+
 
 		<!-- Partenaires
     ================================================== -->
@@ -429,24 +457,42 @@
 		<h1 class="text-center">NOS PARTENAIRES</h1>
 			<div class="row  concept">
 
-				<div class="col-lg-offset-4 col-lg-1 col-sm-3 col-md-offset-2 col-md-2 col-xs-3">
-					<a href="http://www.wearethemodels.co/look"><img class="thumbnail" src="{{asset('img/wam-carre.png')}}" alt="We Are The Models"></a>
+				<div class="col-lg-offset-2 col-lg-1 col-sm-3 col-md-offset-2 col-md-2 col-xs-3">
+					<a href="http://www.wearethemodels.co/look"><img src="{{asset('img/wam-carre.png')}}" alt="We Are The Models"></a>
 				</div>
 
 				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
-					<a href="http://www.promedica.fr/"><img class="thumbnail" src="{{asset('img/promedica-carre.jpg')}}" alt="Promedica"></a>
+					<a href="http://www.promedica.fr/"><img src="{{asset('img/promedica-carre.jpg')}}" alt="Promedica"></a>
 				</div>
 
 				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
-					<a href="http://www.cardif.fr"><img class="thumbnail" src="{{asset('img/bnpcardiff.jpg')}}" alt="BNP Paribas Cardiff"></a>
+					<a href="http://www.cardif.fr"><img src="{{asset('img/bnpcardiff.jpg')}}" alt="BNP Paribas Cardiff"></a>
 				</div>
 
 				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
-					<a href="http://www.ameli.fr/assures/soins-et-remboursements/combien-serez-vous-rembourse/optique-et-audition/les-lunettes-et-les-lentilles/le-remboursement-des-lunettes.php"><img class="thumbnail" src="{{asset('img/securitesociale.gif')}}" alt="Securité sociale"></a>
+					<a href="http://www.ameli.fr/assures/soins-et-remboursements/combien-serez-vous-rembourse/optique-et-audition/les-lunettes-et-les-lentilles/le-remboursement-des-lunettes.php"><img src="{{asset('img/securitesociale.gif')}}" alt="Securité sociale"></a>
 				</div>
-				
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.furcyandfairsunglasses.com/"><img  src="{{asset('img/furcy.jpg')}}" alt="Furcy & Fair"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.ville-cergy.fr/ma-ville/"><img src="{{asset('img/cergy.png')}}" alt="Cergy Ma Ville"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://cpwebtv.fr/"><img src="{{asset('img/webtv.png')}}" alt="WebTV Cergy"></a>
+				</div>
+
+				<div class="col-lg-1 col-sm-3 col-md-2 col-xs-3">
+					<a href="http://www.gazettevaldoise.fr/"><img src="{{asset('img/gazette1.jpg')}}" alt="Gazette du Val d'Oise"></a>
+				</div>
+
 			</div>
-	</div>	
+	</div>
+
+</div>	
 	
 	
 	{% endblock %}
@@ -458,14 +504,17 @@
 		<div class="container">
 			<div class="row">
 
-				<div class=" col-md-3 col-md-offset-1 col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8 text-center " >	
+				<div class=" col-md-3 col-md-offset-0 col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8 text-center " >	
 					<a href="https://www.facebook.com/opticathomefr?fref=ts" class="btn btn-bloc btn-social btn-facebook">
 						<i class="fa fa-facebook"></i> | Optic At Home</a><br/>
-					<button class="btn mentions"><a href="{{ path('oah_core_presse') }}">Presse</a></button>
 				</div>
 
-				<div class="col-md-4 col-xs-12 text-center ">
-					<button data-toggle="modal" href="#infos" class="btn mentions">Mentions légales</button>
+				<div class="col-md-3 col-xs-12 text-center ">
+					<button class="btn btn-bloc mentions"><a href="{{ path('oah_core_presse') }}">Presse</a></button>
+				</div>
+
+				<div class="col-md-3 col-xs-12 text-center ">
+					<button data-toggle="modal" href="#infos" class="btn btn-bloc mentions">Mentions légales</button>
 						<div class="modal" id="infos">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -484,8 +533,8 @@
 						</div>
 				</div>
 				
-				<div class="col-md-4 col-xs-12 text-center">
-					<button class="btn mentions"> Optic At Home ® 2015 </button>
+				<div class="col-md-3 col-xs-12 text-center">
+					<button class="btn btn-bloc mentions"> Optic At Home ® 2015 </button>
 				</div>	
 			</div>
 		</div>

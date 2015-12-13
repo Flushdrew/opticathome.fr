@@ -203,4 +203,10 @@ class Image
   {
     return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
   }
+
+  public function __toString()
+    {
+        return $this->getAlt();
+    }
+
 }

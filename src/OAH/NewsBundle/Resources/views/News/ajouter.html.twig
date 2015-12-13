@@ -2,11 +2,6 @@
 
 {% extends "OAHNewsBundle::OAH_layout.html.twig" %}
 
-{% block title %}
-	Ajouter un article - {{ parent() }}
-{% endblock %}
-
-
 
 {% block body_news %}
 
@@ -20,11 +15,7 @@
 
 
 <p>
-
-<h2>Ajouter un article :</h2>
-
 	{% include "OAHNewsBundle:News:formulaire.html.twig" %}
-
 <p>
 	{% for flashMessage in app.session.flashbag.get('info') %}
     	<div class="flash-notice">
