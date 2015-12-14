@@ -2,6 +2,8 @@
 
 {% extends "OAHNewsBundle::OAH_layout.html.twig" %}
 
+{% block accueil %}<a class="navbar-brand" href="{{path('oah_core_homepage')}}">Accueil</a>{% endblock %}
+
 {% block title %} {{ parent() }} - Index{% endblock %}
 
 {% block body_news %}
@@ -11,33 +13,34 @@
 		<div class="row blog">
 {% for article in listArticles %}
 
-  		    <div class="col-sm-3">
-  				    <a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img  src='{{ (article.image.webPath) | imagine_filter('thumbnail') }}' alt="{{ article.image.alt}}"/></a>
- 		      </div>
+        <div class="bloc_article">
+          <div  class="col-md-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img  src='{{ (article.image.webPath) | imagine_filter('thumbnail') }}' alt="{{ article.image.alt}}"/></a>
+              </div>
 
- 		       <div class="col-sm-9">
-				      <h1 class="titre" >
-                <a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre | upper}}
-				        </a>
-              </h1>
+              <div class="col-sm-12">
+                <h1 class="titre" >
+                  <a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre | upper}}
+                  </a>
+                </h1>
 
-			  		  <p class="description">
-                  <i class="glyphicon glyphicon-pencil"></i> {{article.auteur}},
-			   		      <i class="glyphicon glyphicon-time"> </i> {{article.date|date('d/m/y')}}, 
-						        {% if not article.categories.empty %} 
-						      <i class="glyphicon glyphicon-tag"> </i>
-  							      {% for categorie in article.categories %}
-        							{{ categorie.nom }} {% if not loop.last %}, {% endif %}
-      						    {% endfor %}
-    					      {% endif %}
-    		  		</p>
-              <!--NOT USEFUL FOR THE MOMENT-->
-    			<!--{{ article.contenu|truncate(100, false, "...")}}-->	
-          </div>
-          <div class="col-sm-12">
-              <hr class="ligne">
-          </div>
-        
+                <p class="description">
+                    <i class="glyphicon glyphicon-pencil"></i> {{article.auteur}},
+                    <i class="glyphicon glyphicon-time"> </i> {{article.date|date('d/m/y')}}, 
+                      {% if not article.categories.empty %} 
+                    <i class="glyphicon glyphicon-tag"> </i>
+                        {% for categorie in article.categories %}
+                        {{ categorie.nom }} {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>    
+        </div>
+
 
 {% endfor %}
 		</div>

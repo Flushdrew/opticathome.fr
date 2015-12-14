@@ -4,45 +4,60 @@
 
 {% block title %} {{ parent() }} - Index{% endblock %}
 
+{% block accueil %}<a class="navbar-brand" href="{{path('oah_core_homepage')}}">Accueil</a>{% endblock %}
+
 {% block body_news %}
- 
 
-	{% for article in listArticles %}
-	<div class="article_des_news">
 
-		<div class="row">
+	<div class="row blog">
+{% for article in listArticles %}
 
-  		    <div class="col-sm-3">
-  				<a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/></a>
- 		    </div>
+        <div class="bloc_article">
+          <div  class="col-md-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <a href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}"><img  src='{{ (article.image.webPath) | imagine_filter('thumbnail') }}' alt="{{ article.image.alt}}"/></a>
+              </div>
 
- 		    <div class="col-sm-9">
-				<a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre}}
-				</a>
-			  		<p><i class="glyphicon glyphicon-pencil"></i> par {{article.auteur}},
-			   		   <i class="glyphicon glyphicon-time"> </i> {{article.date|date('d/m/y')}}
-						{% if not article.categories.empty %} 
-						<i class="glyphicon glyphicon-tag"> </i>
-							{% for categorie in article.categories %}
-      							{{ categorie.nom }}{% if not loop.last %}, {% endif %}
-    						{% endfor %}
-    					{% endif %}
-    		  		</p>
-    			{{ article.contenu|truncate(100, false, "...")}}	
-		    </div>
+              <div class="col-sm-12">
+                <h1 class="titre" >
+                  <a class="titre_article" href="{{path('OAHNews_voir', {'slugarticle':article.slugarticle})}}">{{article.titre | upper}}
+                  </a>
+                </h1>
 
+                <p class="description">
+                    <i class="glyphicon glyphicon-pencil"></i> {{article.auteur}},
+                    <i class="glyphicon glyphicon-time"> </i> {{article.date|date('d/m/y')}}, 
+                      {% if not article.categories.empty %} 
+                    <i class="glyphicon glyphicon-tag"> </i>
+                        {% for categorie in article.categories %}
+                        {{ categorie.nom }} {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>    
+        </div>
+
+
+{% endfor %}
 		</div>
-	</div>
-	{% endfor %}
 
 
-<ul class="pagination pull-right">
-  {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
-  {% for p in range(1, nbPages) %}
-    <li{% if p == page %} class="active"{% endif %}>
-      <a href="{{ path('OAHNews_accueil', {'page': p}) }}">{{ p }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<a href="{{ path('OAHNews_accueil')}}" class="btn btnA btn-default pull-left">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+		Retour aux news
+	</a>
+<div>	
+	<ul class="pagination pull-right">
+	  {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+	  {% for p in range(1, nbPages) %}
+	    <li{% if p == page %} class="active"{% endif %}>
+	      <a href="{{ path('OAHNews_accueil', {'page': p}) }}">{{ p }}</a>
+	    </li>
+	  {% endfor %}
+	</ul>
+</div>
 
 {% endblock %}

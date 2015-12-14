@@ -24,7 +24,7 @@ class NewsController extends Controller
       throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
     }
 	
-	$nbPerPage = 5;
+	$nbPerPage = 6;
 	
 	$listArticles = $this->getDoctrine()
 		->getManager()
@@ -184,7 +184,7 @@ class NewsController extends Controller
       throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
     }
   
-  $nbPerPage = 5;
+  $nbPerPage = 6;
   
   $listArticles = $this->getDoctrine()
     ->getManager()

@@ -710,7 +710,11 @@
             <parameter key="fields" type="collection">
               <parameter>titre</parameter>
               <parameter>auteur</parameter>
-              <parameter>contenu</parameter>
+              <parameter type="collection">
+                <parameter key="property">contenu</parameter>
+                <parameter key="type">ckeditor</parameter>
+                <parameter key="fieldType">ckeditor</parameter>
+              </parameter>
               <parameter>categories</parameter>
               <parameter type="collection">
                 <parameter key="property">Image</parameter>
@@ -730,6 +734,8 @@
               </parameter>
               <parameter key="contenu" type="collection">
                 <parameter key="property">contenu</parameter>
+                <parameter key="type">ckeditor</parameter>
+                <parameter key="fieldType">ckeditor</parameter>
               </parameter>
               <parameter key="categories" type="collection">
                 <parameter key="property">categories</parameter>
@@ -760,6 +766,8 @@
               </parameter>
               <parameter key="contenu" type="collection">
                 <parameter key="property">contenu</parameter>
+                <parameter key="type">ckeditor</parameter>
+                <parameter key="fieldType">ckeditor</parameter>
               </parameter>
               <parameter key="categories" type="collection">
                 <parameter key="property">categories</parameter>
@@ -4299,7 +4307,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>566ef0a3c99bf5.86653066</argument>
+            <argument>566f120f939180.08224596</argument>
           </service>
         </argument>
       </argument>
@@ -4608,7 +4616,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>566ef0a3c99bf5.86653066</argument>
+            <argument>566f120f939180.08224596</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -5419,7 +5427,11 @@
               <argument key="fields" type="collection">
                 <argument>titre</argument>
                 <argument>auteur</argument>
-                <argument>contenu</argument>
+                <argument type="collection">
+                  <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
+                </argument>
                 <argument>categories</argument>
                 <argument type="collection">
                   <argument key="property">Image</argument>
@@ -5439,6 +5451,8 @@
                 </argument>
                 <argument key="contenu" type="collection">
                   <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
                 </argument>
                 <argument key="categories" type="collection">
                   <argument key="property">categories</argument>
@@ -5469,6 +5483,8 @@
                 </argument>
                 <argument key="contenu" type="collection">
                   <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
                 </argument>
                 <argument key="categories" type="collection">
                   <argument key="property">categories</argument>
@@ -6275,7 +6291,11 @@
               <argument key="fields" type="collection">
                 <argument>titre</argument>
                 <argument>auteur</argument>
-                <argument>contenu</argument>
+                <argument type="collection">
+                  <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
+                </argument>
                 <argument>categories</argument>
                 <argument type="collection">
                   <argument key="property">Image</argument>
@@ -6295,6 +6315,8 @@
                 </argument>
                 <argument key="contenu" type="collection">
                   <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
                 </argument>
                 <argument key="categories" type="collection">
                   <argument key="property">categories</argument>
@@ -6325,6 +6347,8 @@
                 </argument>
                 <argument key="contenu" type="collection">
                   <argument key="property">contenu</argument>
+                  <argument key="type">ckeditor</argument>
+                  <argument key="fieldType">ckeditor</argument>
                 </argument>
                 <argument key="categories" type="collection">
                   <argument key="property">categories</argument>
@@ -7055,7 +7079,70 @@
       <argument type="service" id="ivory_ck_editor.styles_set_manager"/>
       <argument type="service" id="ivory_ck_editor.template_manager"/>
     </service>
-    <service id="ivory_ck_editor.config_manager" class="Ivory\CKEditorBundle\Model\ConfigManager"/>
+    <service id="ivory_ck_editor.config_manager" class="Ivory\CKEditorBundle\Model\ConfigManager">
+      <call method="setConfig">
+        <argument>my_config</argument>
+        <argument type="collection">
+          <argument key="toolbar" type="collection">
+            <argument type="collection">
+              <argument>Cut</argument>
+              <argument>Copy</argument>
+              <argument>Paste</argument>
+              <argument>PasteText</argument>
+              <argument>PasteFromWord</argument>
+              <argument>-</argument>
+              <argument>Undo</argument>
+              <argument>Redo</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Scayt</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Link</argument>
+              <argument>Unlink</argument>
+              <argument>Anchor</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Image</argument>
+              <argument>Table</argument>
+              <argument>HorizontalRule</argument>
+              <argument>SpecialChar</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Maximize</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Source</argument>
+            </argument>
+            <argument>/</argument>
+            <argument type="collection">
+              <argument>Bold</argument>
+              <argument>Italic</argument>
+              <argument>Strike</argument>
+              <argument>-</argument>
+              <argument>RemoveFormat</argument>
+            </argument>
+            <argument type="collection">
+              <argument>NumberedList</argument>
+              <argument>BulletedList</argument>
+              <argument>-</argument>
+              <argument>Outdent</argument>
+              <argument>Indent</argument>
+              <argument>-</argument>
+              <argument>Blockquote</argument>
+            </argument>
+            <argument type="collection">
+              <argument>Styles</argument>
+              <argument>Format</argument>
+              <argument>About</argument>
+            </argument>
+          </argument>
+        </argument>
+      </call>
+      <call method="setDefaultConfig">
+        <argument>my_config</argument>
+      </call>
+    </service>
     <service id="ivory_ck_editor.plugin_manager" class="Ivory\CKEditorBundle\Model\PluginManager"/>
     <service id="ivory_ck_editor.styles_set_manager" class="Ivory\CKEditorBundle\Model\StylesSetManager"/>
     <service id="ivory_ck_editor.template_manager" class="Ivory\CKEditorBundle\Model\TemplateManager"/>

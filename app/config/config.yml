@@ -111,7 +111,7 @@ easy_admin:
                 fields:
                     - titre
                     - auteur
-                    - contenu
+                    - { property: contenu, type: ckeditor, fieldType: ckeditor }
                     - categories
                     - { property : 'Image', type : oah_newsbundle_image}
         Categories:
@@ -149,3 +149,9 @@ liip_imagine:
         image_article_filter:
             filters:
                 thumbnail: { size: [900, 540], mode: outbound }
+
+ivory_ck_editor:
+    default_config: my_config
+    configs:
+        my_config:
+            toolbar: standard
