@@ -11,7 +11,7 @@
 <div class="article">
 
 {% if article.image is not null %}
-	<img src='{{ asset(article.image.webPath) }}' alt="{{ article.image.alt}}"/>
+	<img src='{{ (article.image.webPath) | imagine_filter('image_article_filter') }}' alt="{{ article.image.alt}}"/>
 {% endif %}
 
 	<h1 class="titre_news"></script>	{{ article.titre }} </h1>

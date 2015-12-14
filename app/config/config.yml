@@ -84,16 +84,29 @@ stof_doctrine_extensions:
         default:
             sluggable: true
 
+#EasyAdminBundle config
 easy_admin:
-
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
     design:
         brand_color: 'rgb(148,125,93)'
 
-    site_name: 'Optic at home'
+    site_name: '<span style="font-size: 150%"> Optic at home</span>'
     
     entities:
         Article:
             class: OAH\NewsBundle\Entity\Article
+
+            list:
+                fields:
+                    - { property : 'image', type: 'image', base_path: 'http://localhost/opticathome.fr/web/app_dev.php/media/cache/resolve/thumbnail/uploads/img/'}
+                    - titre
+                    - auteur
+                    - contenu
+                    - date
+
             form:
                 fields:
                     - titre
@@ -105,10 +118,18 @@ easy_admin:
             class: OAH\NewsBundle\Entity\Categorie
         Devis:
             class: OAH\DevisBundle\Entity\Devis
+            disabled_actions: ['new','edit']
         Utilisateurs:
             class: OAH\UserBundle\Entity\User
+            list:
+                fields:
+                    - Username
+                    - Email
+            disabled_actions: ['edit','show']
         Newsletter:
             class: OAH\DevisBundle\Entity\Newsletter
+            disabled_actions: ['new', 'edit']
+
 
 fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
@@ -124,4 +145,7 @@ liip_imagine:
         cache: ~
         thumbnail:
             filters:
-                thumbnail: { size: [240, 180], mode: outbound }
+                thumbnail: { size: [300, 180], mode: outbound }
+        image_article_filter:
+            filters:
+                thumbnail: { size: [900, 540], mode: outbound }

@@ -17,23 +17,9 @@
 		
 	<div class="container-fluid">	
 		<div class="row">
-
-			<div class="col-md-offset-1 col-md-2">
-				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    				<p><i class="fa fa-user"></i> {{ app.user.username }}</p>
-    				<button type="button" class="btn btn-custom2 ">
-    				<a href="{{ path('OAHNews_ajouter') }}"><span class="glyphicon glyphicon-pencil"></span> Ajouter un article</a><br/>
-    				</button><br /><br>
-    				<button type="button" class="btn btn-danger btn-deco">
-    				<a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a>
-    				</button>
-
-				{% endif %}
-			</div>
-			<div class="col-md-6">
+			<div class="col-md-offset-3 col-md-6">
 				{% block body_news %}
-				{% endblock %}
-				
+				{% endblock %}	
 			</div>
 		</div>	
 	</div>		

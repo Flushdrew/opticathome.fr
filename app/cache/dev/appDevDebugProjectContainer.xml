@@ -622,6 +622,11 @@
     <parameter key="stof_doctrine_extensions.listener.uploadable.class">Gedmo\Uploadable\UploadableListener</parameter>
     <parameter key="stof_doctrine_extensions.listener.reference_integrity.class">Gedmo\ReferenceIntegrity\ReferenceIntegrityListener</parameter>
     <parameter key="easyadmin.config" type="collection">
+      <parameter key="formats" type="collection">
+        <parameter key="date">d/m/Y</parameter>
+        <parameter key="time">H:i</parameter>
+        <parameter key="datetime">d/m/Y H:i:s</parameter>
+      </parameter>
       <parameter key="design" type="collection">
         <parameter key="brand_color">rgb(148,125,93)</parameter>
         <parameter key="theme">default</parameter>
@@ -634,10 +639,73 @@
           <parameter key="js" type="collection"/>
         </parameter>
       </parameter>
-      <parameter key="site_name">Optic at home</parameter>
+      <parameter key="site_name">&lt;span style="font-size: 150%"&gt; Optic at home&lt;/span&gt;</parameter>
       <parameter key="entities" type="collection">
         <parameter key="Article" type="collection">
           <parameter key="class">OAH\NewsBundle\Entity\Article</parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection">
+              <parameter key="image" type="collection">
+                <parameter key="property">image</parameter>
+                <parameter key="type">image</parameter>
+                <parameter key="base_path">http://localhost/opticathome.fr/web/app_dev.php/media/cache/resolve/thumbnail/uploads/img/</parameter>
+                <parameter key="template">null</parameter>
+              </parameter>
+              <parameter key="titre" type="collection">
+                <parameter key="property">titre</parameter>
+                <parameter key="template">null</parameter>
+              </parameter>
+              <parameter key="auteur" type="collection">
+                <parameter key="property">auteur</parameter>
+                <parameter key="template">null</parameter>
+              </parameter>
+              <parameter key="contenu" type="collection">
+                <parameter key="property">contenu</parameter>
+                <parameter key="template">null</parameter>
+              </parameter>
+              <parameter key="date" type="collection">
+                <parameter key="property">date</parameter>
+                <parameter key="template">null</parameter>
+              </parameter>
+            </parameter>
+            <parameter key="actions" type="collection">
+              <parameter key="show" type="collection">
+                <parameter key="name">show</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.show</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="edit" type="collection">
+                <parameter key="name">edit</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.edit</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="search" type="collection">
+                <parameter key="name">search</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.search</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="new" type="collection">
+                <parameter key="name">new</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.new</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
           <parameter key="form" type="collection">
             <parameter key="fields" type="collection">
               <parameter>titre</parameter>
@@ -709,46 +777,6 @@
                 <parameter key="label">action.delete</parameter>
                 <parameter key="class"></parameter>
                 <parameter key="icon">trash</parameter>
-              </parameter>
-              <parameter key="list" type="collection">
-                <parameter key="name">list</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.list</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
-              </parameter>
-            </parameter>
-          </parameter>
-          <parameter key="list" type="collection">
-            <parameter key="fields" type="collection"/>
-            <parameter key="actions" type="collection">
-              <parameter key="show" type="collection">
-                <parameter key="name">show</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.show</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
-              </parameter>
-              <parameter key="edit" type="collection">
-                <parameter key="name">edit</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.edit</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
-              </parameter>
-              <parameter key="search" type="collection">
-                <parameter key="name">search</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.search</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
-              </parameter>
-              <parameter key="new" type="collection">
-                <parameter key="name">new</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.new</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
               </parameter>
               <parameter key="list" type="collection">
                 <parameter key="name">list</parameter>
@@ -972,6 +1000,10 @@
         </parameter>
         <parameter key="Devis" type="collection">
           <parameter key="class">OAH\DevisBundle\Entity\Devis</parameter>
+          <parameter key="disabled_actions" type="collection">
+            <parameter>new</parameter>
+            <parameter>edit</parameter>
+          </parameter>
           <parameter key="label">Devis</parameter>
           <parameter key="name">Devis</parameter>
           <parameter key="edit" type="collection">
@@ -1076,7 +1108,6 @@
               </parameter>
             </parameter>
           </parameter>
-          <parameter key="disabled_actions" type="collection"/>
           <parameter key="templates" type="collection">
             <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
             <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
@@ -1116,30 +1147,17 @@
         </parameter>
         <parameter key="Utilisateurs" type="collection">
           <parameter key="class">OAH\UserBundle\Entity\User</parameter>
-          <parameter key="label">Utilisateurs</parameter>
-          <parameter key="name">Utilisateurs</parameter>
-          <parameter key="edit" type="collection">
-            <parameter key="fields" type="collection"/>
-            <parameter key="form_options" type="collection"/>
-            <parameter key="actions" type="collection">
-              <parameter key="delete" type="collection">
-                <parameter key="name">delete</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.delete</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">trash</parameter>
+          <parameter key="list" type="collection">
+            <parameter key="fields" type="collection">
+              <parameter key="Username" type="collection">
+                <parameter key="property">Username</parameter>
+                <parameter key="template">null</parameter>
               </parameter>
-              <parameter key="list" type="collection">
-                <parameter key="name">list</parameter>
-                <parameter key="type">method</parameter>
-                <parameter key="label">action.list</parameter>
-                <parameter key="class"></parameter>
-                <parameter key="icon">null</parameter>
+              <parameter key="Email" type="collection">
+                <parameter key="property">Email</parameter>
+                <parameter key="template">null</parameter>
               </parameter>
             </parameter>
-          </parameter>
-          <parameter key="list" type="collection">
-            <parameter key="fields" type="collection"/>
             <parameter key="actions" type="collection">
               <parameter key="show" type="collection">
                 <parameter key="name">show</parameter>
@@ -1168,6 +1186,32 @@
                 <parameter key="label">action.new</parameter>
                 <parameter key="class"></parameter>
                 <parameter key="icon">null</parameter>
+              </parameter>
+              <parameter key="list" type="collection">
+                <parameter key="name">list</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.list</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">null</parameter>
+              </parameter>
+            </parameter>
+          </parameter>
+          <parameter key="disabled_actions" type="collection">
+            <parameter>edit</parameter>
+            <parameter>show</parameter>
+          </parameter>
+          <parameter key="label">Utilisateurs</parameter>
+          <parameter key="name">Utilisateurs</parameter>
+          <parameter key="edit" type="collection">
+            <parameter key="fields" type="collection"/>
+            <parameter key="form_options" type="collection"/>
+            <parameter key="actions" type="collection">
+              <parameter key="delete" type="collection">
+                <parameter key="name">delete</parameter>
+                <parameter key="type">method</parameter>
+                <parameter key="label">action.delete</parameter>
+                <parameter key="class"></parameter>
+                <parameter key="icon">trash</parameter>
               </parameter>
               <parameter key="list" type="collection">
                 <parameter key="name">list</parameter>
@@ -1220,7 +1264,6 @@
               </parameter>
             </parameter>
           </parameter>
-          <parameter key="disabled_actions" type="collection"/>
           <parameter key="templates" type="collection">
             <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
             <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
@@ -1260,6 +1303,10 @@
         </parameter>
         <parameter key="Newsletter" type="collection">
           <parameter key="class">OAH\DevisBundle\Entity\Newsletter</parameter>
+          <parameter key="disabled_actions" type="collection">
+            <parameter>new</parameter>
+            <parameter>edit</parameter>
+          </parameter>
           <parameter key="label">Newsletter</parameter>
           <parameter key="name">Newsletter</parameter>
           <parameter key="edit" type="collection">
@@ -1364,7 +1411,6 @@
               </parameter>
             </parameter>
           </parameter>
-          <parameter key="disabled_actions" type="collection"/>
           <parameter key="templates" type="collection">
             <parameter key="layout">@EasyAdmin/default/layout.html.twig</parameter>
             <parameter key="edit">@EasyAdmin/default/edit.html.twig</parameter>
@@ -1402,11 +1448,6 @@
             <parameter key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</parameter>
           </parameter>
         </parameter>
-      </parameter>
-      <parameter key="formats" type="collection">
-        <parameter key="date">Y-m-d</parameter>
-        <parameter key="time">H:i:s</parameter>
-        <parameter key="datetime">F j, Y H:i</parameter>
       </parameter>
       <parameter key="disabled_actions" type="collection"/>
       <parameter key="list" type="collection">
@@ -1521,8 +1562,29 @@
         <parameter key="filters" type="collection">
           <parameter key="thumbnail" type="collection">
             <parameter key="size" type="collection">
-              <parameter>240</parameter>
+              <parameter>300</parameter>
               <parameter>180</parameter>
+            </parameter>
+            <parameter key="mode">outbound</parameter>
+          </parameter>
+        </parameter>
+        <parameter key="quality">100</parameter>
+        <parameter key="jpeg_quality">null</parameter>
+        <parameter key="png_compression_level">null</parameter>
+        <parameter key="png_compression_filter">null</parameter>
+        <parameter key="format">null</parameter>
+        <parameter key="animated">false</parameter>
+        <parameter key="cache">null</parameter>
+        <parameter key="data_loader">null</parameter>
+        <parameter key="default_image">null</parameter>
+        <parameter key="post_processors" type="collection"/>
+      </parameter>
+      <parameter key="image_article_filter" type="collection">
+        <parameter key="filters" type="collection">
+          <parameter key="thumbnail" type="collection">
+            <parameter key="size" type="collection">
+              <parameter>900</parameter>
+              <parameter>540</parameter>
             </parameter>
             <parameter key="mode">outbound</parameter>
           </parameter>
@@ -4237,7 +4299,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>566d44c9ec6937.91080109</argument>
+            <argument>566ef0a3c99bf5.86653066</argument>
           </service>
         </argument>
       </argument>
@@ -4546,7 +4608,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>566d44c9ec6937.91080109</argument>
+            <argument>566ef0a3c99bf5.86653066</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -5269,6 +5331,11 @@
     </service>
     <service id="easyadmin.configurator" class="JavierEguiluz\Bundle\EasyAdminBundle\Configuration\Configurator">
       <argument type="collection">
+        <argument key="formats" type="collection">
+          <argument key="date">d/m/Y</argument>
+          <argument key="time">H:i</argument>
+          <argument key="datetime">d/m/Y H:i:s</argument>
+        </argument>
         <argument key="design" type="collection">
           <argument key="brand_color">rgb(148,125,93)</argument>
           <argument key="theme">default</argument>
@@ -5281,10 +5348,73 @@
             <argument key="js" type="collection"/>
           </argument>
         </argument>
-        <argument key="site_name">Optic at home</argument>
+        <argument key="site_name">&lt;span style="font-size: 150%"&gt; Optic at home&lt;/span&gt;</argument>
         <argument key="entities" type="collection">
           <argument key="Article" type="collection">
             <argument key="class">OAH\NewsBundle\Entity\Article</argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="image" type="collection">
+                  <argument key="property">image</argument>
+                  <argument key="type">image</argument>
+                  <argument key="base_path">http://localhost/opticathome.fr/web/app_dev.php/media/cache/resolve/thumbnail/uploads/img/</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="date" type="collection">
+                  <argument key="property">date</argument>
+                  <argument key="template">null</argument>
+                </argument>
+              </argument>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
             <argument key="form" type="collection">
               <argument key="fields" type="collection">
                 <argument>titre</argument>
@@ -5356,46 +5486,6 @@
                   <argument key="label">action.delete</argument>
                   <argument key="class"></argument>
                   <argument key="icon">trash</argument>
-                </argument>
-                <argument key="list" type="collection">
-                  <argument key="name">list</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.list</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-              </argument>
-            </argument>
-            <argument key="list" type="collection">
-              <argument key="fields" type="collection"/>
-              <argument key="actions" type="collection">
-                <argument key="show" type="collection">
-                  <argument key="name">show</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.show</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="edit" type="collection">
-                  <argument key="name">edit</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.edit</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="search" type="collection">
-                  <argument key="name">search</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.search</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="new" type="collection">
-                  <argument key="name">new</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.new</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
                 </argument>
                 <argument key="list" type="collection">
                   <argument key="name">list</argument>
@@ -5619,6 +5709,10 @@
           </argument>
           <argument key="Devis" type="collection">
             <argument key="class">OAH\DevisBundle\Entity\Devis</argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>new</argument>
+              <argument>edit</argument>
+            </argument>
             <argument key="label">Devis</argument>
             <argument key="name">Devis</argument>
             <argument key="edit" type="collection">
@@ -5723,7 +5817,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -5763,30 +5856,17 @@
           </argument>
           <argument key="Utilisateurs" type="collection">
             <argument key="class">OAH\UserBundle\Entity\User</argument>
-            <argument key="label">Utilisateurs</argument>
-            <argument key="name">Utilisateurs</argument>
-            <argument key="edit" type="collection">
-              <argument key="fields" type="collection"/>
-              <argument key="form_options" type="collection"/>
-              <argument key="actions" type="collection">
-                <argument key="delete" type="collection">
-                  <argument key="name">delete</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.delete</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">trash</argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="Username" type="collection">
+                  <argument key="property">Username</argument>
+                  <argument key="template">null</argument>
                 </argument>
-                <argument key="list" type="collection">
-                  <argument key="name">list</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.list</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
+                <argument key="Email" type="collection">
+                  <argument key="property">Email</argument>
+                  <argument key="template">null</argument>
                 </argument>
               </argument>
-            </argument>
-            <argument key="list" type="collection">
-              <argument key="fields" type="collection"/>
               <argument key="actions" type="collection">
                 <argument key="show" type="collection">
                   <argument key="name">show</argument>
@@ -5815,6 +5895,32 @@
                   <argument key="label">action.new</argument>
                   <argument key="class"></argument>
                   <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>edit</argument>
+              <argument>show</argument>
+            </argument>
+            <argument key="label">Utilisateurs</argument>
+            <argument key="name">Utilisateurs</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
                 </argument>
                 <argument key="list" type="collection">
                   <argument key="name">list</argument>
@@ -5867,7 +5973,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -5907,6 +6012,10 @@
           </argument>
           <argument key="Newsletter" type="collection">
             <argument key="class">OAH\DevisBundle\Entity\Newsletter</argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>new</argument>
+              <argument>edit</argument>
+            </argument>
             <argument key="label">Newsletter</argument>
             <argument key="name">Newsletter</argument>
             <argument key="edit" type="collection">
@@ -6011,7 +6120,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -6049,11 +6157,6 @@
               <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
             </argument>
           </argument>
-        </argument>
-        <argument key="formats" type="collection">
-          <argument key="date">Y-m-d</argument>
-          <argument key="time">H:i:s</argument>
-          <argument key="datetime">F j, Y H:i</argument>
         </argument>
         <argument key="disabled_actions" type="collection"/>
         <argument key="list" type="collection">
@@ -6084,6 +6187,11 @@
       <tag name="form.type" alias="easyadmin"/>
       <argument type="service" id="easyadmin.configurator"/>
       <argument type="collection">
+        <argument key="formats" type="collection">
+          <argument key="date">d/m/Y</argument>
+          <argument key="time">H:i</argument>
+          <argument key="datetime">d/m/Y H:i:s</argument>
+        </argument>
         <argument key="design" type="collection">
           <argument key="brand_color">rgb(148,125,93)</argument>
           <argument key="theme">default</argument>
@@ -6096,10 +6204,73 @@
             <argument key="js" type="collection"/>
           </argument>
         </argument>
-        <argument key="site_name">Optic at home</argument>
+        <argument key="site_name">&lt;span style="font-size: 150%"&gt; Optic at home&lt;/span&gt;</argument>
         <argument key="entities" type="collection">
           <argument key="Article" type="collection">
             <argument key="class">OAH\NewsBundle\Entity\Article</argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="image" type="collection">
+                  <argument key="property">image</argument>
+                  <argument key="type">image</argument>
+                  <argument key="base_path">http://localhost/opticathome.fr/web/app_dev.php/media/cache/resolve/thumbnail/uploads/img/</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="titre" type="collection">
+                  <argument key="property">titre</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="auteur" type="collection">
+                  <argument key="property">auteur</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="contenu" type="collection">
+                  <argument key="property">contenu</argument>
+                  <argument key="template">null</argument>
+                </argument>
+                <argument key="date" type="collection">
+                  <argument key="property">date</argument>
+                  <argument key="template">null</argument>
+                </argument>
+              </argument>
+              <argument key="actions" type="collection">
+                <argument key="show" type="collection">
+                  <argument key="name">show</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.show</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="edit" type="collection">
+                  <argument key="name">edit</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.edit</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="search" type="collection">
+                  <argument key="name">search</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.search</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="new" type="collection">
+                  <argument key="name">new</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.new</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
             <argument key="form" type="collection">
               <argument key="fields" type="collection">
                 <argument>titre</argument>
@@ -6171,46 +6342,6 @@
                   <argument key="label">action.delete</argument>
                   <argument key="class"></argument>
                   <argument key="icon">trash</argument>
-                </argument>
-                <argument key="list" type="collection">
-                  <argument key="name">list</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.list</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-              </argument>
-            </argument>
-            <argument key="list" type="collection">
-              <argument key="fields" type="collection"/>
-              <argument key="actions" type="collection">
-                <argument key="show" type="collection">
-                  <argument key="name">show</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.show</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="edit" type="collection">
-                  <argument key="name">edit</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.edit</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="search" type="collection">
-                  <argument key="name">search</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.search</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
-                </argument>
-                <argument key="new" type="collection">
-                  <argument key="name">new</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.new</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
                 </argument>
                 <argument key="list" type="collection">
                   <argument key="name">list</argument>
@@ -6434,6 +6565,10 @@
           </argument>
           <argument key="Devis" type="collection">
             <argument key="class">OAH\DevisBundle\Entity\Devis</argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>new</argument>
+              <argument>edit</argument>
+            </argument>
             <argument key="label">Devis</argument>
             <argument key="name">Devis</argument>
             <argument key="edit" type="collection">
@@ -6538,7 +6673,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -6578,30 +6712,17 @@
           </argument>
           <argument key="Utilisateurs" type="collection">
             <argument key="class">OAH\UserBundle\Entity\User</argument>
-            <argument key="label">Utilisateurs</argument>
-            <argument key="name">Utilisateurs</argument>
-            <argument key="edit" type="collection">
-              <argument key="fields" type="collection"/>
-              <argument key="form_options" type="collection"/>
-              <argument key="actions" type="collection">
-                <argument key="delete" type="collection">
-                  <argument key="name">delete</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.delete</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">trash</argument>
+            <argument key="list" type="collection">
+              <argument key="fields" type="collection">
+                <argument key="Username" type="collection">
+                  <argument key="property">Username</argument>
+                  <argument key="template">null</argument>
                 </argument>
-                <argument key="list" type="collection">
-                  <argument key="name">list</argument>
-                  <argument key="type">method</argument>
-                  <argument key="label">action.list</argument>
-                  <argument key="class"></argument>
-                  <argument key="icon">null</argument>
+                <argument key="Email" type="collection">
+                  <argument key="property">Email</argument>
+                  <argument key="template">null</argument>
                 </argument>
               </argument>
-            </argument>
-            <argument key="list" type="collection">
-              <argument key="fields" type="collection"/>
               <argument key="actions" type="collection">
                 <argument key="show" type="collection">
                   <argument key="name">show</argument>
@@ -6630,6 +6751,32 @@
                   <argument key="label">action.new</argument>
                   <argument key="class"></argument>
                   <argument key="icon">null</argument>
+                </argument>
+                <argument key="list" type="collection">
+                  <argument key="name">list</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.list</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">null</argument>
+                </argument>
+              </argument>
+            </argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>edit</argument>
+              <argument>show</argument>
+            </argument>
+            <argument key="label">Utilisateurs</argument>
+            <argument key="name">Utilisateurs</argument>
+            <argument key="edit" type="collection">
+              <argument key="fields" type="collection"/>
+              <argument key="form_options" type="collection"/>
+              <argument key="actions" type="collection">
+                <argument key="delete" type="collection">
+                  <argument key="name">delete</argument>
+                  <argument key="type">method</argument>
+                  <argument key="label">action.delete</argument>
+                  <argument key="class"></argument>
+                  <argument key="icon">trash</argument>
                 </argument>
                 <argument key="list" type="collection">
                   <argument key="name">list</argument>
@@ -6682,7 +6829,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -6722,6 +6868,10 @@
           </argument>
           <argument key="Newsletter" type="collection">
             <argument key="class">OAH\DevisBundle\Entity\Newsletter</argument>
+            <argument key="disabled_actions" type="collection">
+              <argument>new</argument>
+              <argument>edit</argument>
+            </argument>
             <argument key="label">Newsletter</argument>
             <argument key="name">Newsletter</argument>
             <argument key="edit" type="collection">
@@ -6826,7 +6976,6 @@
                 </argument>
               </argument>
             </argument>
-            <argument key="disabled_actions" type="collection"/>
             <argument key="templates" type="collection">
               <argument key="layout">@EasyAdmin/default/layout.html.twig</argument>
               <argument key="edit">@EasyAdmin/default/edit.html.twig</argument>
@@ -6864,11 +7013,6 @@
               <argument key="label_undefined">@EasyAdmin/default/label_undefined.html.twig</argument>
             </argument>
           </argument>
-        </argument>
-        <argument key="formats" type="collection">
-          <argument key="date">Y-m-d</argument>
-          <argument key="time">H:i:s</argument>
-          <argument key="datetime">F j, Y H:i</argument>
         </argument>
         <argument key="disabled_actions" type="collection"/>
         <argument key="list" type="collection">
@@ -7133,8 +7277,29 @@
           <argument key="filters" type="collection">
             <argument key="thumbnail" type="collection">
               <argument key="size" type="collection">
-                <argument>240</argument>
+                <argument>300</argument>
                 <argument>180</argument>
+              </argument>
+              <argument key="mode">outbound</argument>
+            </argument>
+          </argument>
+          <argument key="quality">100</argument>
+          <argument key="jpeg_quality">null</argument>
+          <argument key="png_compression_level">null</argument>
+          <argument key="png_compression_filter">null</argument>
+          <argument key="format">null</argument>
+          <argument key="animated">false</argument>
+          <argument key="cache">null</argument>
+          <argument key="data_loader">null</argument>
+          <argument key="default_image">null</argument>
+          <argument key="post_processors" type="collection"/>
+        </argument>
+        <argument key="image_article_filter" type="collection">
+          <argument key="filters" type="collection">
+            <argument key="thumbnail" type="collection">
+              <argument key="size" type="collection">
+                <argument>900</argument>
+                <argument>540</argument>
               </argument>
               <argument key="mode">outbound</argument>
             </argument>

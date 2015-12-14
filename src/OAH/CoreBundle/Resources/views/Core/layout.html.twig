@@ -6,7 +6,7 @@
     <meta charset="utf-8"> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Optic At Home</title>
+    <title>Optic At Home , votre opticien à domicile</title>
     <meta name="description" content="Opticien à domicile">
     <link href="{{ asset('bundles/oahcore/css/opticathome.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/oahcore/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -99,6 +99,9 @@
 	  <div class="blocblanc">
 
 	  		<div class="row">
+
+	  			<h1 class="text-center"><font size="6" face="lobster">Optic At Home, spécialiste de vos lunettes à domicile.</font></h1><br>	
+
 				<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12 ">
 					<video controls poster="{{asset('img/poster_presse.png')}}" >
 						<source src="{{asset('videos/oah.mp4')}}">
@@ -267,6 +270,7 @@
 	<div class="blocgris" id="devis">
 		<h1 class="text-center">DEMANDER UN DEVIS</h1>
 			<div class="row  concept">
+
 						<div class="col-md-offset-2 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12" >
 							<p><span class="glyphicon glyphicon-ok"></span> Vous souhaitez un devis?</p>
 							<p><span class="glyphicon glyphicon-ok"></span> Comparer les prix avec un opticien?</p>
@@ -283,7 +287,7 @@
 
     								{# Les erreurs générales du formulaire. #}
     								{{ form_errors(form) }}
-
+    							<br>		
     							<div class="form-group">
     							  <div class="row">
     							   {% if form.nom.vars.errors|length %}
@@ -381,13 +385,22 @@
 								 {{ form_end(form) }}
 
 						</div>
-			</div>			
+			</div>
+
+			<hr class="separation">			
 		
 			<div class="row">
-				<div class="col-lg-offset-2 col-lg-8 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+
+				<div class="col-md-offset-2 col-md-4">
+					<p> Abonnez-vous à notre newsletter afin de recevoir les dernières informations et promotions :
+					</p>
+				</div>
+
+
+				<div class="col-md-offset-1 col-md-3">
 
 				{{ form_start(formEmail, {'attr': {'class': 'form-horizontal'}}) }}
-
+								<br>
 								<div class="form-group">
 							        <div class="row">
 								       		{% if formEmail.email.vars.errors|length %}
@@ -395,15 +408,20 @@
 								      		{{ form_errors(formEmail.email, {'attr': {'class': 'alert alert-danger'}}) }}
 								      	</div>
 								      		{% endif %}
-								      	<div class="col-sm-offset-2 col-sm-1">
-								      		{{ form_label(formEmail.email, "Email", {'label_attr': {'class': 'control-label pull-left'}}) }}
+								      	<div class="col-sm-3">
+								      		{{ form_label(formEmail.email, "Newsletter", {'label_attr': {'class': 'control-label pull-left'}}) }}
 								        </div>
-								        <div class="col-sm-4">
+								        <div class="col-sm-9">
 								        	{{ form_widget(formEmail.email, {'attr': {'class': 'form-control'}}) }}
 							        	</div>
-							        	<div class="col-md-2">
+							        </div>
+							    </div>
+
+							    <div class="form-group">
+							     	<div class="row">
+							        	<div class="col-md-offset-8 col-md-4 col-sm-offset-7 col-sm-5">
 									 {{ form_widget(formEmail.envoyer, {'attr': {'class': 'btn btnA btn-custom btn-block'}}) }}
-									</div>
+										</div>
 							      </div>
 							    </div>
 

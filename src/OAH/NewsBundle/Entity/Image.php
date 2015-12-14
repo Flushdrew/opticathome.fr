@@ -155,7 +155,7 @@ class Image
 
 
     if (null !== $this->tempFilename) {
-      $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
+      $oldFile = $this->getUploadRootDir().'/'.$this->alt.'.'.$this->tempFilename;
       if (file_exists($oldFile)) {
         unlink($oldFile);
       }
@@ -164,7 +164,7 @@ class Image
 
     $this->file->move(
       $this->getUploadRootDir(), // Le répertoire de destination
-      $this->id.'.'.$this->url   // Le nom du fichier à créer, ici « id.extension »
+      $this->alt//.'.'.$this->url   // Le nom du fichier à créer, ici « id.extension »
     );
   }
 
@@ -173,8 +173,8 @@ class Image
    */
   public function preRemoveUpload()
   {
-    $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->url;
-  }
+    $this->tempFilename = $this->getUploadRootDir().'/'.$this->alt//.'.'.$this->url;
+  ;}
 
   /**
    * @ORM\PostRemove()
@@ -201,8 +201,8 @@ class Image
 
   public function getWebPath()
   {
-    return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
-  }
+    return $this->getUploadDir().'/'.$this->getalt()//.'.'.$this->getUrl();
+  ;}
 
   public function __toString()
     {
