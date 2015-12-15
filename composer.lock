@@ -1294,16 +1294,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.9.4",
+            "version": "v1.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "e8f1f6058d2716c142ec9c5754612145341706ef"
+                "reference": "a568dda6ea561241dc17b21dae6614ac0363960d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/e8f1f6058d2716c142ec9c5754612145341706ef",
-                "reference": "e8f1f6058d2716c142ec9c5754612145341706ef",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/a568dda6ea561241dc17b21dae6614ac0363960d",
+                "reference": "a568dda6ea561241dc17b21dae6614ac0363960d",
                 "shasum": ""
             },
             "require": {
@@ -1322,7 +1322,8 @@
                 "symfony/framework-bundle": "~2.3|~3.0",
                 "symfony/http-foundation": "~2.3|~3.0",
                 "symfony/http-kernel": "~2.3|~3.0",
-                "symfony/twig-bridge": "^2.3.4",
+                "symfony/property-access": "~2.3|~3.0",
+                "symfony/twig-bridge": "^2.3.4|~3.0",
                 "twig/extensions": "~1.0",
                 "twig/twig": "~1.14,>=1.14.2|~2.0"
             },
@@ -1367,7 +1368,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2015-11-29 16:06:54"
+            "time": "2015-12-13 18:52:32"
         },
         {
             "name": "jdorn/sql-formatter",
